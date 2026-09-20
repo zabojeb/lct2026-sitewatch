@@ -1,0 +1,38 @@
+stages:
+  ingest:
+    cmd: cd ml && uv run --extra data sitewatch-ml ingest
+    deps:
+      - 7.ДГП_датасеты.zip
+      - ml/config/base.yaml
+      - ml/src/sitewatch_ml/ingest.py
+    outs:
+      - data/ml/raw/organizer
+      - data/ml/manifests/source-manifest.jsonl
+
+  audit:
+    cmd: cd ml && uv run --extra data sitewatch-ml audit
+    deps:
+      - data/ml/raw/organizer
+      - data/ml/annotations/yolo
+      - ml/config/base.yaml
+      - ml/src/sitewatch_ml/audit.py
+    outs:
+      - data/ml/manifests/quality-report.json
+
+  split:
+    cmd: cd ml && uv run --extra data sitewatch-ml split
+    deps:
+      - data/ml/raw/organizer
+      - data/ml/manifests/quality-report.json
+      - ml/config/base.yaml
+      - ml/src/sitewatch_ml/split.py
+    outs:
+      - data/ml/manifests/split-manifest.json
+
+  labeling_tasks:
+    cmd: cd ml && uv run --extra data sitewatch-ml labeling-tasks
+    deps:
+      - data/ml/raw/organizer
+      - ml/src/sitewatch_ml/labeling.py
+    outs:
+      - data/ml/manifests/label-studio-tasks.json

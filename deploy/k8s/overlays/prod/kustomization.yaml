@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+  - api-hpa.yaml
+  - web-hpa.yaml
+  - api-pdb.yaml
+  - web-pdb.yaml
+patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: sitewatch
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: sitewatch.example.ru
+images:
+  - name: ghcr.io/sitewatch/api
+    newTag: 0.1.0
+  - name: ghcr.io/sitewatch/web
+    newTag: 0.1.0

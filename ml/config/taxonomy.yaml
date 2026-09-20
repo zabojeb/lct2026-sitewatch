@@ -1,0 +1,22 @@
+version: 1
+classes:
+  - code: dump_truck
+    title_ru: Самосвал
+  - code: excavator
+    title_ru: Экскаватор
+  - code: road_roller
+    title_ru: Каток
+  - code: loader_crane
+    title_ru: Кран-манипулятор
+  - code: concrete_mixer
+    title_ru: Автобетоносмеситель
+  - code: bulldozer
+    title_ru: Бульдозер
+  - code: truck
+    title_ru: Грузовик
+  - code: mobile_crane
+    title_ru: Автокран
+  - code: tower_crane
+    title_ru: Башенный кран
+  - code: piling_rig
+    title_ru: Буровая или сваебойная установка

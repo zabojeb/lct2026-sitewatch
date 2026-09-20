@@ -1,0 +1,4 @@
+load_from:
+  - python_module:
+      module_name: sitewatch_ml.orchestration.definitions
+      working_directory: /workspace/ml

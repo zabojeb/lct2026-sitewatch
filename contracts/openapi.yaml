@@ -1,0 +1,729 @@
+openapi: 3.1.0
+info:
+  title: SiteWatch API
+  version: 0.1.0
+  summary: Explainable construction-site monitoring
+  description: >-
+    Contract for accepting construction-site observations, linking them to schedule stages and
+    returning evidence-backed deviations. All timestamps are RFC 3339 UTC values. Bounding boxes
+    are normalized to the source image dimensions.
+  contact:
+    name: LCT 2026 Team
+  license:
+    name: MIT
+    identifier: MIT
+servers:
+  - url: /
+    description: Current origin
+tags:
+  - name: Health
+    description: Kubernetes liveness and readiness probes.
+  - name: Metadata
+    description: Stable dictionaries shared by the backend and UI.
+  - name: Uploads
+    description: Direct uploads to S3-compatible object storage.
+  - name: Observations
+    description: Images and detector results from construction sites.
+  - name: Schedule
+    description: Normalized construction stages and equipment rules.
+  - name: Deviations
+    description: Evidence-backed differences between planned and observed work.
+security:
+  - bearerAuth: []
+paths:
+  /health/live:
+    get:
+      tags: [Health]
+      operationId: getLiveness
+      security: []
+      summary: Check whether the API process is alive
+      responses:
+        "200":
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+  /health/ready:
+    get:
+      tags: [Health]
+      operationId: getReadiness
+      security: []
+      summary: Check required infrastructure dependencies
+      responses:
+        "200":
+          description: API is ready to receive traffic
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReadinessResponse"
+        "503":
+          description: A required dependency is unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReadinessResponse"
+  /api/v1/meta/equipment-classes:
+    get:
+      tags: [Metadata]
+      operationId: listEquipmentClasses
+      security: []
+      summary: List stable equipment class codes
+      responses:
+        "200":
+          description: Supported detector and rule-engine taxonomy
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EquipmentClassMetadata"
+  /api/v1/uploads:
+    post:
+      tags: [Uploads]
+      operationId: createUpload
+      summary: Create a short-lived S3 upload URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUploadRequest"
+      responses:
+        "201":
+          description: Upload slot created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateUploadResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/observations:
+    post:
+      tags: [Observations]
+      operationId: createObservation
+      summary: Queue an uploaded image for analysis
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateObservationRequest"
+      responses:
+        "202":
+          description: Observation accepted for asynchronous processing
+          headers:
+            Location:
+              description: URL of the observation resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ObservationAcceptedResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          description: The idempotency key was reused with a different request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+  /api/v1/observations/{observationId}:
+    get:
+      tags: [Observations]
+      operationId: getObservation
+      summary: Read processing state and detections
+      parameters:
+        - $ref: "#/components/parameters/ObservationId"
+      responses:
+        "200":
+          description: Observation found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Observation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/projects/{projectId}/stages:import:
+    post:
+      tags: [Schedule]
+      operationId: importWorkStages
+      summary: Validate and import a normalized project schedule
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkStageImport"
+      responses:
+        "202":
+          description: Schedule accepted for validation and import
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportAcceptedResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+  /api/v1/projects/{projectId}/deviations:
+    get:
+      tags: [Deviations]
+      operationId: listDeviations
+      summary: List evidence-backed deviations for a project
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [open, acknowledged, resolved, dismissed]
+        - name: severity
+          in: query
+          schema:
+            type: string
+            enum: [info, warning, critical]
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 25
+      responses:
+        "200":
+          description: Page of deviations sorted by latest evidence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviationPage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: UUID generated once by the caller and reused for safe retries
+      schema:
+        type: string
+        format: uuid
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    ObservationId:
+      name: observationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    BadRequest:
+      description: Malformed request
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetails"
+    Unauthorized:
+      description: Missing or invalid access token
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetails"
+    NotFound:
+      description: Resource not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetails"
+    UnprocessableEntity:
+      description: Request is syntactically valid but violates domain constraints
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetails"
+  schemas:
+    HealthResponse:
+      type: object
+      additionalProperties: false
+      required: [status, service, version, timestamp]
+      properties:
+        status:
+          $ref: "#/components/schemas/ServiceStatus"
+        service:
+          type: string
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    ReadinessResponse:
+      type: object
+      additionalProperties: false
+      required: [status, dependencies, timestamp]
+      properties:
+        status:
+          $ref: "#/components/schemas/ServiceStatus"
+        dependencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/DependencyStatus"
+        timestamp:
+          type: string
+          format: date-time
+    ServiceStatus:
+      type: string
+      enum: [up, degraded, down]
+    DependencyStatus:
+      type: object
+      additionalProperties: false
+      required: [name, status, latency_ms]
+      properties:
+        name:
+          type: string
+        status:
+          $ref: "#/components/schemas/ServiceStatus"
+        latency_ms:
+          type: integer
+          format: int64
+          minimum: 0
+        detail:
+          type: string
+    EquipmentClass:
+      type: string
+      enum:
+        - dump_truck
+        - excavator
+        - road_roller
+        - loader_crane
+        - concrete_mixer
+        - bulldozer
+        - truck
+        - mobile_crane
+        - tower_crane
+        - piling_rig
+    EquipmentClassMetadata:
+      type: object
+      additionalProperties: false
+      required: [code, title_ru]
+      properties:
+        code:
+          $ref: "#/components/schemas/EquipmentClass"
+        title_ru:
+          type: string
+    CreateUploadRequest:
+      type: object
+      additionalProperties: false
+      required: [filename, media_type, size_bytes, sha256]
+      properties:
+        filename:
+          type: string
+          minLength: 1
+          maxLength: 255
+        media_type:
+          type: string
+          enum: [image/jpeg, image/png, image/webp]
+        size_bytes:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 26214400
+        sha256:
+          type: string
+          pattern: "^[0-9a-f]{64}$"
+    CreateUploadResponse:
+      type: object
+      additionalProperties: false
+      required: [asset_id, object_key, upload_url, required_headers, expires_at]
+      properties:
+        asset_id:
+          type: string
+          format: uuid
+        object_key:
+          type: string
+        upload_url:
+          type: string
+          format: uri
+        required_headers:
+          type: object
+          additionalProperties:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+    AssetRef:
+      type: object
+      additionalProperties: false
+      required: [object_key, sha256, media_type, size_bytes, width_px, height_px]
+      properties:
+        object_key:
+          type: string
+        sha256:
+          type: string
+          pattern: "^[0-9a-f]{64}$"
+        media_type:
+          type: string
+          enum: [image/jpeg, image/png, image/webp]
+        size_bytes:
+          type: integer
+          format: int64
+          minimum: 1
+        width_px:
+          type: integer
+          minimum: 1
+        height_px:
+          type: integer
+          minimum: 1
+    CreateObservationRequest:
+      type: object
+      additionalProperties: false
+      required: [project_id, camera_id, zone_id, captured_at, source, asset]
+      properties:
+        project_id:
+          type: string
+          format: uuid
+        camera_id:
+          type: string
+          format: uuid
+        zone_id:
+          type: string
+          format: uuid
+        captured_at:
+          type: string
+          format: date-time
+        source:
+          type: string
+          enum: [upload, camera_snapshot, rtsp_frame, synthetic]
+        asset:
+          $ref: "#/components/schemas/AssetRef"
+    ObservationAcceptedResponse:
+      type: object
+      additionalProperties: false
+      required: [observation_id, job_id, status, queued_at, correlation_id]
+      properties:
+        observation_id:
+          type: string
+          format: uuid
+        job_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          const: queued
+        queued_at:
+          type: string
+          format: date-time
+        correlation_id:
+          type: string
+          format: uuid
+    Observation:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - project_id
+        - camera_id
+        - zone_id
+        - captured_at
+        - status
+        - asset
+        - detections
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        camera_id:
+          type: string
+          format: uuid
+        zone_id:
+          type: string
+          format: uuid
+        captured_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [queued, processing, analyzed, rejected]
+        asset:
+          $ref: "#/components/schemas/AssetRef"
+        detections:
+          type: array
+          items:
+            $ref: "#/components/schemas/Detection"
+        analyzed_at:
+          type: string
+          format: date-time
+        rejection_reason:
+          type: string
+    Detection:
+      type: object
+      additionalProperties: false
+      required: [id, equipment_class, confidence, bounding_box, model_version]
+      properties:
+        id:
+          type: string
+          format: uuid
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        bounding_box:
+          $ref: "#/components/schemas/BoundingBox"
+        model_version:
+          type: string
+    BoundingBox:
+      type: object
+      additionalProperties: false
+      required: [x_min, y_min, x_max, y_max]
+      properties:
+        x_min: { type: number, minimum: 0, maximum: 1 }
+        y_min: { type: number, minimum: 0, maximum: 1 }
+        x_max: { type: number, minimum: 0, maximum: 1 }
+        y_max: { type: number, minimum: 0, maximum: 1 }
+    WorkStageImport:
+      type: object
+      additionalProperties: false
+      required: [timezone, source, stages]
+      properties:
+        timezone:
+          type: string
+        source:
+          type: string
+        stages:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/WorkStageInput"
+    WorkStageInput:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - name
+        - zone_code
+        - planned_start
+        - planned_end
+        - observable_from_camera
+        - equipment_rules
+      properties:
+        code:
+          type: string
+          pattern: "^[0-9]+(?:\\.[0-9]+)*\\.?$"
+        parent_code:
+          type: [string, "null"]
+        name:
+          type: string
+          minLength: 1
+        zone_code:
+          type: string
+          minLength: 1
+        planned_start:
+          type: string
+          format: date-time
+        planned_end:
+          type: string
+          format: date-time
+        observable_from_camera:
+          type: boolean
+        equipment_rules:
+          type: array
+          items:
+            $ref: "#/components/schemas/EquipmentRule"
+    EquipmentRule:
+      type: object
+      additionalProperties: false
+      required:
+        - equipment_class
+        - expectation
+        - min_count
+        - min_confidence
+        - persistence_frames
+      properties:
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        expectation:
+          type: string
+          enum: [required, optional, unexpected]
+        min_count:
+          type: integer
+          minimum: 0
+        max_count:
+          type: [integer, "null"]
+          minimum: 0
+        min_confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        persistence_frames:
+          type: integer
+          minimum: 1
+    ImportAcceptedResponse:
+      type: object
+      additionalProperties: false
+      required: [job_id, status, accepted_at]
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          const: queued
+        accepted_at:
+          type: string
+          format: date-time
+    DeviationPage:
+      type: object
+      additionalProperties: false
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Deviation"
+        next_cursor:
+          type: [string, "null"]
+    Deviation:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - project_id
+        - stage_id
+        - zone_id
+        - kind
+        - severity
+        - status
+        - title
+        - explanation
+        - expected
+        - observed
+        - evidence_observation_ids
+        - detected_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        stage_id:
+          type: string
+          format: uuid
+        zone_id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+            - missing_required_equipment
+            - unexpected_equipment
+            - count_outside_range
+            - insufficient_evidence
+            - schedule_conflict
+        severity:
+          type: string
+          enum: [info, warning, critical]
+        status:
+          type: string
+          enum: [open, acknowledged, resolved, dismissed]
+        title:
+          type: string
+        explanation:
+          type: string
+        expected:
+          type: array
+          items:
+            $ref: "#/components/schemas/EquipmentCount"
+        observed:
+          type: array
+          items:
+            $ref: "#/components/schemas/EquipmentCount"
+        evidence_observation_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+        detected_at:
+          type: string
+          format: date-time
+    EquipmentCount:
+      type: object
+      additionalProperties: false
+      required: [equipment_class, count]
+      properties:
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        count:
+          type: integer
+          minimum: 0
+    ProblemDetails:
+      type: object
+      additionalProperties: false
+      required: [type, title, status, detail, instance, trace_id, errors]
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        detail:
+          type: string
+        instance:
+          type: string
+        trace_id:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/FieldViolation"
+    FieldViolation:
+      type: object
+      additionalProperties: false
+      required: [field, message]
+      properties:
+        field:
+          type: string
+        message:
+          type: string

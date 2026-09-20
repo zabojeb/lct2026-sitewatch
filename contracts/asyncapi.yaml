@@ -1,0 +1,189 @@
+asyncapi: 2.6.0
+id: urn:sitewatch:events
+info:
+  title: SiteWatch event contracts
+  version: 0.1.0
+  description: Durable messages carried by NATS JetStream.
+  contact:
+    name: SiteWatch engineering team
+  license:
+    name: MIT
+defaultContentType: application/json
+tags:
+  - name: observations
+    description: Image analysis lifecycle.
+  - name: deviations
+    description: Evidence-backed construction schedule deviations.
+servers:
+  local:
+    url: nats://localhost:4222
+    protocol: nats
+channels:
+  lct.observation.accepted.v1:
+    description: Observation is persisted and ready for inference.
+    publish:
+      operationId: publishObservationAccepted
+      message:
+        $ref: "#/components/messages/ObservationAccepted"
+  lct.observation.analyzed.v1:
+    description: Detector completed and persisted its detections.
+    publish:
+      operationId: publishObservationAnalyzed
+      message:
+        $ref: "#/components/messages/ObservationAnalyzed"
+  lct.deviation.detected.v1:
+    description: Rule engine created or updated an evidence-backed deviation.
+    publish:
+      operationId: publishDeviationDetected
+      message:
+        $ref: "#/components/messages/DeviationDetected"
+components:
+  messages:
+    ObservationAccepted:
+      name: observation.accepted.v1
+      messageId: observation.accepted.v1
+      correlationId:
+        location: $message.payload#/correlation_id
+      payload:
+        allOf:
+          - $ref: "#/components/schemas/EventEnvelope"
+          - type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/ObservationAcceptedData"
+    ObservationAnalyzed:
+      name: observation.analyzed.v1
+      messageId: observation.analyzed.v1
+      correlationId:
+        location: $message.payload#/correlation_id
+      payload:
+        allOf:
+          - $ref: "#/components/schemas/EventEnvelope"
+          - type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/ObservationAnalyzedData"
+    DeviationDetected:
+      name: deviation.detected.v1
+      messageId: deviation.detected.v1
+      correlationId:
+        location: $message.payload#/correlation_id
+      payload:
+        allOf:
+          - $ref: "#/components/schemas/EventEnvelope"
+          - type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/DeviationDetectedData"
+  schemas:
+    EventEnvelope:
+      type: object
+      required:
+        - specversion
+        - id
+        - source
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - correlation_id
+        - data
+      properties:
+        specversion:
+          type: string
+          const: "1.0"
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+        type:
+          type: string
+        subject:
+          type: string
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          const: application/json
+        correlation_id:
+          type: string
+          format: uuid
+        causation_id:
+          type: [string, "null"]
+          format: uuid
+        data:
+          type: object
+    ObservationAcceptedData:
+      type: object
+      required: [observation_id, project_id, camera_id, zone_id, asset]
+      properties:
+        observation_id: { type: string, format: uuid }
+        project_id: { type: string, format: uuid }
+        camera_id: { type: string, format: uuid }
+        zone_id: { type: string, format: uuid }
+        asset:
+          type: object
+          required: [object_key, sha256, media_type, size_bytes, width_px, height_px]
+          properties:
+            object_key: { type: string }
+            sha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+            media_type: { type: string }
+            size_bytes: { type: integer, format: int64 }
+            width_px: { type: integer }
+            height_px: { type: integer }
+    ObservationAnalyzedData:
+      type: object
+      required:
+        - observation_id
+        - project_id
+        - camera_id
+        - zone_id
+        - captured_at
+        - detections
+        - model_version
+      properties:
+        observation_id: { type: string, format: uuid }
+        project_id: { type: string, format: uuid }
+        camera_id: { type: string, format: uuid }
+        zone_id: { type: string, format: uuid }
+        captured_at: { type: string, format: date-time }
+        model_version: { type: string }
+        detections:
+          type: array
+          items:
+            type: object
+            required: [id, equipment_class, confidence, bounding_box]
+            properties:
+              id: { type: string, format: uuid }
+              equipment_class: { type: string }
+              confidence: { type: number, minimum: 0, maximum: 1 }
+              bounding_box:
+                type: object
+                required: [x_min, y_min, x_max, y_max]
+                properties:
+                  x_min: { type: number, minimum: 0, maximum: 1 }
+                  y_min: { type: number, minimum: 0, maximum: 1 }
+                  x_max: { type: number, minimum: 0, maximum: 1 }
+                  y_max: { type: number, minimum: 0, maximum: 1 }
+    DeviationDetectedData:
+      type: object
+      required:
+        - deviation_id
+        - project_id
+        - stage_id
+        - zone_id
+        - kind
+        - severity
+        - evidence_observation_ids
+      properties:
+        deviation_id: { type: string, format: uuid }
+        project_id: { type: string, format: uuid }
+        stage_id: { type: string, format: uuid }
+        zone_id: { type: string, format: uuid }
+        kind: { type: string }
+        severity: { type: string }
+        evidence_observation_ids:
+          type: array
+          items: { type: string, format: uuid }

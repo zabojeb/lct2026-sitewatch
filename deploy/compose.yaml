@@ -1,0 +1,302 @@
+name: sitewatch
+
+services:
+  postgres:
+    build:
+      context: ..
+      dockerfile: deploy/postgres/Dockerfile
+    image: sitewatch/postgres:17-postgis3
+    environment:
+      POSTGRES_DB: sitewatch
+      POSTGRES_USER: sitewatch
+      POSTGRES_PASSWORD: sitewatch
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sitewatch -d sitewatch"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:8-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  nats:
+    image: nats:2.11-alpine
+    command: ["-js", "-m", "8222", "--store_dir", "/data"]
+    ports:
+      - "${NATS_PORT:-4222}:4222"
+      - "${NATS_MONITORING_PORT:-8222}:8222"
+    volumes:
+      - nats-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  minio:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: sitewatch
+      MINIO_ROOT_PASSWORD: sitewatch-local-only
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio-data:/data
+    restart: unless-stopped
+
+  minio-init:
+    image: quay.io/minio/mc:RELEASE.2025-04-16T18-13-26Z
+    depends_on:
+      - minio
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        until mc alias set local http://minio:9000 sitewatch sitewatch-local-only; do sleep 1; done
+        mc mb --ignore-existing local/sitewatch-evidence
+        mc mb --ignore-existing local/sitewatch-datasets
+        mc mb --ignore-existing local/sitewatch-mlflow
+        mc anonymous set none local/sitewatch-evidence
+        mc anonymous set none local/sitewatch-datasets
+        mc anonymous set none local/sitewatch-mlflow
+    restart: "no"
+
+  mlops-postgres:
+    image: postgres:17.6-alpine
+    profiles: ["mlops"]
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: mlops
+      POSTGRES_PASSWORD: mlops-local-only
+    ports:
+      - "${MLOPS_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - mlops-postgres-data:/var/lib/postgresql/data
+      - ./mlops/postgres-init.sql:/docker-entrypoint-initdb.d/001-databases.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mlops -d postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  mlflow:
+    build:
+      context: ..
+      dockerfile: deploy/mlflow/Dockerfile
+    image: sitewatch/mlflow:3.16.1
+    profiles: ["mlops"]
+    command:
+      - mlflow
+      - server
+      - --host=0.0.0.0
+      - --port=5000
+      - --backend-store-uri=postgresql+psycopg://mlops:mlops-local-only@mlops-postgres:5432/mlflow
+      - --artifacts-destination=s3://sitewatch-mlflow
+      - --allowed-hosts=localhost,localhost:*,127.0.0.1,127.0.0.1:*,mlflow,mlflow:*
+      - --expose-prometheus=/tmp/mlflow-prometheus
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: sitewatch
+      AWS_SECRET_ACCESS_KEY: sitewatch-local-only
+      AWS_DEFAULT_REGION: ru-central-1
+    ports:
+      - "${MLFLOW_PORT:-5050}:5000"
+    depends_on:
+      mlops-postgres:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  dagster-webserver:
+    build:
+      context: ..
+      dockerfile: ml/Dockerfile
+      args:
+        SITEWATCH_CODE_REVISION: ${SITEWATCH_CODE_REVISION:-uncommitted}
+    image: sitewatch/ml-platform:0.1.0
+    profiles: ["mlops"]
+    command:
+      [
+        "dagster-webserver",
+        "-h",
+        "0.0.0.0",
+        "-p",
+        "3000",
+        "-w",
+        "/workspace/ml/dagster/workspace.yaml",
+      ]
+    environment: &dagster-environment
+      DAGSTER_HOME: /workspace/ml/dagster
+      DAGSTER_POSTGRES_USER: mlops
+      DAGSTER_POSTGRES_PASSWORD: mlops-local-only
+      DAGSTER_POSTGRES_HOST: mlops-postgres
+      DAGSTER_POSTGRES_DB: dagster
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    ports:
+      - "${DAGSTER_PORT:-3001}:3000"
+    volumes:
+      - ../data:/workspace/data
+      - ../artifacts:/workspace/artifacts
+      - ../7.ДГП_датасеты.zip:/workspace/7.ДГП_датасеты.zip:ro
+    depends_on:
+      mlops-postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import json, urllib.request;
+          request = urllib.request.Request('http://localhost:3000/graphql',
+          data=json.dumps({'query':'{ repositoriesOrError { __typename } }'}).encode(),
+          headers={'Content-Type':'application/json'});
+          payload = json.load(urllib.request.urlopen(request));
+          assert payload['data']['repositoriesOrError']['__typename'] == 'RepositoryConnection'
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  dagster-daemon:
+    build:
+      context: ..
+      dockerfile: ml/Dockerfile
+      args:
+        SITEWATCH_CODE_REVISION: ${SITEWATCH_CODE_REVISION:-uncommitted}
+    image: sitewatch/ml-platform:0.1.0
+    profiles: ["mlops"]
+    command: ["dagster-daemon", "run", "-w", "/workspace/ml/dagster/workspace.yaml"]
+    environment: *dagster-environment
+    volumes:
+      - ../data:/workspace/data
+      - ../artifacts:/workspace/artifacts
+      - ../7.ДГП_датасеты.zip:/workspace/7.ДГП_датасеты.zip:ro
+    depends_on:
+      dagster-webserver:
+        condition: service_healthy
+    restart: unless-stopped
+
+  label-studio:
+    image: heartexlabs/label-studio:1.23.0
+    profiles: ["labeling"]
+    environment:
+      LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED: "true"
+      LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT: /label-studio/files
+      LABEL_STUDIO_SECRET_KEY: ${LABEL_STUDIO_SECRET_KEY:-sitewatch-labeling-local-only}
+    ports:
+      - "${LABEL_STUDIO_PORT:-8081}:8080"
+    volumes:
+      - label-studio-data:/label-studio/data
+      - ../data/ml/raw/organizer:/label-studio/files:ro
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')",
+        ]
+      start_period: 45s
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  migrate:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    entrypoint: ["/usr/local/bin/migrate"]
+    environment: &backend-environment
+      APP_ENV: local
+      APP_NAME: sitewatch
+      HTTP_ADDR: 0.0.0.0:8080
+      RUST_LOG: sitewatch_api=debug,tower_http=info
+      DATABASE_URL: postgres://sitewatch:sitewatch@postgres:5432/sitewatch
+      REDIS_URL: redis://redis:6379/0
+      NATS_URL: nats://nats:4222
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: ru-central-1
+      S3_BUCKET: sitewatch-evidence
+      S3_ACCESS_KEY: sitewatch
+      S3_SECRET_KEY: sitewatch-local-only
+      S3_FORCE_PATH_STYLE: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    environment: *backend-environment
+    ports:
+      - "${API_PORT:-8080}:8080"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    environment:
+      PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-http://localhost:8080}
+      HOST: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  redis-data:
+  nats-data:
+  minio-data:
+  mlops-postgres-data:
+  label-studio-data:

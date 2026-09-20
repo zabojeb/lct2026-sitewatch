@@ -1,0 +1,6 @@
+packages:
+  - apps/web
+allowBuilds:
+  "@scarf/scarf": false
+minimumReleaseAgeExclude:
+  - prettier@3.9.8

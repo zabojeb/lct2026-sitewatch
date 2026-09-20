@@ -1,0 +1,51 @@
+.DS_Store
+.env
+.env.local
+.env.*
+!.env.example
+.idea/
+.vscode/
+
+# Rust
+/target/
+**/*.rs.bk
+
+# JavaScript / SvelteKit
+node_modules/
+.pnpm-store/
+apps/web/.svelte-kit/
+apps/web/build/
+apps/web/.vite/
+apps/web/test-results/
+apps/web/playwright-report/
+
+# Local data and model artifacts
+/data/raw/
+/data/interim/
+/data/processed/
+/data/ml/*
+!/data/ml/annotations.dvc
+/artifacts/
+/models/
+
+# Python / ML platform
+ml/.venv/
+ml/.pytest_cache/
+ml/.ruff_cache/
+ml/.coverage
+ml/mlruns/
+ml/mlflow.db*
+ml/runs/
+ml/**/__pycache__/
+.dvc/cache/
+.dvc/tmp/
+
+# Local infrastructure
+.local/
+coverage/
+*.log
+
+# Organizer source materials stay local; derived manifests/contracts are versioned.
+/*.pdf
+/*.pptx
+/*.zip

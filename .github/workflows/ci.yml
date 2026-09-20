@@ -1,0 +1,81 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.97.1
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - run: cargo test --workspace
+
+  web-and-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm contracts:lint
+      - run: pnpm contracts:generate
+      - run: git diff --exit-code -- apps/web/src/lib/api/schema.d.ts
+      - run: pnpm check
+      - run: pnpm build
+      - run: pnpm --filter @sitewatch/web exec playwright install --with-deps chromium --only-shell
+      - run: pnpm test:web
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: web-test-results
+          path: apps/web/test-results
+          retention-days: 7
+
+  ml-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.11.7
+          enable-cache: true
+      - run: uv sync --frozen --group dev --extra orchestration
+        working-directory: ml
+      - run: uv run ruff check src tests
+        working-directory: ml
+      - run: uv run ruff format --check src tests
+        working-directory: ml
+      - run: uv run pyright
+        working-directory: ml
+      - run: uv run pytest
+        working-directory: ml
+      - run: uv run dagster definitions validate -m sitewatch_ml.orchestration.definitions
+        working-directory: ml
+
+  kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-kubectl@v4
+        with:
+          version: v1.30.2
+      - run: docker compose -f deploy/compose.yaml --profile mlops --profile labeling config --quiet
+      - run: kubectl kustomize deploy/k8s/overlays/dev >/dev/null
+      - run: kubectl kustomize deploy/k8s/overlays/prod >/dev/null
