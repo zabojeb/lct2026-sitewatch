@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-09-21",
+  "storage_root": "data/ml/external",
+  "artifact_manifest": "docs/external-data-audit.json",
+  "policy": "Acquisition and audit only. No source is automatically admitted to training or evaluation.",
+  "sources": [
+    {
+      "id": "xyzyxzzxy-construction-equipment",
+      "url": "https://www.kaggle.com/datasets/xyzyxzzxy/construction-equipment/data",
+      "provider": "kaggle",
+      "ref": "xyzyxzzxy/construction-equipment",
+      "version": "1",
+      "download_url": "https://www.kaggle.com/api/v1/datasets/download/xyzyxzzxy/construction-equipment?datasetVersionNumber=1",
+      "declared_uncompressed_bytes": 17494075225,
+      "declared_license": "CC0: Public Domain",
+      "admission": "pending_semantic_annotation_and_provenance_review",
+      "class_names": ["Dump truck", "Excavator", "Motor grader", "Roller", "Crane manipulator", "Gazelle", "Forklift Standart", "Bucket loader Big", "Mixer", "Tanker", "Bulldozer", "Cleaning equipment", "Truck", "Trailer", "Forklift Giraffe", "Bucket loader Standart", "Autocran"],
+      "candidate_mapping": {"0": "dump_truck", "1": "excavator", "3": "road_roller", "4": "loader_crane", "8": "concrete_mixer", "10": "bulldozer", "12": "truck", "16": "mobile_crane"},
+      "mapping_status": "proposal_not_applied",
+      "notes": "Names and IDs come from the publisher metadata. Other classes must remain explicitly out of scope, not become negative labels. The declared license is not independent proof of the rights to every image."
+    },
+    {
+      "id": "kartaviychert-arh-df",
+      "url": "https://www.kaggle.com/datasets/kartaviychert/arh-df?select=images",
+      "provider": "kaggle",
+      "ref": "kartaviychert/arh-df",
+      "version": "5",
+      "download_url": "https://www.kaggle.com/api/v1/datasets/download/kartaviychert/arh-df?datasetVersionNumber=5",
+      "declared_uncompressed_bytes": 426475795,
+      "declared_license": "GPL 2",
+      "admission": "quarantine_license_and_semantic_review",
+      "class_names": [],
+      "mapping_status": "pending_semantic_review",
+      "notes": "classes.txt was inspected: crane, excavator, other, tractor, truck; the auditor reads its exact ID order automatically. Generic crane/tractor/other have no automatic SiteWatch mapping. License declaration requires review before redistribution or inclusion in a released training corpus. Frame filenames are not sufficient proof of independent scenes."
+    },
+    {
+      "id": "miniexcav-construction-machines",
+      "url": "https://github.com/miniexcav/Construction-Machines-Images-Dataset",
+      "provider": "github",
+      "ref": "miniexcav/Construction-Machines-Images-Dataset",
+      "version": "fc3e24b8401b87ed4b62488e459e5c915467da96",
+      "download_url": "https://codeload.github.com/miniexcav/Construction-Machines-Images-Dataset/zip/fc3e24b8401b87ed4b62488e459e5c915467da96",
+      "declared_license": "No standalone license; README research/education disclaimer; third-party image rights unresolved",
+      "admission": "quarantine_rights_review",
+      "class_names": ["excavator"],
+      "candidate_mapping": {"0": "excavator"},
+      "mapping_status": "proposal_not_applied",
+      "notes": "Publisher describes 223 Google-sourced images with YOLO annotations. Its collection instructions avoid small, distant and dark objects, so domain shift against CCTV is a specific hypothesis to test."
+    },
+    {
+      "id": "dataclusterlabs-construction-vehicle-images",
+      "url": "https://www.kaggle.com/datasets/dataclusterlabs/construction-vehicle-images",
+      "provider": "kaggle",
+      "ref": "dataclusterlabs/construction-vehicle-images",
+      "version": "2",
+      "download_url": "https://www.kaggle.com/api/v1/datasets/download/dataclusterlabs/construction-vehicle-images?datasetVersionNumber=2",
+      "declared_uncompressed_bytes": 1149776081,
+      "declared_license": "CC BY-NC-ND 4.0",
+      "admission": "quarantine_restricted_license",
+      "class_names": [],
+      "mapping_status": "pending_semantic_and_orientation_review",
+      "notes": "Downloaded archive has 326 images and 326 VOC XML files; valid boxes carry tractor/truck labels, not numeric YOLO IDs. Count this archive, not the marketing description of the larger 20,000+ collection. Do not assume commercial use, redistribution of adapted data or model release is cleared. No paid collection requested."
+    },
+    {
+      "id": "jejung-construction-machinery-tbosw",
+      "url": "https://universe.roboflow.com/jejung/construction-machinery-tbosw",
+      "provider": "roboflow",
+      "ref": "jejung/construction-machinery-tbosw",
+      "version": null,
+      "declared_license": "CC BY 4.0",
+      "admission": "blocked_no_published_dataset_version",
+      "declared_image_count": 78,
+      "declared_class_count": 24,
+      "declared_version_count": 0,
+      "class_names": [],
+      "mapping_status": "blocked",
+      "notes": "Overview and Dataset link both show zero published versions. No complete archive is available through the standard version download flow. Needs an owner export or an explicitly authorized fork/version in a Roboflow workspace; do not fabricate a version ID or scrape preview thumbnails as the dataset."
+    }
+  ]
+}
