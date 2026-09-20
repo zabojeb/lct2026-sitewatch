@@ -1,0 +1,428 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-20T23:17:18.494535+00:00",
+  "sources": [
+    {
+      "image_count": 19982,
+      "decoded_image_count": 19982,
+      "invalid_image_count": 0,
+      "annotation_status": {
+        "valid_nonempty": 17198,
+        "valid_empty": 2699,
+        "invalid": 85
+      },
+      "valid_box_count": 35509,
+      "per_class_boxes": {
+        "Autocran": 1788,
+        "Bucket loader Big": 2447,
+        "Bucket loader Standart": 2402,
+        "Bulldozer": 1,
+        "Cleaning equipment": 865,
+        "Crane manipulator": 845,
+        "Dump truck": 7039,
+        "Excavator": 8278,
+        "Forklift Giraffe": 706,
+        "Forklift Standart": 971,
+        "Gazelle": 4704,
+        "Mixer": 1221,
+        "Motor grader": 665,
+        "Roller": 20,
+        "Tanker": 427,
+        "Trailer": 1826,
+        "Truck": 1304
+      },
+      "per_class_images": {
+        "Autocran": 1788,
+        "Bucket loader Big": 2420,
+        "Bucket loader Standart": 2386,
+        "Bulldozer": 1,
+        "Cleaning equipment": 865,
+        "Crane manipulator": 810,
+        "Dump truck": 5973,
+        "Excavator": 6819,
+        "Forklift Giraffe": 683,
+        "Forklift Standart": 930,
+        "Gazelle": 4016,
+        "Mixer": 1177,
+        "Motor grader": 663,
+        "Roller": 20,
+        "Tanker": 421,
+        "Trailer": 1429,
+        "Truck": 1254
+      },
+      "native_splits": {
+        "train": 16754,
+        "valid": 3228
+      },
+      "width_px": {
+        "min": 1280,
+        "p10": 1920.0,
+        "p50": 1920.0,
+        "p90": 1920.0,
+        "max": 2688
+      },
+      "height_px": {
+        "min": 720,
+        "p10": 1080.0,
+        "p50": 1080.0,
+        "p90": 1080.0,
+        "max": 1520
+      },
+      "brightness_0_255": {
+        "min": 57.705,
+        "p10": 94.4577,
+        "p50": 113.708,
+        "p90": 122.1869,
+        "max": 154.408
+      },
+      "bbox_area_fraction": {
+        "min": 2e-06,
+        "p10": 0.0021,
+        "p50": 0.016014,
+        "p90": 0.104264,
+        "max": 0.750367
+      },
+      "exif_orientation_counts": {
+        "1": 19982
+      },
+      "rotated_or_mirrored_exif_count": 0,
+      "invalid_exif_orientation_count": 0,
+      "training_ready": false,
+      "semantic_label_completeness": "not_reviewed",
+      "interpretation": "Structural validity is not semantic correctness. Missing labels are NOT background images. Brightness is not a weather/season classifier.",
+      "source": "xyzyxzzxy-construction-equipment",
+      "version": "1",
+      "source_url": "https://www.kaggle.com/datasets/xyzyxzzxy/construction-equipment/data",
+      "archive_sha256": "215e3364701c60dcb9ebf12081083a14822b36da3ebd29484f641c8e98e88169",
+      "archive_bytes": 17475990938,
+      "uncompressed_bytes": 17494075225,
+      "class_names": [
+        "Dump truck",
+        "Excavator",
+        "Motor grader",
+        "Roller",
+        "Crane manipulator",
+        "Gazelle",
+        "Forklift Standart",
+        "Bucket loader Big",
+        "Mixer",
+        "Tanker",
+        "Bulldozer",
+        "Cleaning equipment",
+        "Truck",
+        "Trailer",
+        "Forklift Giraffe",
+        "Bucket loader Standart",
+        "Autocran"
+      ],
+      "file_extensions": {
+        ".txt": 19982,
+        ".jpg": 19982
+      },
+      "unmatched_text_or_xml_count": 0,
+      "admission": "pending_semantic_annotation_and_provenance_review",
+      "declared_license": "CC0: Public Domain",
+      "audit_signature": "c4e9ebf0a94317a87a086b98445ac38da2f56795fb32866536c773504f66f72b"
+    },
+    {
+      "image_count": 318,
+      "decoded_image_count": 318,
+      "invalid_image_count": 0,
+      "annotation_status": {
+        "valid_nonempty": 318
+      },
+      "valid_box_count": 3752,
+      "per_class_boxes": {
+        "crane": 739,
+        "excavator": 790,
+        "other": 639,
+        "tractor": 477,
+        "truck": 1107
+      },
+      "per_class_images": {
+        "crane": 318,
+        "excavator": 318,
+        "other": 254,
+        "tractor": 286,
+        "truck": 317
+      },
+      "native_splits": {
+        "unspecified": 318
+      },
+      "width_px": {
+        "min": 2560,
+        "p10": 2560.0,
+        "p50": 2560.0,
+        "p90": 2560.0,
+        "max": 2560
+      },
+      "height_px": {
+        "min": 1440,
+        "p10": 1440.0,
+        "p50": 1440.0,
+        "p90": 1440.0,
+        "max": 1440
+      },
+      "brightness_0_255": {
+        "min": 102.547,
+        "p10": 108.7681,
+        "p50": 119.076,
+        "p90": 126.395,
+        "max": 129.399
+      },
+      "bbox_area_fraction": {
+        "min": 2e-06,
+        "p10": 0.000413,
+        "p50": 0.001037,
+        "p90": 0.007313,
+        "max": 0.022619
+      },
+      "exif_orientation_counts": {
+        "1": 318
+      },
+      "rotated_or_mirrored_exif_count": 0,
+      "invalid_exif_orientation_count": 0,
+      "training_ready": false,
+      "semantic_label_completeness": "not_reviewed",
+      "interpretation": "Structural validity is not semantic correctness. Missing labels are NOT background images. Brightness is not a weather/season classifier.",
+      "source": "kartaviychert-arh-df",
+      "version": "5",
+      "source_url": "https://www.kaggle.com/datasets/kartaviychert/arh-df?select=images",
+      "archive_sha256": "9464065234266fcdf5ecafc947da91b0d08d8da6afd58e07929442d6ceb39f83",
+      "archive_bytes": 426350800,
+      "uncompressed_bytes": 426475795,
+      "class_names": [
+        "crane",
+        "excavator",
+        "other",
+        "tractor",
+        "truck"
+      ],
+      "file_extensions": {
+        ".jpg": 318,
+        ".txt": 319,
+        ".json": 1,
+        ".yaml": 1
+      },
+      "unmatched_text_or_xml_count": 1,
+      "admission": "quarantine_license_and_semantic_review",
+      "declared_license": "GPL 2",
+      "audit_signature": "46f2f02cba0353d226b7d61cb6efcb1a37a3ba7c33f84d4e1c24f0c2d851be29"
+    },
+    {
+      "image_count": 223,
+      "decoded_image_count": 223,
+      "invalid_image_count": 0,
+      "annotation_status": {
+        "valid_nonempty": 222,
+        "invalid": 1
+      },
+      "valid_box_count": 222,
+      "per_class_boxes": {
+        "excavator": 222
+      },
+      "per_class_images": {
+        "excavator": 222
+      },
+      "native_splits": {
+        "unspecified": 223
+      },
+      "width_px": {
+        "min": 262,
+        "p10": 500.0,
+        "p50": 820.0,
+        "p90": 1879.2,
+        "max": 3840
+      },
+      "height_px": {
+        "min": 177,
+        "p10": 346.8,
+        "p50": 582.0,
+        "p90": 1200.0,
+        "max": 2491
+      },
+      "brightness_0_255": {
+        "min": 32.145,
+        "p10": 103.1786,
+        "p50": 151.421,
+        "p90": 213.4072,
+        "max": 237.814
+      },
+      "bbox_area_fraction": {
+        "min": 0.173162,
+        "p10": 0.319893,
+        "p50": 0.558573,
+        "p90": 0.8317,
+        "max": 0.99781
+      },
+      "exif_orientation_counts": {
+        "1": 223
+      },
+      "rotated_or_mirrored_exif_count": 0,
+      "invalid_exif_orientation_count": 0,
+      "training_ready": false,
+      "semantic_label_completeness": "not_reviewed",
+      "interpretation": "Structural validity is not semantic correctness. Missing labels are NOT background images. Brightness is not a weather/season classifier.",
+      "source": "miniexcav-construction-machines",
+      "version": "fc3e24b8401b87ed4b62488e459e5c915467da96",
+      "source_url": "https://github.com/miniexcav/Construction-Machines-Images-Dataset",
+      "archive_sha256": "2e1560b15e66557d24209b738446170b72ee159dc75bff8ec337060b4e8e287c",
+      "archive_bytes": 72516505,
+      "uncompressed_bytes": 73723389,
+      "class_names": [
+        "excavator"
+      ],
+      "file_extensions": {
+        ".jpg": 223,
+        ".txt": 223,
+        ".md": 1
+      },
+      "unmatched_text_or_xml_count": 0,
+      "admission": "quarantine_rights_review",
+      "declared_license": "No standalone license; README research/education disclaimer; third-party image rights unresolved",
+      "audit_signature": "c38c2701d789580bf42d58b5d3a43ea78bae81e6aafa9a29bde57986298f28e9"
+    },
+    {
+      "image_count": 326,
+      "decoded_image_count": 325,
+      "invalid_image_count": 1,
+      "annotation_status": {
+        "valid_nonempty": 236,
+        "invalid": 84,
+        "valid_empty": 5,
+        "not_checked": 1
+      },
+      "valid_box_count": 313,
+      "per_class_boxes": {
+        "tractor": 100,
+        "truck": 213
+      },
+      "per_class_images": {
+        "tractor": 89,
+        "truck": 151
+      },
+      "native_splits": {
+        "unspecified": 326
+      },
+      "width_px": {
+        "min": 1080,
+        "p10": 2448.0,
+        "p50": 3000.0,
+        "p90": 4096.0,
+        "max": 4608
+      },
+      "height_px": {
+        "min": 960,
+        "p10": 2592.0,
+        "p50": 3264.0,
+        "p90": 4160.0,
+        "max": 5632
+      },
+      "brightness_0_255": {
+        "min": 38.664,
+        "p10": 96.7284,
+        "p50": 125.902,
+        "p90": 154.2846,
+        "max": 187.58
+      },
+      "bbox_area_fraction": {
+        "min": 0.000127,
+        "p10": 0.003553,
+        "p50": 0.088897,
+        "p90": 0.383605,
+        "max": 0.999957
+      },
+      "exif_orientation_counts": {
+        "0": 216,
+        "6": 84,
+        "1": 25
+      },
+      "rotated_or_mirrored_exif_count": 84,
+      "invalid_exif_orientation_count": 216,
+      "training_ready": false,
+      "semantic_label_completeness": "not_reviewed",
+      "interpretation": "Structural validity is not semantic correctness. Missing labels are NOT background images. Brightness is not a weather/season classifier.",
+      "source": "dataclusterlabs-construction-vehicle-images",
+      "version": "2",
+      "source_url": "https://www.kaggle.com/datasets/dataclusterlabs/construction-vehicle-images",
+      "archive_sha256": "aae9f67b6f84e3d762988a490c426ccc1911acfdd4db35dca5379de361f3e311",
+      "archive_bytes": 1137025776,
+      "uncompressed_bytes": 1149776081,
+      "class_names": [],
+      "file_extensions": {
+        ".xml": 326,
+        ".jpg": 326
+      },
+      "unmatched_text_or_xml_count": 1,
+      "admission": "quarantine_restricted_license",
+      "declared_license": "CC BY-NC-ND 4.0",
+      "audit_signature": "5a104ef0fff44b0ef1982ed245ff4071e1d42da3067b0a78bdbd50f69a5518cd"
+    },
+    {
+      "source": "jejung-construction-machinery-tbosw",
+      "status": "not_downloaded",
+      "admission": "blocked_no_published_dataset_version"
+    },
+    {
+      "source": "organizer",
+      "image_count": 100,
+      "decoded_image_count": 100,
+      "invalid_image_count": 0,
+      "annotation_status": {
+        "not_checked": 100
+      },
+      "valid_box_count": 0,
+      "per_class_boxes": {},
+      "per_class_images": {},
+      "native_splits": {
+        "unspecified": 100
+      },
+      "width_px": {
+        "min": 1077,
+        "p10": 1082.0,
+        "p50": 1217.0,
+        "p90": 1221.0,
+        "max": 1309
+      },
+      "height_px": {
+        "min": 800,
+        "p10": 805.9,
+        "p50": 809.0,
+        "p90": 812.1,
+        "max": 815
+      },
+      "brightness_0_255": {
+        "min": 99.698,
+        "p10": 109.7424,
+        "p50": 135.7,
+        "p90": 171.0712,
+        "max": 200.833
+      },
+      "bbox_area_fraction": null,
+      "exif_orientation_counts": {
+        "1": 100
+      },
+      "rotated_or_mirrored_exif_count": 0,
+      "invalid_exif_orientation_count": 0,
+      "training_ready": false,
+      "semantic_label_completeness": "not_reviewed",
+      "interpretation": "Structural validity is not semantic correctness. Missing labels are NOT background images. Brightness is not a weather/season classifier."
+    }
+  ],
+  "byte_duplicates": {
+    "key": "sha256",
+    "group_count": 327,
+    "redundant_image_count": 343,
+    "cross_source_group_count": 0,
+    "cross_native_split_group_count": 50,
+    "interpretation": "Byte-identical files."
+  },
+  "perceptual_candidates": {
+    "key": "dhash64",
+    "group_count": 2492,
+    "redundant_image_count": 8192,
+    "cross_source_group_count": 0,
+    "cross_native_split_group_count": 116,
+    "interpretation": "Equal 64-bit dHash candidates only, NOT verified duplicates. Not an exhaustive near-duplicate or video-sequence analysis."
+  }
+}

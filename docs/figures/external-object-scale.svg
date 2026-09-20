@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="670" viewBox="0 0 1320 670" role="img" aria-labelledby="title description">
+<title id="title">Масштаб объекта в открытых датасетах</title>
+<desc id="description">Доля площади кадра, занимаемая одной валидной рамкой. Круг — медиана, отрезок — десятый и девяностый перцентили; это разброс объектов, не доверительный интервал. Логарифмическая шкала.</desc>
+<rect width="1320" height="670" fill="#f7f7f2"/>
+<g font-family="Arial, sans-serif" fill="#1d2724">
+<text x="48" y="53" font-size="15" letter-spacing="2">SITEWATCH / DATA AUDIT</text>
+<text x="48" y="103" font-size="36" font-weight="700">Одна задача. Разный масштаб объектов.</text>
+<text x="48" y="137" font-size="18" fill="#53605b">Площадь bbox / площадь кадра · логарифмическая шкала · только структурно валидная разметка</text>
+<line x1="365.00" x2="365.00" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="365.00" y="572" text-anchor="middle" font-size="15" fill="#53605b">0.0001%</text>
+<line x1="479.17" x2="479.17" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="479.17" y="572" text-anchor="middle" font-size="15" fill="#53605b">0.001%</text>
+<line x1="593.33" x2="593.33" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="593.33" y="572" text-anchor="middle" font-size="15" fill="#53605b">0.01%</text>
+<line x1="707.50" x2="707.50" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="707.50" y="572" text-anchor="middle" font-size="15" fill="#53605b">0.1%</text>
+<line x1="821.67" x2="821.67" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="821.67" y="572" text-anchor="middle" font-size="15" fill="#53605b">1%</text>
+<line x1="935.83" x2="935.83" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="935.83" y="572" text-anchor="middle" font-size="15" fill="#53605b">10%</text>
+<line x1="1050.00" x2="1050.00" y1="176" y2="545" stroke="#d9dfd8"/>
+<text x="1050.00" y="572" text-anchor="middle" font-size="15" fill="#53605b">100%</text>
+<text x="48" y="214" font-size="20" font-weight="700">Construction equipment</text>
+<text x="48" y="240" font-size="15" fill="#53605b">35,509 bbox · 19,982 кадров</text>
+<line x1="744.29" x2="937.90" y1="219" y2="219" stroke="#6b9682" stroke-width="7" stroke-linecap="round"/>
+<circle cx="845.01" cy="219" r="9" fill="#153f31" stroke="#f7f7f2" stroke-width="2"/>
+<text x="1095" y="225" font-size="25" font-weight="700">1.6%</text>
+<text x="1095" y="248" font-size="14" fill="#53605b">медиана</text>
+<text x="48" y="314" font-size="20" font-weight="700">arh-df / CCTV</text>
+<text x="48" y="340" font-size="15" fill="#53605b">3,752 bbox · 318 кадров</text>
+<line x1="663.65" x2="806.15" y1="319" y2="319" stroke="#6b9682" stroke-width="7" stroke-linecap="round"/>
+<circle cx="709.30" cy="319" r="9" fill="#153f31" stroke="#f7f7f2" stroke-width="2"/>
+<text x="1095" y="325" font-size="25" font-weight="700">0.104%</text>
+<text x="1095" y="348" font-size="14" fill="#53605b">медиана</text>
+<text x="48" y="414" font-size="20" font-weight="700">miniexcav / веб-фото</text>
+<text x="48" y="440" font-size="15" fill="#53605b">222 bbox · 223 кадров</text>
+<line x1="993.49" x2="1040.86" y1="419" y2="419" stroke="#6b9682" stroke-width="7" stroke-linecap="round"/>
+<circle cx="1021.12" cy="419" r="9" fill="#153f31" stroke="#f7f7f2" stroke-width="2"/>
+<text x="1095" y="425" font-size="25" font-weight="700">55.9%</text>
+<text x="1095" y="448" font-size="14" fill="#53605b">медиана</text>
+<text x="48" y="514" font-size="20" font-weight="700">DataCluster / мобильные фото</text>
+<text x="48" y="540" font-size="15" fill="#53605b">313 bbox · 326 кадров</text>
+<line x1="770.36" x2="1002.49" y1="519" y2="519" stroke="#6b9682" stroke-width="7" stroke-linecap="round"/>
+<circle cx="930.00" cy="519" r="9" fill="#153f31" stroke="#f7f7f2" stroke-width="2"/>
+<text x="1095" y="525" font-size="25" font-weight="700">8.89%</text>
+<text x="1095" y="548" font-size="14" fill="#53605b">медиана</text>
+<text x="48" y="618" font-size="16" fill="#53605b">● Медиана     ━ P10–P90 (не доверительный интервал)     Источник: внешний acquisition-аудит, 2026-09-21</text>
+<text x="48" y="644" font-size="14" fill="#53605b">Классовый состав источников различается. Это описательное сравнение доменов, не доказательство улучшения mAP.</text>
+</g></svg>
