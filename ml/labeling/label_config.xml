@@ -1,0 +1,16 @@
+<View>
+  <Header value="Выделите всю видимую строительную технику. Перекрытые объекты размечайте, если класс можно определить уверенно." />
+  <Image name="image" value="$image" zoom="true" zoomControl="true" rotateControl="true" />
+  <RectangleLabels name="equipment" toName="image" strokeWidth="2">
+    <Label value="dump_truck" background="#FF2A2A" />
+    <Label value="excavator" background="#FFB000" />
+    <Label value="road_roller" background="#F5E663" />
+    <Label value="loader_crane" background="#00A6FB" />
+    <Label value="concrete_mixer" background="#7AE582" />
+    <Label value="bulldozer" background="#F15BB5" />
+    <Label value="truck" background="#9B5DE5" />
+    <Label value="mobile_crane" background="#00BBF9" />
+    <Label value="tower_crane" background="#00F5D4" />
+    <Label value="piling_rig" background="#FEE440" />
+  </RectangleLabels>
+</View>

@@ -1,0 +1,19 @@
+project_name: sitewatch-equipment-detection
+seed: 20260919
+paths:
+  source_archive: ../7.ДГП_датасеты.zip
+  raw_images: ../data/ml/raw/organizer
+  annotations: ../data/ml/annotations/yolo
+  annotation_export: ../data/ml/annotations/label-studio-export.json
+  manifests: ../data/ml/manifests
+  prepared_dataset: ../data/ml/processed/yolo
+  artifacts: ../artifacts/ml
+tracking:
+  uri: ${MLFLOW_TRACKING_URI:-sqlite:///../data/ml/mlflow.db}
+  experiment_name: sitewatch-equipment-detection
+  registry_model_name: sitewatch-equipment-detector
+split:
+  train: 0.70
+  validation: 0.20
+  test: 0.10
+  near_duplicate_hamming_distance: 4

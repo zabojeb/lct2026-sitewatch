@@ -1,0 +1,95 @@
+schema: '2.0'
+stages:
+  ingest:
+    cmd: cd ml && uv run --extra data sitewatch-ml ingest
+    deps:
+    - path: 7.ДГП_датасеты.zip
+      hash: md5
+      md5: b1d32effb9b08ee5848ac780626fad88
+      size: 231887319
+    - path: ml/config/base.yaml
+      hash: md5
+      md5: a232ab6880f39ba444e39a2d45eaffe2
+      size: 640
+    - path: ml/src/sitewatch_ml/ingest.py
+      hash: md5
+      md5: c23674cd9a42fb2c6268ce594593a0d0
+      size: 3913
+    outs:
+    - path: data/ml/manifests/source-manifest.jsonl
+      hash: md5
+      md5: 66a3989dfb9e2fb4945b8167c657e6b4
+      size: 40892
+    - path: data/ml/raw/organizer
+      hash: md5
+      md5: 13a00ee1ee17e82f7ebd8fc59164a0ab.dir
+      size: 231737591
+      nfiles: 100
+  audit:
+    cmd: cd ml && uv run --extra data sitewatch-ml audit
+    deps:
+    - path: data/ml/annotations/yolo
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+    - path: data/ml/raw/organizer
+      hash: md5
+      md5: 13a00ee1ee17e82f7ebd8fc59164a0ab.dir
+      size: 231737591
+      nfiles: 100
+    - path: ml/config/base.yaml
+      hash: md5
+      md5: a232ab6880f39ba444e39a2d45eaffe2
+      size: 640
+    - path: ml/src/sitewatch_ml/audit.py
+      hash: md5
+      md5: 22e1c704438de1087b5e74b26def559f
+      size: 6759
+    outs:
+    - path: data/ml/manifests/quality-report.json
+      hash: md5
+      md5: a1b42eb8911b8492773a66b4bfe876db
+      size: 830
+  split:
+    cmd: cd ml && uv run --extra data sitewatch-ml split
+    deps:
+    - path: data/ml/manifests/quality-report.json
+      hash: md5
+      md5: a1b42eb8911b8492773a66b4bfe876db
+      size: 830
+    - path: data/ml/raw/organizer
+      hash: md5
+      md5: 13a00ee1ee17e82f7ebd8fc59164a0ab.dir
+      size: 231737591
+      nfiles: 100
+    - path: ml/config/base.yaml
+      hash: md5
+      md5: a232ab6880f39ba444e39a2d45eaffe2
+      size: 640
+    - path: ml/src/sitewatch_ml/split.py
+      hash: md5
+      md5: 657ff4834a37235076904d48737b3149
+      size: 3628
+    outs:
+    - path: data/ml/manifests/split-manifest.json
+      hash: md5
+      md5: 330d8972015f7117bbe327889b75ea75
+      size: 21198
+  labeling_tasks:
+    cmd: cd ml && uv run --extra data sitewatch-ml labeling-tasks
+    deps:
+    - path: data/ml/raw/organizer
+      hash: md5
+      md5: 13a00ee1ee17e82f7ebd8fc59164a0ab.dir
+      size: 231737591
+      nfiles: 100
+    - path: ml/src/sitewatch_ml/labeling.py
+      hash: md5
+      md5: eff9204a063ebbb65a1cdff629395653
+      size: 7199
+    outs:
+    - path: data/ml/manifests/label-studio-tasks.json
+      hash: md5
+      md5: e7f376f78b923858494273fc121c288c
+      size: 19203

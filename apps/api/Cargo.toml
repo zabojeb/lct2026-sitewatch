@@ -1,0 +1,35 @@
+[package]
+name = "sitewatch-api"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+axum.workspace = true
+chrono.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sitewatch-contracts = { path = "../../crates/contracts" }
+sitewatch-domain = { path = "../../crates/domain" }
+sitewatch-platform = { path = "../../crates/platform" }
+sqlx.workspace = true
+tokio.workspace = true
+tower-http.workspace = true
+tracing.workspace = true
+utoipa.workspace = true
+utoipa-swagger-ui.workspace = true
+uuid.workspace = true
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "sitewatch-api"
+path = "src/main.rs"
+
+[[bin]]
+name = "migrate"
+path = "src/bin/migrate.rs"
+

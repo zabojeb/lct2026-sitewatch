@@ -1,0 +1,21 @@
+{
+  "name": "sitewatch",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "build": "pnpm --filter @sitewatch/web build",
+    "check": "pnpm --filter @sitewatch/web check",
+    "test:web": "pnpm --filter @sitewatch/web test",
+    "contracts:generate": "openapi-typescript contracts/openapi.yaml -o apps/web/src/lib/api/schema.d.ts",
+    "contracts:lint": "redocly lint contracts/openapi.yaml && node scripts/validate-contracts.mjs",
+    "dev": "pnpm --filter @sitewatch/web dev",
+    "format": "pnpm --filter @sitewatch/web format"
+  },
+  "devDependencies": {
+    "@asyncapi/parser": "3.6.3",
+    "@redocly/cli": "2.53.3",
+    "ajv": "8.18.0",
+    "ajv-formats": "3.0.1",
+    "openapi-typescript": "7.13.0"
+  }
+}

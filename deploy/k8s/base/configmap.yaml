@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sitewatch-config
+data:
+  APP_ENV: production
+  APP_NAME: sitewatch
+  HTTP_ADDR: 0.0.0.0:8080
+  RUST_LOG: sitewatch_api=info,tower_http=info,sqlx=warn,async_nats=warn
+  S3_REGION: ru-central-1
+  S3_BUCKET: sitewatch-evidence
+  S3_FORCE_PATH_STYLE: "false"
+  PUBLIC_API_BASE_URL: /api
+

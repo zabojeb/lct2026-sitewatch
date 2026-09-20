@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sitewatch.local/schemas/work-stage-import.schema.json",
+  "title": "Work stage import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project_id", "timezone", "stages"],
+  "properties": {
+    "project_id": { "type": "string", "format": "uuid" },
+    "timezone": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1 },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/stage" }
+    }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "name",
+        "zone_code",
+        "planned_start",
+        "planned_end",
+        "observable_from_camera",
+        "equipment_rules"
+      ],
+      "properties": {
+        "code": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)*\\.?$" },
+        "parent_code": { "type": ["string", "null"] },
+        "name": { "type": "string", "minLength": 1 },
+        "zone_code": { "type": "string", "minLength": 1 },
+        "planned_start": { "type": "string", "format": "date-time" },
+        "planned_end": { "type": "string", "format": "date-time" },
+        "observable_from_camera": { "type": "boolean" },
+        "equipment_rules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/equipmentRule" }
+        }
+      }
+    },
+    "equipmentRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "equipment_class",
+        "expectation",
+        "min_count",
+        "min_confidence",
+        "persistence_frames"
+      ],
+      "properties": {
+        "equipment_class": { "$ref": "#/$defs/equipmentClass" },
+        "expectation": {
+          "type": "string",
+          "enum": ["required", "optional", "unexpected"]
+        },
+        "min_count": { "type": "integer", "minimum": 0 },
+        "max_count": { "type": ["integer", "null"], "minimum": 0 },
+        "min_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "persistence_frames": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "equipmentClass": {
+      "type": "string",
+      "enum": [
+        "dump_truck",
+        "excavator",
+        "road_roller",
+        "loader_crane",
+        "concrete_mixer",
+        "bulldozer",
+        "truck",
+        "mobile_crane",
+        "tower_crane",
+        "piling_rig"
+      ]
+    }
+  }
+}
+

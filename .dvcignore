@@ -1,0 +1,7 @@
+# Python and UI build products are never dataset inputs.
+**/__pycache__/**
+**/.pytest_cache/**
+**/.ruff_cache/**
+**/.venv/**
+target/**
+node_modules/**
