@@ -74,3 +74,4 @@ db-migrate: ## Apply PostgreSQL migrations
 k8s-validate: ## Render both Kubernetes overlays
 	kubectl kustomize deploy/k8s/overlays/dev >/dev/null
 	kubectl kustomize deploy/k8s/overlays/prod >/dev/null
+	kubectl kustomize deploy/k8s/jobs >/dev/null

@@ -159,7 +159,9 @@ paths:
     post:
       tags: [Schedule]
       operationId: importWorkStages
-      summary: Validate and import a normalized project schedule
+      summary: Atomically activate an immutable project schedule revision
+      security:
+        - serviceBearer: []
       parameters:
         - $ref: "#/components/parameters/ProjectId"
         - $ref: "#/components/parameters/IdempotencyKey"
@@ -170,18 +172,72 @@ paths:
             schema:
               $ref: "#/components/schemas/WorkStageImport"
       responses:
-        "202":
-          description: Schedule accepted for validation and import
+        "201":
+          description: Schedule revision created and activated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ImportAcceptedResponse"
+                $ref: "#/components/schemas/ScheduleRevisionResponse"
+        "200":
+          description: Idempotent replay of an existing revision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduleRevisionResponse"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "422":
           $ref: "#/components/responses/UnprocessableEntity"
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/projects/{projectId}/stages:
+    get:
+      tags: [Schedule]
+      operationId: getActiveWorkStages
+      summary: Read the active immutable schedule revision
+      security:
+        - serviceBearer: []
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Active schedule revision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduleRevisionResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/projects/{projectId}/stages/revisions/{revisionId}:
+    get:
+      tags: [Schedule]
+      operationId: getWorkStageRevision
+      summary: Read an immutable revision by id for event consumers
+      security:
+        - serviceBearer: []
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: revisionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Requested schedule revision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduleRevisionResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api/v1/projects/{projectId}/deviations:
     get:
       tags: [Deviations]
@@ -227,6 +283,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    serviceBearer:
+      type: http
+      scheme: bearer
+      description: Opaque shared service credential; never expose to browser clients.
   parameters:
     IdempotencyKey:
       name: Idempotency-Key
@@ -271,6 +331,12 @@ components:
             $ref: "#/components/schemas/ProblemDetails"
     UnprocessableEntity:
       description: Request is syntactically valid but violates domain constraints
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetails"
+    Conflict:
+      description: Idempotency key was already used with different input
       content:
         application/problem+json:
           schema:
@@ -595,20 +661,57 @@ components:
         persistence_frames:
           type: integer
           minimum: 1
-    ImportAcceptedResponse:
+        source:
+          type: [string, "null"]
+          minLength: 1
+          description: Document reference for this rule; omitted or null defaults to import source.
+    ScheduleRevisionResponse:
       type: object
       additionalProperties: false
-      required: [job_id, status, accepted_at]
+      required: [id, project_id, activation_version, timezone, source, created_at, stages]
       properties:
-        job_id:
+        id: { type: string, format: uuid }
+        project_id: { type: string, format: uuid }
+        activation_version: { type: integer, format: int64, minimum: 1 }
+        timezone: { type: string }
+        source: { type: string }
+        created_at: { type: string, format: date-time }
+        stages:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkStageRevisionItem"
+    WorkStageRevisionItem:
+      type: object
+      additionalProperties: false
+      required: [id, code, parent_code, name, zone_code, planned_start, planned_end, observable_from_camera, equipment_rules]
+      properties:
+        id: { type: string, format: uuid }
+        code: { type: string }
+        parent_code: { type: [string, "null"] }
+        name: { type: string }
+        zone_code: { type: string }
+        planned_start: { type: string, format: date-time }
+        planned_end: { type: string, format: date-time }
+        observable_from_camera: { type: boolean }
+        equipment_rules:
+          type: array
+          items:
+            $ref: "#/components/schemas/EquipmentRuleRevisionItem"
+    EquipmentRuleRevisionItem:
+      type: object
+      additionalProperties: false
+      required: [equipment_class, expectation, min_count, max_count, min_confidence, persistence_frames, source]
+      properties:
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        expectation:
           type: string
-          format: uuid
-        status:
-          type: string
-          const: queued
-        accepted_at:
-          type: string
-          format: date-time
+          enum: [required, optional, unexpected]
+        min_count: { type: integer, minimum: 0 }
+        max_count: { type: [integer, "null"], minimum: 0 }
+        min_confidence: { type: number, minimum: 0, maximum: 1 }
+        persistence_frames: { type: integer, minimum: 1 }
+        source: { type: string }
     DeviationPage:
       type: object
       additionalProperties: false

@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: schedule-migrate-v1
+  namespace: sitewatch
+  labels:
+    app.kubernetes.io/name: schedule
+    app.kubernetes.io/component: migration
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      serviceAccountName: sitewatch-schedule
+      automountServiceAccountToken: false
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: migrate
+          image: ghcr.io/sitewatch/schedule:0.1.0
+          command: ["/usr/local/bin/schedule-migrate"]
+          env:
+            - name: SCHEDULE_MIGRATION_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-schedule-secrets
+                  key: SCHEDULE_MIGRATION_DATABASE_URL
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true

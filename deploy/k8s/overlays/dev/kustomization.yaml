@@ -4,6 +4,7 @@ resources:
   - ../../base
 patches:
   - path: api-replicas.yaml
+  - path: schedule-replicas.yaml
   - path: web-replicas.yaml
 images:
   - name: ghcr.io/sitewatch/api
@@ -11,4 +12,7 @@ images:
     newTag: dev
   - name: ghcr.io/sitewatch/web
     newName: sitewatch-web
+    newTag: dev
+  - name: ghcr.io/sitewatch/schedule
+    newName: sitewatch-schedule
     newTag: dev

@@ -115,8 +115,42 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Validate and import a normalized project schedule */
+        /** Atomically activate an immutable project schedule revision */
         post: operations["importWorkStages"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{projectId}/stages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read the active immutable schedule revision */
+        get: operations["getActiveWorkStages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{projectId}/stages/revisions/{revisionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read an immutable revision by id for event consumers */
+        get: operations["getWorkStageRevision"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -285,14 +319,45 @@ export interface components {
             max_count?: number | null;
             min_confidence: number;
             persistence_frames: number;
+            /** @description Document reference for this rule; omitted or null defaults to import source. */
+            source?: string | null;
         };
-        ImportAcceptedResponse: {
+        ScheduleRevisionResponse: {
             /** Format: uuid */
-            job_id: string;
-            /** @constant */
-            status: "queued";
+            id: string;
+            /** Format: uuid */
+            project_id: string;
+            /** Format: int64 */
+            activation_version: number;
+            timezone: string;
+            source: string;
             /** Format: date-time */
-            accepted_at: string;
+            created_at: string;
+            stages: components["schemas"]["WorkStageRevisionItem"][];
+        };
+        WorkStageRevisionItem: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            parent_code: string | null;
+            name: string;
+            zone_code: string;
+            /** Format: date-time */
+            planned_start: string;
+            /** Format: date-time */
+            planned_end: string;
+            observable_from_camera: boolean;
+            equipment_rules: components["schemas"]["EquipmentRuleRevisionItem"][];
+        };
+        EquipmentRuleRevisionItem: {
+            equipment_class: components["schemas"]["EquipmentClass"];
+            /** @enum {string} */
+            expectation: "required" | "optional" | "unexpected";
+            min_count: number;
+            max_count: number | null;
+            min_confidence: number;
+            persistence_frames: number;
+            source: string;
         };
         DeviationPage: {
             items: components["schemas"]["Deviation"][];
@@ -370,6 +435,15 @@ export interface components {
         };
         /** @description Request is syntactically valid but violates domain constraints */
         UnprocessableEntity: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/problem+json": components["schemas"]["ProblemDetails"];
+            };
+        };
+        /** @description Idempotency key was already used with different input */
+        Conflict: {
             headers: {
                 [name: string]: unknown;
             };
@@ -568,18 +642,77 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Schedule accepted for validation and import */
-            202: {
+            /** @description Idempotent replay of an existing revision */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImportAcceptedResponse"];
+                    "application/json": components["schemas"]["ScheduleRevisionResponse"];
+                };
+            };
+            /** @description Schedule revision created and activated */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScheduleRevisionResponse"];
                 };
             };
             400: components["responses"]["BadRequest"];
             401: components["responses"]["Unauthorized"];
+            409: components["responses"]["Conflict"];
             422: components["responses"]["UnprocessableEntity"];
+        };
+    };
+    getActiveWorkStages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectId: components["parameters"]["ProjectId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Active schedule revision */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScheduleRevisionResponse"];
+                };
+            };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
+        };
+    };
+    getWorkStageRevision: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectId: components["parameters"]["ProjectId"];
+                revisionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requested schedule revision */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScheduleRevisionResponse"];
+                };
+            };
+            401: components["responses"]["Unauthorized"];
+            404: components["responses"]["NotFound"];
         };
     };
     listDeviations: {

@@ -10,6 +10,8 @@ info:
     name: MIT
 defaultContentType: application/json
 tags:
+  - name: schedule
+    description: Immutable schedule revision lifecycle.
   - name: observations
     description: Image analysis lifecycle.
   - name: deviations
@@ -19,6 +21,12 @@ servers:
     url: nats://localhost:4222
     protocol: nats
 channels:
+  lct.schedule.revision_activated.v1:
+    description: New revision activated after its database transaction commits.
+    publish:
+      operationId: publishScheduleRevisionActivated
+      message:
+        $ref: "#/components/messages/ScheduleRevisionActivated"
   lct.observation.accepted.v1:
     description: Observation is persisted and ready for inference.
     publish:
@@ -39,6 +47,18 @@ channels:
         $ref: "#/components/messages/DeviationDetected"
 components:
   messages:
+    ScheduleRevisionActivated:
+      name: schedule.revision_activated.v1
+      messageId: schedule.revision_activated.v1
+      correlationId:
+        location: $message.payload#/correlation_id
+      payload:
+        allOf:
+          - $ref: "#/components/schemas/EventEnvelope"
+          - type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/ScheduleRevisionActivatedData"
     ObservationAccepted:
       name: observation.accepted.v1
       messageId: observation.accepted.v1
@@ -76,6 +96,13 @@ components:
               data:
                 $ref: "#/components/schemas/DeviationDetectedData"
   schemas:
+    ScheduleRevisionActivatedData:
+      type: object
+      required: [project_id, revision_id, activation_version]
+      properties:
+        project_id: { type: string, format: uuid }
+        revision_id: { type: string, format: uuid }
+        activation_version: { type: integer, format: int64, minimum: 1 }
     EventEnvelope:
       type: object
       required:

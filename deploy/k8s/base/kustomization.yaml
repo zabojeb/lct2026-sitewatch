@@ -7,9 +7,13 @@ resources:
   - secret.yaml
   - api-deployment.yaml
   - api-service.yaml
+  - schedule-configmap.yaml
+  - schedule-secret.yaml
+  - schedule-serviceaccount.yaml
+  - schedule-deployment.yaml
+  - schedule-service.yaml
   - web-deployment.yaml
   - web-service.yaml
   - ingress.yaml
 commonLabels:
   app.kubernetes.io/part-of: sitewatch
-

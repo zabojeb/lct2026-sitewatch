@@ -4,7 +4,7 @@ This directory is the boundary between the browser, Rust workloads and future ML
 
 - `openapi.yaml` defines synchronous HTTP calls.
 - `asyncapi.yaml` defines durable NATS JetStream messages.
-- `schemas/work-stage-import.schema.json` defines normalized schedule imports.
+- `schemas/work-stage-import.schema.json` defines the `stages:import` request body; the project UUID is supplied in the URL, not duplicated in JSON.
 - `examples/` contains executable examples used by tests and demos.
 
 ## Compatibility policy

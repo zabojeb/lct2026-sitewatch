@@ -5,6 +5,7 @@ resources:
   - api-hpa.yaml
   - web-hpa.yaml
   - api-pdb.yaml
+  - schedule-pdb.yaml
   - web-pdb.yaml
 patches:
   - target:
@@ -20,4 +21,6 @@ images:
   - name: ghcr.io/sitewatch/api
     newTag: 0.1.0
   - name: ghcr.io/sitewatch/web
+    newTag: 0.1.0
+  - name: ghcr.io/sitewatch/schedule
     newTag: 0.1.0

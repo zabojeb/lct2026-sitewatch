@@ -76,6 +76,7 @@ jobs:
       - uses: azure/setup-kubectl@v4
         with:
           version: v1.30.2
-      - run: docker compose -f deploy/compose.yaml --profile mlops --profile labeling config --quiet
+      - run: docker compose -f deploy/compose.yaml --profile mlops --profile labeling --profile live config --quiet
       - run: kubectl kustomize deploy/k8s/overlays/dev >/dev/null
       - run: kubectl kustomize deploy/k8s/overlays/prod >/dev/null
+      - run: kubectl kustomize deploy/k8s/jobs >/dev/null
