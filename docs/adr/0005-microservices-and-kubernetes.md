@@ -1,6 +1,6 @@
 # ADR 0005: Independently deployed backend services on Kubernetes
 
-- Status: accepted; implementation pending
+- Status: accepted; implementation in progress (schedule service implemented)
 - Date: 2026-09-20
 - Supersedes: ADR 0001
 - Decision owner: user, confirmed in the architecture discussion
@@ -13,9 +13,11 @@ Services cannot query another service's tables. NATS JetStream carries versioned
 The Python training/experimentation platform remains a separate MLOps workload; inference is an
 independently deployable runtime, not code executed in a web request.
 
-This ADR defines the target architecture. The existing `apps/api` process and consolidated migration
-are a legacy bootstrap, not an implementation of these service boundaries. Do not grow that process
-into a business monolith. The UI currently runs explicitly synthetic browser-local scenarios.
+This ADR defines the target architecture. `apps/schedule` is the first independently deployed
+service with its own database, runtime/migration roles, immutable revisions and transactional
+outbox. The existing `apps/api` process and consolidated migration are a legacy bootstrap, not an
+implementation of the other service boundaries. Do not grow that process into a business monolith.
+The UI currently runs explicitly synthetic browser-local scenarios.
 
 ## Ownership
 

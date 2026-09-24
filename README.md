@@ -6,8 +6,9 @@
 
 Целевая архитектура: независимые Rust-микросервисы в Kubernetes, NATS JetStream и отдельные БД/роли
 сервисов внутри одного PostgreSQL-кластера. Решение закреплено в
-[ADR 0005](docs/adr/0005-microservices-and-kubernetes.md). Текущий `apps/api` и общая миграция пока
-остаются прежним bootstrap-каркасом: декомпозиция бэкенда ещё не реализована.
+[ADR 0005](docs/adr/0005-microservices-and-kubernetes.md). `apps/schedule` — первый выделенный
+сервис с собственной БД, ревизиями плана и JetStream outbox. Остальные бизнес-сервисы ещё не
+реализованы; `apps/api` и общая миграция остаются прежним bootstrap-каркасом.
 
 ## Что уже заложено
 
@@ -24,6 +25,8 @@
 - нативный multi-arch образ PostgreSQL/PostGIS для Apple Silicon и x86_64;
 - CI для Rust, SvelteKit, контрактов и Kubernetes-манифестов.
 - воспроизводимый CV/MLOps-контур: DVC, Label Studio, Dagster, MLflow Model Registry и quality gates.
+- отдельный Rust-сервис графика: импорт и чтение неизменяемых ревизий, источники правил,
+  идемпотентность, монотонный номер активации, минимальные права runtime-роли и доставка событий.
 
 ## Быстрый запуск
 
@@ -39,6 +42,10 @@ pnpm dev
 экспорт JSON, тёмная/светлая тема и локальный предпросмотр изображений. Все площадки и наблюдения
 синтетические; изображения сгенерированы, разметка задана вручную. Бизнес-API и ML ещё не подключены.
 Демо не обращается к инфраструктуре и не отправляет загруженные изображения на сервер.
+
+Live-сервис графика запускается отдельно и пока намеренно не подключён к браузерному демо:
+для этого нужен авторизованный gateway/BFF и выбор OIDC-провайдера. Запуск, контракты и границы —
+в [runbook сервиса графика](docs/schedule-service.md).
 
 В пульте также доступны редактор обязательной/возможной техники и сроков, импорт плана JSON,
 ручная схема зон с соседними этапами и обзором, аналитика, семь тестовых сценариев и сводка с
@@ -93,6 +100,7 @@ make labeling-up    # Label Studio on port 8081
 ```text
 apps/
   api/              Rust/Axum control plane
+  schedule/         Isolated schedule service, migration and outbox publisher
   web/              SvelteKit operator interface
 crates/
   domain/           Product language and invariants

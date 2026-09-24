@@ -1867,6 +1867,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "sitewatch-schedule"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-nats",
+ "axum",
+ "chrono",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sitewatch-contracts",
+ "sitewatch-domain",
+ "sqlx",
+ "subtle",
+ "tokio",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "slab"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"

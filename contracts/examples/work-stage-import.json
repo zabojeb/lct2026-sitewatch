@@ -1,5 +1,4 @@
 {
-  "project_id": "0199a436-39d8-78e1-bf5e-8f12f8ac0301",
   "timezone": "Europe/Moscow",
   "source": "ЛЦТ 2026 demo schedule",
   "stages": [
@@ -18,7 +17,8 @@
           "min_count": 1,
           "max_count": null,
           "min_confidence": 0.65,
-          "persistence_frames": 3
+          "persistence_frames": 3,
+          "source": "Ведомость строительных машин, позиция 12"
         },
         {
           "equipment_class": "dump_truck",
@@ -32,4 +32,3 @@
     }
   ]
 }
-

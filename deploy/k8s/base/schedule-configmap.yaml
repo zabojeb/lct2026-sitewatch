@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sitewatch-schedule-config
+data:
+  SCHEDULE_HTTP_ADDR: 0.0.0.0:8082
+  RUST_LOG: sitewatch_schedule=info,sqlx=warn,async_nats=warn

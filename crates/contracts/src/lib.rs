@@ -4,8 +4,8 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sitewatch_domain::{
     AssetRef, CameraId, Detection, DeviationId, DeviationKind, DeviationStatus, EquipmentClass,
-    JobId, ObservationId, ObservationSource, ObservationStatus, ProjectId, Severity, StageId,
-    ZoneId,
+    JobId, ObservationId, ObservationSource, ObservationStatus, ProjectId, RuleExpectation,
+    Severity, StageId, ZoneId,
 };
 use utoipa::ToSchema;
 use uuid::Uuid;
@@ -104,6 +104,77 @@ pub struct DeviationResponse {
 pub struct EquipmentCount {
     pub equipment_class: EquipmentClass,
     pub count: u16,
+}
+
+/// Complete replacement of one project's active schedule revision.
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct WorkStageImportRequest {
+    pub timezone: String,
+    pub source: String,
+    pub stages: Vec<WorkStageInput>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct WorkStageInput {
+    pub code: String,
+    pub parent_code: Option<String>,
+    pub name: String,
+    pub zone_code: String,
+    pub planned_start: DateTime<Utc>,
+    pub planned_end: DateTime<Utc>,
+    pub observable_from_camera: bool,
+    pub equipment_rules: Vec<EquipmentRuleInput>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct EquipmentRuleInput {
+    pub equipment_class: EquipmentClass,
+    pub expectation: RuleExpectation,
+    pub min_count: u16,
+    pub max_count: Option<u16>,
+    pub min_confidence: f32,
+    pub persistence_frames: u16,
+    /// Rule-specific document reference; defaults to the import's source when omitted.
+    pub source: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+pub struct ScheduleRevisionResponse {
+    pub id: Uuid,
+    pub project_id: ProjectId,
+    /// Monotonic per-project activation order; consumers ignore older events.
+    pub activation_version: i64,
+    pub timezone: String,
+    pub source: String,
+    pub created_at: DateTime<Utc>,
+    pub stages: Vec<WorkStageRevisionItem>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+pub struct WorkStageRevisionItem {
+    pub id: StageId,
+    pub code: String,
+    pub parent_code: Option<String>,
+    pub name: String,
+    pub zone_code: String,
+    pub planned_start: DateTime<Utc>,
+    pub planned_end: DateTime<Utc>,
+    pub observable_from_camera: bool,
+    pub equipment_rules: Vec<EquipmentRuleRevisionItem>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+pub struct EquipmentRuleRevisionItem {
+    pub equipment_class: EquipmentClass,
+    pub expectation: RuleExpectation,
+    pub min_count: u16,
+    pub max_count: Option<u16>,
+    pub min_confidence: f32,
+    pub persistence_frames: u16,
+    pub source: String,
 }
 
 /// RFC 9457-compatible problem details returned by every HTTP error path.

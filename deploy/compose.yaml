@@ -279,6 +279,75 @@ services:
         condition: service_completed_successfully
     restart: unless-stopped
 
+  schedule-db-provision:
+    image: sitewatch/postgres:17-postgis3
+    profiles: ["live"]
+    entrypoint: ["/bin/bash", "-euc"]
+    command:
+      - >-
+        test -n "$$SCHEDULE_DB_PASSWORD" &&
+        test -n "$$SCHEDULE_MIGRATION_DB_PASSWORD" &&
+        psql -h postgres -U sitewatch -d postgres
+        -v runtime_password="$$SCHEDULE_DB_PASSWORD"
+        -v migration_password="$$SCHEDULE_MIGRATION_DB_PASSWORD"
+        -f /provision-schedule.sql
+    environment:
+      PGPASSWORD: sitewatch
+      SCHEDULE_DB_PASSWORD: ${SCHEDULE_DB_PASSWORD:-}
+      SCHEDULE_MIGRATION_DB_PASSWORD: ${SCHEDULE_MIGRATION_DB_PASSWORD:-}
+    volumes:
+      - ./postgres/provision-schedule.sql:/provision-schedule.sql:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  schedule-migrate:
+    build:
+      context: ..
+      dockerfile: apps/schedule/Dockerfile
+    profiles: ["live"]
+    entrypoint: ["/usr/local/bin/schedule-migrate"]
+    environment:
+      SCHEDULE_MIGRATION_DATABASE_URL: ${SCHEDULE_MIGRATION_DATABASE_URL:-}
+    depends_on:
+      schedule-db-provision:
+        condition: service_completed_successfully
+    restart: "no"
+
+  schedule-nats-provision:
+    build:
+      context: ..
+      dockerfile: apps/schedule/Dockerfile
+    profiles: ["live"]
+    entrypoint: ["/usr/local/bin/schedule-provision-nats"]
+    environment:
+      NATS_URL: nats://nats:4222
+    depends_on:
+      nats:
+        condition: service_healthy
+    restart: "no"
+
+  schedule:
+    build:
+      context: ..
+      dockerfile: apps/schedule/Dockerfile
+    profiles: ["live"]
+    environment:
+      SCHEDULE_DATABASE_URL: ${SCHEDULE_DATABASE_URL:-}
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      NATS_URL: nats://nats:4222
+      SCHEDULE_HTTP_ADDR: 0.0.0.0:8082
+      RUST_LOG: sitewatch_schedule=info,sqlx=warn,async_nats=warn
+    ports:
+      - "127.0.0.1:${SCHEDULE_PORT:-8082}:8082"
+    depends_on:
+      schedule-migrate:
+        condition: service_completed_successfully
+      schedule-nats-provision:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
   web:
     build:
       context: ..
