@@ -7,7 +7,7 @@ from typing import Any
 
 import yaml
 
-from sitewatch_ml.models import ExperimentConfig, PipelineConfig
+from sitewatch_ml.models import ClassifierExperimentConfig, ExperimentConfig, PipelineConfig
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 _ENV_PATTERN = re.compile(r"\$\{([A-Z0-9_]+)(?::-([^}]*))?}")
@@ -29,6 +29,10 @@ def load_pipeline_config(path: Path | None = None) -> PipelineConfig:
 
 def load_experiment_config(path: Path) -> ExperimentConfig:
     return ExperimentConfig.model_validate(_expand_env(_load_yaml(path)))
+
+
+def load_classifier_experiment_config(path: Path) -> ClassifierExperimentConfig:
+    return ClassifierExperimentConfig.model_validate(_expand_env(_load_yaml(path)))
 
 
 def _resolve_project_path(value: Path | str) -> Path:

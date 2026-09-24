@@ -2,6 +2,7 @@
   import { untrack } from 'svelte';
   import {
     equipment,
+    upgradeWorkspace,
     validateWorkspace,
     type Equipment,
     type Workspace,
@@ -23,6 +24,9 @@
     stage.possible = stage.possible.filter((e) => e !== key);
     if (value === 'required') stage.required = [...stage.required, key];
     if (value === 'possible') stage.possible = [...stage.possible, key];
+    if (value === 'required') stage.requiredCounts[key] ||= 1;
+    else delete stage.requiredCounts[key];
+    if (value === 'none') delete stage.maxCounts[key];
     message = '';
   }
   function save(event: SubmitEvent) {
@@ -36,7 +40,7 @@
     try {
       if (importText.length > 100000) throw new Error('Слишком большой JSON (максимум 100 КБ).');
       const value = JSON.parse(importText);
-      const next = value.workspace || value;
+      const next = upgradeWorkspace(value.workspace || value);
       const validation = validateWorkspace(next);
       if (validation) throw new Error(validation);
       if (
@@ -113,21 +117,58 @@
         ><input type="checkbox" bind:checked={stage.observable} /> Этап можно оценить по внешним камерам</label
       >
       <fieldset class="equipment-editor">
-        <legend>Требования к технике</legend>{#each Object.entries(equipment) as [key, label]}<label
-            ><span>{label}</span><select
-              class="control"
-              aria-label={`${label}: требование`}
-              value={stage.required.includes(key as Equipment)
-                ? 'required'
-                : stage.possible.includes(key as Equipment)
-                  ? 'possible'
-                  : 'none'}
-              onchange={(e) => setEquipment(key as Equipment, e.currentTarget.value)}
-              ><option value="none">Не предусмотрена</option><option value="required"
-                >Обязательная</option
-              ><option value="possible">Возможная</option></select
-            ></label
-          >{/each}
+        <legend>Требования к технике</legend>{#each Object.entries(equipment) as [key, label]}<div
+            class="equipment-rule"
+          >
+            <label
+              ><span>{label}</span><select
+                class="control"
+                aria-label={`${label}: требование`}
+                value={stage.required.includes(key as Equipment)
+                  ? 'required'
+                  : stage.possible.includes(key as Equipment)
+                    ? 'possible'
+                    : 'none'}
+                onchange={(e) => setEquipment(key as Equipment, e.currentTarget.value)}
+                ><option value="none">Не предусмотрена</option><option value="required"
+                  >Обязательная</option
+                ><option value="possible">Возможная</option></select
+              ></label
+            >{#if stage.required.includes(key as Equipment)}<label class="field count-field"
+                >Минимум, шт.<input
+                  type="number"
+                  aria-label={`${label}: минимум, шт.`}
+                  min="1"
+                  max="99"
+                  step="1"
+                  value={stage.requiredCounts[key as Equipment] ?? 1}
+                  oninput={(e) =>
+                    (stage.requiredCounts[key as Equipment] = Number(e.currentTarget.value))}
+                /></label
+              >{/if}{#if stage.required.includes(key as Equipment) || stage.possible.includes(key as Equipment)}<label
+                class="field count-field"
+                >Максимум, шт. (необязательно)<input
+                  type="number"
+                  aria-label={`${label}: максимум, шт.`}
+                  min={stage.requiredCounts[key as Equipment] ?? 1}
+                  max="99"
+                  step="1"
+                  value={stage.maxCounts[key as Equipment] ?? ''}
+                  oninput={(e) => {
+                    if (e.currentTarget.value === '') delete stage.maxCounts[key as Equipment];
+                    else stage.maxCounts[key as Equipment] = Number(e.currentTarget.value);
+                  }}
+                /></label
+              ><label class="field rule-source"
+                >Основание именно для {label.toLowerCase()}<input
+                  aria-label={`${label}: источник правила`}
+                  value={stage.ruleSources[key as Equipment] || ''}
+                  maxlength={500}
+                  placeholder="Пункт ведомости или методики; пусто — общее основание этапа"
+                  oninput={(e) => (stage.ruleSources[key as Equipment] = e.currentTarget.value)}
+                /></label
+              >{/if}
+          </div>{/each}
       </fieldset>
       <label class="field"
         >Основание правил<textarea bind:value={stage.source} maxlength={1000} required
@@ -159,6 +200,13 @@
             >Предыдущий замер<input type="date" bind:value={stage.previousDate} required /></label
           >
           <label class="field"
+            >Время предыдущего замера, МСК<input
+              type="time"
+              bind:value={stage.previousTime}
+              required
+            /></label
+          >
+          <label class="field"
             >Текущая готовность, %<input
               type="number"
               value={stage.progress ?? ''}
@@ -173,9 +221,30 @@
           <label class="field"
             >Текущий замер<input type="date" bind:value={stage.progressDate} required /></label
           >
+          <label class="field"
+            >Время текущего замера, МСК<input
+              type="time"
+              bind:value={stage.progressTime}
+              required
+            /></label
+          >
+        </div>
+        <div class="field-grid">
+          <label class="field"
+            >Фактическое начало этапа, МСК<input
+              type="datetime-local"
+              bind:value={stage.actualStart}
+            /></label
+          >
+          <label class="field"
+            >Фактическое завершение этапа, МСК<input
+              type="datetime-local"
+              bind:value={stage.actualEnd}
+            /></label
+          >
         </div>
         <label class="field"
-          >Источник готовности<input
+          >Источник готовности и фактических дат<input
             bind:value={stage.progressSource}
             maxlength={500}
             placeholder="Например: демонстрационный ручной замер"

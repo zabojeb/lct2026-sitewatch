@@ -66,3 +66,14 @@ construction norms, production forecasting, actual dataset generation, business 
 authentication, server persistence and outbound operational alerts still require integration.
 The existing Rust microservices / separate PostgreSQL databases / NATS / Kubernetes decision is
 unchanged. No backend handler, contract, migration or Kubernetes configuration changed in this pass.
+
+## Дополнение 2026-09-24
+
+Редактор теперь принимает минимальное количество и источник для каждого обязательного типа
+техники; в аналитике можно отдельно от исходного снимка вручную уточнить количество, зону и
+период без перемещения с обязательным источником. Есть предупреждения о недоборе и возможном
+застое, а более подходящий по набору техники этап выводится только как проверяемая гипотеза.
+Ручные замеры времени позволяют показать отставание/опережение в часах и фактическую
+длительность. Старые локальные планы v1 мигрируют в v2. Это по-прежнему демо, не живой
+детектор или подтверждённый простой. Полная граница реализованного и следующего этапа —
+[`schedule-and-evidence-requirements.md`](schedule-and-evidence-requirements.md).

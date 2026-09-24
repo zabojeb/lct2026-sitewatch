@@ -14,11 +14,28 @@ from mlflow.exceptions import MlflowException
 
 from sitewatch_ml.io import read_json, sha256_file, write_json
 from sitewatch_ml.models import (
+    ClassifierExperimentConfig,
     DatasetQualityReport,
+    EquipmentClass,
     ExperimentConfig,
     ModelManifest,
     PipelineConfig,
 )
+
+
+def _macro_f1(matrix: list[list[float]]) -> float | None:
+    """Macro F1 from a square, class-by-class validation confusion matrix."""
+    size = len(matrix)
+    if not size or any(len(row) != size for row in matrix):
+        return None
+    scores: list[float] = []
+    for index in range(size):
+        tp = matrix[index][index]
+        denominator = sum(matrix[index]) + sum(row[index] for row in matrix)
+        if denominator <= 0:
+            return None
+        scores.append(2 * tp / denominator)
+    return sum(scores) / size
 
 
 def log_dataset_audit(config: PipelineConfig, report_path: Path) -> str:
@@ -101,6 +118,7 @@ def train_detector(
             deterministic=experiment.deterministic,
             amp=experiment.amp,
             cache=experiment.cache,
+            **experiment.augmentation.model_dump(),
             project=str(run_directory.parent),
             name=run_directory.name,
             exist_ok=True,
@@ -135,6 +153,7 @@ def train_detector(
             gate_tags["sitewatch.champion_map50_95"] = str(champion_map)
         mlflow.set_tags(gate_tags)
         manifest = ModelManifest(
+            class_names=list(EquipmentClass),
             model_name=pipeline.tracking.registry_model_name,
             run_id=run.info.run_id,
             dataset_fingerprint=quality_report.dataset_fingerprint,
@@ -153,6 +172,116 @@ def train_detector(
         mlflow.set_tag("sitewatch.lifecycle", "candidate" if gate_passed else "rejected")
         if gate_passed and not pipeline.tracking.uri.startswith("file:"):
             _register_candidate(pipeline.tracking.registry_model_name, run.info.run_id)
+        return manifest
+
+
+def train_classifier(
+    pipeline: PipelineConfig,
+    experiment: ClassifierExperimentConfig,
+    dataset_dir: Path,
+    experiment_config_path: Path,
+) -> ModelManifest:
+    """Train the independent crop classifier and gate on validation top-1 and macro F1."""
+    try:
+        from ultralytics import YOLO, settings
+    except ImportError as error:
+        message = "training dependencies are missing; run `uv sync --extra train`"
+        raise RuntimeError(message) from error
+
+    settings.update({"mlflow": False})
+    mlflow.set_tracking_uri(pipeline.tracking.uri)
+    mlflow.set_experiment(pipeline.tracking.experiment_name)
+    quality_report = DatasetQualityReport.model_validate(
+        read_json(pipeline.paths.manifests / "quality-report.json")
+    )
+    crop_records = read_json(dataset_dir / "crop-manifest.json")
+    class_names = sorted({record["class"] for record in crop_records})
+    run_directory = pipeline.paths.artifacts / "runs" / experiment.name
+    run_directory.mkdir(parents=True, exist_ok=True)
+    model_name = f"{pipeline.tracking.registry_model_name}-classifier"
+
+    with mlflow.start_run(run_name=experiment.name) as run:
+        mlflow.set_tags(
+            {
+                "sitewatch.stage": "classification_training",
+                "sitewatch.lifecycle": "training",
+                "sitewatch.dataset_fingerprint": quality_report.dataset_fingerprint,
+                "sitewatch.code_revision": code_revision(),
+                "sitewatch.framework": "ultralytics",
+                "sitewatch.task": "classify",
+            }
+        )
+        mlflow.log_params(_flatten(experiment.model_dump(mode="json")))
+        mlflow.log_artifact(str(experiment_config_path), artifact_path="configuration")
+        mlflow.log_artifact(str(dataset_dir / "crop-manifest.json"), artifact_path="dataset")
+        model = YOLO(experiment.base_model)
+        model.train(
+            data=str(dataset_dir),
+            imgsz=experiment.image_size,
+            epochs=experiment.epochs,
+            batch=experiment.batch_size,
+            patience=experiment.patience,
+            workers=experiment.workers,
+            device=experiment.device,
+            seed=experiment.seed,
+            deterministic=experiment.deterministic,
+            amp=experiment.amp,
+            cache=experiment.cache,
+            project=str(run_directory.parent),
+            name=run_directory.name,
+            exist_ok=True,
+        )
+        best_weights = run_directory / "weights" / "best.pt"
+        if not best_weights.is_file():
+            raise RuntimeError(f"trainer did not produce expected weights: {best_weights}")
+        best = YOLO(str(best_weights))
+        validation = best.val(data=str(dataset_dir), split="val")
+        metrics = {
+            str(name): float(value)
+            for name, value in getattr(validation, "results_dict", {}).items()
+            if isinstance(value, (int, float))
+        }
+        matrix = getattr(getattr(validation, "confusion_matrix", None), "matrix", None)
+        macro_f1 = _macro_f1(matrix.tolist()) if matrix is not None else None
+        if macro_f1 is not None:
+            metrics["metrics/macro_f1"] = macro_f1
+        mlflow.log_metrics(metrics)
+        top1 = metrics.get("metrics/accuracy_top1")
+        gate_passed = bool(
+            top1 is not None
+            and top1 >= experiment.top1_gate_min
+            and macro_f1 is not None
+            and macro_f1 >= experiment.macro_f1_gate_min
+        )
+        exported = Path(
+            best.export(
+                format=experiment.export.format,
+                dynamic=experiment.export.dynamic,
+                simplify=experiment.export.simplify,
+                imgsz=experiment.image_size,
+            )
+        )
+        manifest = ModelManifest(
+            task="classify",
+            class_names=class_names,
+            model_name=model_name,
+            run_id=run.info.run_id,
+            dataset_fingerprint=quality_report.dataset_fingerprint,
+            code_revision=code_revision(),
+            source_model=experiment.base_model,
+            artifact_path=str(exported),
+            artifact_sha256=sha256_file(exported),
+            metrics=metrics,
+            promotion_gate_passed=gate_passed,
+        )
+        manifest_path = run_directory / "model-manifest.json"
+        write_json(manifest_path, manifest)
+        mlflow.log_artifact(str(best_weights), artifact_path="model")
+        mlflow.log_artifact(str(exported), artifact_path="model")
+        mlflow.log_artifact(str(manifest_path), artifact_path="model")
+        mlflow.set_tag("sitewatch.lifecycle", "candidate" if gate_passed else "rejected")
+        if gate_passed and not pipeline.tracking.uri.startswith("file:"):
+            _register_candidate(model_name, run.info.run_id)
         return manifest
 
 

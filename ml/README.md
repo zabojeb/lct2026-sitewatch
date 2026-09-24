@@ -27,10 +27,16 @@ Training becomes available only after YOLO annotations exist:
 
 ```bash
 uv sync --group dev --extra train
-uv run sitewatch-ml train --config config/experiments/baseline.yaml
+uv run sitewatch-ml train --experiment-config config/experiments/baseline.yaml
+uv run sitewatch-ml train-classifier --experiment-config config/experiments/classifier-baseline.yaml
 ```
 
 See [`../docs/mlops.md`](../docs/mlops.md) for the complete local and Kubernetes workflow.
+The classifier command builds split-safe crops from admitted detection labels and applies
+machine-only augmentations to train crops. Detector scene augmentations are configured
+separately. Weather/season background synthesis and temporal violation scenarios are not
+currently materialized; their prerequisites and evaluation gates are recorded in
+[`../docs/schedule-and-evidence-requirements.md`](../docs/schedule-and-evidence-requirements.md).
 
 ## External source audit
 

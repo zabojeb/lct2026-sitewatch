@@ -484,6 +484,7 @@
       {workspace}
       onplan={() => (view = 'schedule')}
       onzones={() => (view = 'zones')}
+      onchange={saveWorkspace}
     />
   {:else if view === 'scenarios'}
     <ScenarioLab selected={scenario} onchange={(s) => (scenario = s)} />
@@ -493,6 +494,7 @@
       {scenario}
       onplan={() => (view = 'schedule')}
       onzones={() => (view = 'zones')}
+      onchange={saveWorkspace}
     />
   {:else if view === 'journal'}
     <div class="journal-header">

@@ -1,0 +1,28 @@
+name: equipment-crop-classifier-640
+description: Separate crop classifier; detector boxes become candidates, not final rule evidence.
+base_model: yolo11s-cls.pt
+image_size: 224
+epochs: 60
+batch_size: 32
+patience: 12
+workers: 4
+device: auto
+seed: 20260919
+deterministic: true
+amp: true
+cache: false
+augmentation:
+  variants_per_train_crop: 2
+  brightness_min: 0.75
+  brightness_max: 1.25
+  contrast_min: 0.8
+  contrast_max: 1.2
+  horizontal_flip_probability: 0.5
+  blur_probability: 0.15
+  context_fraction: 0.1
+export:
+  format: onnx
+  dynamic: true
+  simplify: true
+top1_gate_min: 0.65
+macro_f1_gate_min: 0.55

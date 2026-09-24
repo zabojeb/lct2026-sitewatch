@@ -101,12 +101,20 @@ cd ml
 uv sync --frozen --group dev --extra train
 MLFLOW_TRACKING_URI=http://localhost:5050 \
   uv run sitewatch-ml train --experiment config/experiments/baseline.yaml
+MLFLOW_TRACKING_URI=http://localhost:5050 \
+  uv run sitewatch-ml train-classifier --experiment config/experiments/classifier-baseline.yaml
 uv run sitewatch-ml promote --run-id <candidate-run-id>
+uv run sitewatch-ml promote-classifier --run-id <gated-classifier-run-id>
 ```
 
 The baseline logs all hyperparameters, dataset reports, split manifest, metrics, best checkpoint,
 ONNX export and a checksum-bearing model manifest. Promotion thresholds live in the experiment YAML
 and therefore participate in code review.
+The classifier uses scene-disjoint object crops, train-only machine augmentations and a separate
+top-1/macro-F1 gate. Neither model has been trained on the incomplete organizer labels yet;
+these commands are gated by dataset readiness. Background-only weather synthesis and temporal
+violation augmentation need masks/event ground truth and are not currently enabled; see
+[`schedule-and-evidence-requirements.md`](schedule-and-evidence-requirements.md).
 
 ## Production shape
 

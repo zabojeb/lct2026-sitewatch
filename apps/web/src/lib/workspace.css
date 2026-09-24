@@ -119,6 +119,25 @@
   width: 100%;
   min-width: 0;
 }
+.equipment-rule {
+  border-top: 1px solid var(--line);
+  padding: 10px 0;
+}
+.equipment-rule > label:first-child {
+  border-top: 0;
+  padding: 0;
+}
+.equipment-rule .count-field,
+.equipment-rule .rule-source {
+  margin: 10px 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+.equipment-rule .field input {
+  width: 100%;
+}
 .editor-actions {
   display: flex;
   gap: 12px;
@@ -146,6 +165,37 @@
 }
 .progress-editor .field-grid {
   margin-bottom: 18px;
+}
+.manual-observation {
+  margin: 28px 0;
+}
+.manual-observation-grid {
+  display: grid;
+  gap: 0;
+  margin-bottom: 22px;
+}
+.manual-observation-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+.manual-observation-row strong {
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+.manual-observation-row .field {
+  font-size: 11px;
+}
+.manual-observation .editor-actions {
+  margin-top: 20px;
+}
+@media (max-width: 760px) {
+  .manual-observation-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 .import-panel {
   padding: 22px;
