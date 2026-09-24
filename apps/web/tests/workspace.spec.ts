@@ -9,6 +9,7 @@ import {
   summary,
   projectObservation,
   workspaceKey,
+  formatVariance,
 } from '../src/lib/demo/workspace';
 
 test('demo rules retain evidence, handle overlaps and never judge invisible stages', () => {
@@ -61,6 +62,8 @@ test('progress is sourced manual input and forecasts require positive measured c
   expect(progressEstimate(s)).toMatchObject({
     planned: 67,
     delta: -17,
+    varianceHours: 36,
+    plannedDurationHours: 216,
     rate: 10,
     finish: '2026-09-24',
     delay: 2,
@@ -74,6 +77,82 @@ test('progress is sourced manual input and forecasts require positive measured c
   const report = summary(observations[0], analyze(observations[0], w), 'original');
   expect(report).toContain('LLM/VLM не подключены');
   expect(report).toContain('Уведомление не отправлено');
+});
+
+test('quantity, zone, manual movement and hour-level schedule variance retain provenance', () => {
+  const w = defaults('north');
+  w.stages[0].requiredCounts.truck = 2;
+  w.stages[0].requiredCounts.excavator = 2;
+  w.stages[0].ruleSources.excavator = 'Ведомость механизации, пункт 2';
+  w.stages[0].maxCounts.excavator = 2;
+  w.manualObservations['OBS-1042'] = {
+    counts: { excavator: 1, truck: 1 },
+    equipmentZones: { excavator: 'building' },
+    stationaryMinutes: { excavator: 90 },
+    source: 'Журнал диспетчера, 11:32',
+  };
+  expect(validateWorkspace(w)).toBe('');
+  const result = analyze(observations[0], w);
+  expect(result.findings.filter((f) => f.code === 'equipment_shortage')).toHaveLength(2);
+  expect(result.findings.map((f) => f.code)).toContain('equipment_zone');
+  expect(result.findings.map((f) => f.code)).toContain('possible_idle_equipment');
+  expect(result.findings.find((f) => f.code === 'equipment_shortage')?.expected).toContain(
+    'Ведомость',
+  );
+  expect(result.manualSource).toBe('Журнал диспетчера, 11:32');
+  w.manualObservations['OBS-1042'].counts.excavator = 3;
+  expect(analyze(observations[0], w).findings.map((f) => f.code)).toContain('equipment_excess');
+  w.zones[0].coverage = 30;
+  expect(analyze(observations[0], w).assessment).toBe('insufficient_evidence');
+  const stage = w.stages[0];
+  stage.progress = 50;
+  stage.progressSource = 'Акт';
+  stage.progressTime = '11:59';
+  expect(progressEstimate(stage).varianceHours).toBe(24);
+  expect(formatVariance(24)).toBe('Отставание на 1 дн.');
+  stage.actualStart = '2026-09-14T12:00';
+  stage.actualEnd = '2026-09-22T12:00';
+  expect(progressEstimate(stage).actualDurationHours).toBe(192);
+  expect(progressEstimate(stage).actualFinishVarianceHours).toBe(-12);
+});
+
+test('a better matching equipment set proposes another stage but never switches the planned stage', () => {
+  const w = defaults('north');
+  w.manualObservations['OBS-1042'] = {
+    counts: { crane: 1, mixer: 1 },
+    equipmentZones: {},
+    stationaryMinutes: {},
+    source: 'Проверка оператора',
+  };
+  const result = analyze(observations[0], w);
+  expect(result.stage.id).toBe('excavation');
+  expect(result.likelyAlternative).toBe('Монтаж конструкций');
+  expect(result.findings.find((f) => f.code === 'alternate_stage_candidate')?.level).toBe('info');
+});
+
+test('stored v1 workspaces migrate without losing rules and reject malformed manual input', () => {
+  const old = defaults('north') as unknown as Record<string, unknown>;
+  old.version = 1;
+  delete old.manualObservations;
+  for (const stage of old.stages as Record<string, unknown>[]) {
+    delete stage.requiredCounts;
+    delete stage.maxCounts;
+    delete stage.ruleSources;
+    delete stage.progressTime;
+    delete stage.previousTime;
+    delete stage.actualStart;
+    delete stage.actualEnd;
+  }
+  const migrated = parseWorkspace(JSON.stringify(old), 'north');
+  expect(migrated.stages[0].requiredCounts.truck).toBe(1);
+  expect(migrated.manualObservations).toEqual({});
+  migrated.manualObservations['OBS-1042'] = {
+    counts: { truck: -1 },
+    equipmentZones: {},
+    stationaryMinutes: {},
+    source: 'акт',
+  };
+  expect(validateWorkspace(migrated)).toContain('количество');
 });
 
 test('plan edits recalculate observations, persist and stay isolated by site', async ({ page }) => {
@@ -97,7 +176,9 @@ test('manual progress, summary, provenance and local alert work', async ({ page 
   await page.getByText('Замеры готовности и сценарий завершения', { exact: true }).click();
   await page.getByLabel('Предыдущая готовность, %', { exact: true }).fill('20');
   await page.getByLabel('Текущая готовность, %', { exact: true }).fill('50');
-  await page.getByLabel('Источник готовности', { exact: true }).fill('Демонстрационный акт');
+  await page
+    .getByLabel('Источник готовности и фактических дат', { exact: true })
+    .fill('Демонстрационный акт');
   await page.getByRole('button', { name: 'Применить план', exact: true }).click();
   await page.getByRole('button', { name: 'Аналитика', exact: true }).click();
   await expect(page.getByText('Отставание 17 п.п.', { exact: true })).toBeVisible();
@@ -108,6 +189,28 @@ test('manual progress, summary, provenance and local alert work', async ({ page 
   await page.getByRole('button', { name: 'Подготовить алерт', exact: true }).click();
   await expect(page.getByText('Черновик для прораба · не отправлен')).toBeVisible();
   await expect(page.locator('.summary-panel pre')).toContainText('Не ML-прогноз');
+});
+
+test('operator count and zone input is saved separately from authored image boxes', async ({
+  page,
+}) => {
+  await page.goto('/app?view=schedule');
+  await page.getByLabel('Экскаватор: минимум, шт.').fill('2');
+  await page.getByRole('button', { name: 'Применить план', exact: true }).click();
+  await page.getByRole('button', { name: 'Аналитика', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Техники меньше плана' })).toBeVisible();
+  await page.getByText('Уточнить наблюдение вручную: количество, зона, движение').click();
+  await page.getByLabel('Экскаватор: без перемещения, мин.').fill('90');
+  await page.getByLabel('Экскаватор: фактическая зона').selectOption('building');
+  await page.getByLabel('Источник ручного наблюдения').fill('Журнал диспетчера');
+  await page.getByRole('button', { name: 'Сохранить наблюдение' }).click();
+  await expect(page.getByRole('heading', { name: 'Возможный застой техники' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Техника находится не в назначенной зоне' }),
+  ).toBeVisible();
+  await page.reload();
+  await page.getByRole('button', { name: 'Аналитика', exact: true }).click();
+  await expect(page.getByText(/Ручная корректировка наблюдения/)).toBeVisible();
 });
 
 test('zones change visibility, stage and overlap rules with validated bounds', async ({ page }) => {

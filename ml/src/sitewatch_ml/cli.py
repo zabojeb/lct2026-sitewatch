@@ -7,7 +7,12 @@ from typing import Annotated
 import typer
 
 from sitewatch_ml.audit import audit_dataset
-from sitewatch_ml.config import PROJECT_ROOT, load_experiment_config, load_pipeline_config
+from sitewatch_ml.config import (
+    PROJECT_ROOT,
+    load_classifier_experiment_config,
+    load_experiment_config,
+    load_pipeline_config,
+)
 from sitewatch_ml.ingest import ingest_archive
 from sitewatch_ml.labeling import create_label_studio_tasks, import_label_studio_export
 from sitewatch_ml.prepare import prepare_yolo_dataset
@@ -136,6 +141,37 @@ def train(
     typer.echo(manifest.model_dump_json(indent=2))
 
 
+@app.command("train-classifier")
+def train_classifier_command(
+    experiment_config: Annotated[
+        Path,
+        typer.Option("--experiment-config", "--experiment", help="Classifier YAML."),
+    ] = PROJECT_ROOT / "config" / "experiments" / "classifier-baseline.yaml",
+    config: ConfigOption = None,
+) -> None:
+    """Prepare split-safe machine crops and train the separate classifier."""
+    from sitewatch_ml.classifier_data import prepare_classifier_crops
+    from sitewatch_ml.experiments import train_classifier
+
+    pipeline = load_pipeline_config(config)
+    experiment = load_classifier_experiment_config(experiment_config)
+    prepare_yolo_dataset(
+        pipeline.paths.raw_images,
+        pipeline.paths.annotations,
+        pipeline.paths.manifests / "quality-report.json",
+        pipeline.paths.manifests / "split-manifest.json",
+        pipeline.paths.prepared_dataset,
+    )
+    dataset_dir = prepare_classifier_crops(
+        pipeline.paths.prepared_dataset,
+        pipeline.paths.prepared_dataset.parent / "classifier",
+        experiment.augmentation,
+        experiment.seed,
+    )
+    manifest = train_classifier(pipeline, experiment, dataset_dir, experiment_config)
+    typer.echo(manifest.model_dump_json(indent=2))
+
+
 @app.command()
 def promote(
     run_id: Annotated[str, typer.Option(help="Candidate MLflow run id.")],
@@ -149,6 +185,20 @@ def promote(
         pipeline.tracking.uri, pipeline.tracking.registry_model_name, run_id
     )
     typer.echo(f"champion={pipeline.tracking.registry_model_name}@{version}")
+
+
+@app.command("promote-classifier")
+def promote_classifier(
+    run_id: Annotated[str, typer.Option(help="Gated classifier MLflow run id.")],
+    config: ConfigOption = None,
+) -> None:
+    """Promote a separately gated classifier without touching the detector alias."""
+    from sitewatch_ml.experiments import promote_candidate
+
+    pipeline = load_pipeline_config(config)
+    name = f"{pipeline.tracking.registry_model_name}-classifier"
+    version = promote_candidate(pipeline.tracking.uri, name, run_id)
+    typer.echo(f"champion={name}@{version}")
 
 
 if __name__ == "__main__":

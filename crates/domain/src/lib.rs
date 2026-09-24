@@ -11,6 +11,8 @@ use thiserror::Error;
 use utoipa::ToSchema;
 use uuid::Uuid;
 
+pub mod evaluation;
+
 macro_rules! entity_id {
     ($name:ident) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, ToSchema)]
@@ -297,6 +299,12 @@ pub enum DomainValidationError {
     InvalidCountRange,
     #[error("persistence window must contain at least one frame")]
     ZeroPersistenceWindow,
+    #[error("planned end must be after planned start")]
+    InvalidSchedule,
+    #[error("completion must be in [0, 100] and have a source")]
+    InvalidProgressMeasurement,
+    #[error("evidence must match the rule and coverage/provenance must be valid")]
+    InvalidEvidence,
 }
 
 #[cfg(test)]

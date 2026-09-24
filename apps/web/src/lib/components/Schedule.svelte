@@ -13,7 +13,7 @@
       start: Math.round((Date.parse(s.start) - first) / 86400000),
       span: Math.round((Date.parse(s.end) - Date.parse(s.start)) / 86400000) + 1,
       equipment: s.observable
-        ? `Обязательная: ${s.required.map((e) => equipment[e]).join(', ') || 'не задана'}`
+        ? `Обязательная: ${s.required.map((e) => `${equipment[e]} ≥ ${s.requiredCounts[e] ?? 1}${s.maxCounts[e] === undefined ? '' : `, ≤ ${s.maxCounts[e]}`}`).join(', ') || 'не задана'}`
         : 'Не оценивается по внешней камере',
     })),
   );

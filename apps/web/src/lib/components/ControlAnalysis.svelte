@@ -1,9 +1,14 @@
 <script lang="ts">
   import {
     analyze,
+    equipment,
+    formatVariance,
     progressEstimate,
     scenarios,
     summary,
+    validateWorkspace,
+    type Equipment,
+    type ManualObservation,
     type Scenario,
     type Workspace,
   } from '$lib/demo/workspace';
@@ -14,12 +19,14 @@
     scenario = 'original',
     onplan,
     onzones,
+    onchange,
   }: {
     observation: Observation;
     workspace: Workspace;
     scenario?: Scenario;
     onplan: () => void;
     onzones: () => void;
+    onchange: (next: Workspace) => void;
   } = $props();
   const analysis = $derived(analyze(observation, workspace, scenario));
   const progress = $derived(progressEstimate(analysis.stage));
@@ -29,6 +36,47 @@
   );
   let copied = $state('');
   let draft = $state(false);
+  let manualError = $state('');
+  let manualMessage = $state('');
+  function manualDraft(current: Observation, plan: Workspace): ManualObservation {
+    return structuredClone(
+      plan.manualObservations[current.id] || {
+        counts: Object.fromEntries(
+          (Object.keys(equipment) as Equipment[]).map((key) => [
+            key,
+            current.detections.filter((d) => d.label === equipment[key]).length,
+          ]),
+        ),
+        equipmentZones: {},
+        stationaryMinutes: {},
+        source: '',
+      },
+    );
+  }
+  let manual = $state<ManualObservation>({
+    counts: {},
+    equipmentZones: {},
+    stationaryMinutes: {},
+    source: '',
+  });
+  $effect(() => {
+    manual = manualDraft(observation, workspace);
+  });
+  function saveManual() {
+    const next = structuredClone($state.snapshot(workspace));
+    next.manualObservations[observation.id] = structuredClone($state.snapshot(manual));
+    manualError = validateWorkspace(next);
+    if (manualError) return;
+    onchange(next);
+    manualMessage = 'Ручной замер сохранён. Выводы пересчитаны; рамки на фото не изменены.';
+  }
+  function removeManual() {
+    const next = structuredClone($state.snapshot(workspace));
+    delete next.manualObservations[observation.id];
+    onchange(next);
+    manualError = '';
+    manualMessage = 'Ручная корректировка удалена.';
+  }
   async function copy() {
     try {
       await navigator.clipboard.writeText(report);
@@ -56,6 +104,10 @@
   </div>
   {#if scenario !== 'original'}<p class="simulation-notice">
       Симуляция: {scenarios.find((s) => s.id === scenario)?.detail} Эти входы не распознаны на фотографии.
+    </p>{/if}
+  {#if analysis.manualSource}<p class="simulation-notice">
+      Ручная корректировка наблюдения · источник: {analysis.manualSource}. Исходные рамки кадра не
+      меняются.
     </p>{/if}
   <div class="analysis-columns">
     <div>
@@ -96,6 +148,14 @@
       <details class="method-detail">
         <summary>Источник правил и показателей</summary>
         <p>{analysis.stage.source}</p>
+        {#each analysis.stage.required as key}<p>
+            {equipment[key]} ≥ {analysis.stage.requiredCounts[key] ?? 1}{analysis.stage.maxCounts[
+              key
+            ] === undefined
+              ? ''
+              : `, ≤ ${analysis.stage.maxCounts[key]}`}: {analysis.stage.ruleSources[key] ||
+              'общее основание этапа выше'}
+          </p>{/each}
         <p>
           Правила введены командой / оператором. Обзор ({analysis.coverage}%) задан вручную. Объекты
           и уверенность размечены в демо, не получены моделью.
@@ -132,6 +192,65 @@
       </p>
     </div>
   </div>
+  {#if scenario === 'original'}<details class="manual-observation">
+      <summary>Уточнить наблюдение вручную: количество, зона, движение</summary>
+      <p class="work-note">
+        Это данные оператора, не результат детектора. Неподвижность даже за час — повод проверить
+        работу, а не доказанный простой.
+      </p>
+      <div class="manual-observation-grid">
+        {#each Object.entries(equipment) as [key, label]}<div class="manual-observation-row">
+            <strong>{label}</strong>
+            <label class="field"
+              >Количество, шт.<input
+                type="number"
+                min="0"
+                max="99"
+                step="1"
+                aria-label={`${label}: наблюдается, шт.`}
+                value={manual.counts[key as Equipment] ?? 0}
+                oninput={(e) => (manual.counts[key as Equipment] = Number(e.currentTarget.value))}
+              /></label
+            >
+            <label class="field"
+              >Зона<select
+                aria-label={`${label}: фактическая зона`}
+                value={manual.equipmentZones[key as Equipment] || analysis.zone.id}
+                onchange={(e) => (manual.equipmentZones[key as Equipment] = e.currentTarget.value)}
+                >{#each workspace.zones as zone}<option value={zone.id}>{zone.name}</option
+                  >{/each}</select
+              ></label
+            >
+            <label class="field"
+              >Без перемещения, мин.<input
+                type="number"
+                min="0"
+                max="1440"
+                step="1"
+                aria-label={`${label}: без перемещения, мин.`}
+                value={manual.stationaryMinutes[key as Equipment] ?? 0}
+                oninput={(e) =>
+                  (manual.stationaryMinutes[key as Equipment] = Number(e.currentTarget.value))}
+              /></label
+            >
+          </div>{/each}
+      </div>
+      <label class="field"
+        >Источник ручного наблюдения<input
+          bind:value={manual.source}
+          maxlength={500}
+          placeholder="Например: журнал диспетчера, камера 01, 11:32"
+        /></label
+      >
+      <p class="error-message" role="alert">{manualError}</p>
+      <p class="save-message" role="status">{manualMessage}</p>
+      <div class="editor-actions">
+        <button class="button primary" onclick={saveManual}>Сохранить наблюдение</button>
+        {#if analysis.manualOverride}<button class="button secondary" onclick={removeManual}
+            >Убрать корректировку</button
+          >{/if}
+      </div>
+    </details>{/if}
   <div class="progress-summary">
     <div>
       <p class="eyebrow-small">Фактическая готовность</p>
@@ -153,7 +272,9 @@
               ? `Опережение ${progress.delta} п.п.`
               : 'На уровне плана'}</strong
       ><small
-        >Линейный план: {progress.planned}% на {analysis.stage.progressDate}. Не оценка по технике.</small
+        >{formatVariance(progress.varianceHours)} · линейный план: {progress.planned}% на {analysis
+          .stage.progressDate}
+        {analysis.stage.progressTime}. Не оценка по технике.</small
       >
     </div>
     <div>
@@ -164,6 +285,15 @@
           : progress.delay > 0
             ? `На ${progress.delay} дн. позже плана при неизменном темпе.`
             : `${Math.abs(progress.delay)} дн. запаса при неизменном темпе.`} Не ML-прогноз.</small
+      >
+    </div>
+    <div>
+      <p class="eyebrow-small">Длительность этапа</p>
+      <strong>{Math.round((progress.plannedDurationHours / 24) * 10) / 10} дн. по плану</strong>
+      <small
+        >{progress.actualDurationHours === null
+          ? 'Для фактической длительности введите начало и окончание.'
+          : `${progress.actualDurationHours} ч фактически · ${formatVariance(progress.actualFinishVarianceHours)} по окончанию.`}</small
       >
     </div>
   </div>

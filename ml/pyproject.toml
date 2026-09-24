@@ -77,3 +77,4 @@ reportUnknownLambdaType = false
 reportUnknownMemberType = false
 reportUnknownParameterType = false
 reportUnknownVariableType = false
+reportUntypedFunctionDecorator = false  # Typer's command registration has no typed decorator.
