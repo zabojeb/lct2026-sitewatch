@@ -1,0 +1,7656 @@
+{
+  "source": {
+    "videoDataset": "nickpudovkin/const-video-v2i-yolo26",
+    "progressDataset": "nickpudovkin/dataset-object-identication-training-construction",
+    "videoFrames": 1407,
+    "progressFrames": 1046,
+    "classes": [
+      "Автобетоносмеситель",
+      "Бетононасос",
+      "Бульдозер",
+      "Буровая установка",
+      "Экскаватор",
+      "Грузовик",
+      "Работник",
+      "Каска",
+      "Каток",
+      "Башенный кран",
+      "Манипулятор",
+      "Мини-бульдозер",
+      "Автокран",
+      "Мусоровоз",
+      "Подъёмник",
+      "Самосвал",
+      "Трактор",
+      "Вилочный погрузчик"
+    ]
+  },
+  "session": {
+    "start": "2020-11-20T11:13:33",
+    "end": "2021-02-12T09:01:19",
+    "durationDays": 83,
+    "frames": [
+      {
+        "timestamp": "2020-11-20T11:13:33",
+        "time": "11:13:33",
+        "dateLabel": "20.11.2020",
+        "cameraId": "Камера Torre H",
+        "image": "assets/timeline/torre-h-0631.jpg",
+        "split": "исходная разметка",
+        "sourceFrame": 631,
+        "boxes": [
+          {
+            "classId": 3,
+            "className": "Мини-погрузчик",
+            "classSlug": "mini-loader",
+            "bbox": [
+              0.748177,
+              0.856713,
+              0.041667,
+              0.056944
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.47474,
+              0.775231,
+              0.009896,
+              0.036574
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.505599,
+              0.678935,
+              0.008073,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.609375,
+              0.743287,
+              0.008333,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.543229,
+              0.700926,
+              0.007292,
+              0.025926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.663411,
+              0.697917,
+              0.008594,
+              0.026389
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.284766,
+              0.907176,
+              0.010156,
+              0.030093
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.324479,
+              0.959722,
+              0.009375,
+              0.031481
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.395182,
+              0.908796,
+              0.015365,
+              0.025926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.410938,
+              0.88912,
+              0.009896,
+              0.030093
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.289453,
+              0.56088,
+              0.009115,
+              0.029167
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.311589,
+              0.23912,
+              0.007552,
+              0.026389
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.105729,
+              0.215509,
+              0.084896,
+              0.422685
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.441536,
+              0.189815,
+              0.039323,
+              0.371296
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.552344,
+              0.613426,
+              0.895312,
+              0.738889
+            ],
+            "confidence": 1
+          }
+        ],
+        "counts": {
+          "mini-loader": 1,
+          "tower-crane": 3
+        }
+      },
+      {
+        "timestamp": "2020-12-02T09:12:17",
+        "time": "09:12:17",
+        "dateLabel": "02.12.2020",
+        "cameraId": "Камера Torre H",
+        "image": "assets/timeline/torre-h-0076.jpg",
+        "split": "исходная разметка",
+        "sourceFrame": 76,
+        "boxes": [
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.25612,
+              0.782639,
+              0.014323,
+              0.031944
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.336589,
+              0.846991,
+              0.013281,
+              0.031944
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.315365,
+              0.873611,
+              0.017188,
+              0.037037
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.06888,
+              0.658565,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.076953,
+              0.641435,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.072526,
+              0.63125,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.075911,
+              0.615046,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.085286,
+              0.630787,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.083203,
+              0.615972,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.090495,
+              0.616898,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.080339,
+              0.595602,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.080339,
+              0.574769,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.086849,
+              0.570602,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.101693,
+              0.545602,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.09388,
+              0.535417,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.087109,
+              0.515509,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.122005,
+              0.521296,
+              0.008073,
+              0.02037
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.127995,
+              0.516204,
+              0.00599,
+              0.012963
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.084635,
+              0.484954,
+              0.006771,
+              0.020833
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.092839,
+              0.450231,
+              0.008594,
+              0.023611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.086068,
+              0.457639,
+              0.008594,
+              0.023611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.103516,
+              0.44838,
+              0.004427,
+              0.018981
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.101302,
+              0.459259,
+              0.005729,
+              0.023148
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.15651,
+              0.256019,
+              0.006771,
+              0.021296
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.514714,
+              0.247454,
+              0.007031,
+              0.022685
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.560937,
+              0.343981,
+              0.008854,
+              0.025
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.636328,
+              0.721991,
+              0.00651,
+              0.029167
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.641797,
+              0.741204,
+              0.008073,
+              0.02037
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 3,
+            "className": "Мини-погрузчик",
+            "classSlug": "mini-loader",
+            "bbox": [
+              0.68138,
+              0.547685,
+              0.034115,
+              0.035185
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 6,
+            "className": "Грузовик",
+            "classSlug": "truck",
+            "bbox": [
+              0.633333,
+              0.411806,
+              0.0375,
+              0.073611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.100521,
+              0.22037,
+              0.091667,
+              0.42963
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.438021,
+              0.188194,
+              0.035417,
+              0.375463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.827604,
+              0.615741,
+              0.189583,
+              0.735185
+            ],
+            "confidence": 1
+          }
+        ],
+        "counts": {
+          "mini-loader": 1,
+          "truck": 1,
+          "tower-crane": 3
+        }
+      },
+      {
+        "timestamp": "2021-01-06T11:05:02",
+        "time": "11:05:02",
+        "dateLabel": "06.01.2021",
+        "cameraId": "Камера Torre H",
+        "image": "assets/timeline/torre-h-0150.jpg",
+        "split": "исходная разметка",
+        "sourceFrame": 150,
+        "boxes": [
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.068099,
+              0.222685,
+              0.135677,
+              0.432407
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.410677,
+              0.216204,
+              0.135937,
+              0.431481
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.861458,
+              0.5875,
+              0.277083,
+              0.825
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 6,
+            "className": "Грузовик",
+            "classSlug": "truck",
+            "bbox": [
+              0.804167,
+              0.872222,
+              0.071875,
+              0.125926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 6,
+            "className": "Грузовик",
+            "classSlug": "truck",
+            "bbox": [
+              0.667708,
+              0.474074,
+              0.071875,
+              0.125926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 3,
+            "className": "Мини-погрузчик",
+            "classSlug": "mini-loader",
+            "bbox": [
+              0.640104,
+              0.888889,
+              0.06875,
+              0.092593
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 3,
+            "className": "Мини-погрузчик",
+            "classSlug": "mini-loader",
+            "bbox": [
+              0.841146,
+              0.92963,
+              0.06875,
+              0.092593
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.143229,
+              0.48287,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.158333,
+              0.478704,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.280729,
+              0.372222,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.295573,
+              0.366667,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.338542,
+              0.315741,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.294792,
+              0.556019,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.291667,
+              0.583333,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.303385,
+              0.602778,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.317969,
+              0.550463,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.35599,
+              0.816204,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.452344,
+              0.956481,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.443229,
+              0.980093,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.790885,
+              0.96713,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.806771,
+              0.978704,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.798438,
+              0.934259,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.809375,
+              0.914352,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.777865,
+              0.887963,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.794531,
+              0.887963,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.709115,
+              0.763426,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.6125,
+              0.733333,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.608333,
+              0.69213,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.584896,
+              0.628704,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.635156,
+              0.636111,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.671875,
+              0.638426,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.638281,
+              0.594444,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.628906,
+              0.566667,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.488802,
+              0.678241,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.444531,
+              0.551852,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.438542,
+              0.474074,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.58099,
+              0.484722,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.533333,
+              0.444444,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.596615,
+              0.435185,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.602865,
+              0.449074,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.617448,
+              0.454167,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.617969,
+              0.475926,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.603125,
+              0.474537,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.583594,
+              0.426852,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.538281,
+              0.290278,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.526042,
+              0.258796,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.588802,
+              0.281944,
+              0.0125,
+              0.039815
+            ],
+            "confidence": 1
+          }
+        ],
+        "counts": {
+          "tower-crane": 3,
+          "truck": 2,
+          "mini-loader": 2
+        }
+      },
+      {
+        "timestamp": "2021-01-22T08:57:45",
+        "time": "08:57:45",
+        "dateLabel": "22.01.2021",
+        "cameraId": "Камера Torre H",
+        "image": "assets/timeline/torre-h-0501.jpg",
+        "split": "исходная разметка",
+        "sourceFrame": 501,
+        "boxes": [
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.796094,
+              0.817824,
+              0.005729,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.798698,
+              0.836343,
+              0.007292,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.715885,
+              0.804861,
+              0.010417,
+              0.030093
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.698828,
+              0.79838,
+              0.009115,
+              0.026389
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.626563,
+              0.811343,
+              0.010937,
+              0.030093
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.492839,
+              0.898843,
+              0.01224,
+              0.035648
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.471484,
+              0.973148,
+              0.010677,
+              0.033333
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.422526,
+              0.818981,
+              0.00599,
+              0.02037
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.469661,
+              0.797917,
+              0.009115,
+              0.028241
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.368359,
+              0.919676,
+              0.010677,
+              0.040278
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.13125,
+              0.876389,
+              0.008854,
+              0.028704
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.153646,
+              0.828241,
+              0.008854,
+              0.030556
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.138932,
+              0.683102,
+              0.009635,
+              0.027315
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.080339,
+              0.595602,
+              0.008594,
+              0.024537
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.140755,
+              0.465972,
+              0.010156,
+              0.028241
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.105859,
+              0.444676,
+              0.007552,
+              0.029167
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.1125,
+              0.423148,
+              0.008854,
+              0.032407
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.122656,
+              0.421296,
+              0.008333,
+              0.028704
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.129948,
+              0.361806,
+              0.011458,
+              0.019907
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.160547,
+              0.336111,
+              0.008073,
+              0.030556
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.316016,
+              0.522454,
+              0.009115,
+              0.028241
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.360547,
+              0.527083,
+              0.00651,
+              0.024537
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.379818,
+              0.459028,
+              0.008594,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.391797,
+              0.46412,
+              0.007552,
+              0.023611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.348177,
+              0.48912,
+              0.008333,
+              0.020833
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.335807,
+              0.484954,
+              0.008073,
+              0.023611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.270964,
+              0.278704,
+              0.010677,
+              0.027778
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.489844,
+              0.662963,
+              0.010417,
+              0.025926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.526302,
+              0.728704,
+              0.008854,
+              0.025926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.540495,
+              0.729398,
+              0.007552,
+              0.03287
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.448177,
+              0.696528,
+              0.011979,
+              0.019907
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.498828,
+              0.541898,
+              0.009115,
+              0.023611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.461068,
+              0.524769,
+              0.00651,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.567057,
+              0.625926,
+              0.007552,
+              0.028704
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.558724,
+              0.676852,
+              0.008594,
+              0.023148
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.644661,
+              0.558565,
+              0.011198,
+              0.029167
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.690365,
+              0.597917,
+              0.007812,
+              0.028241
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.703125,
+              0.598148,
+              0.007812,
+              0.022222
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.632552,
+              0.4875,
+              0.00625,
+              0.025
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.604688,
+              0.507176,
+              0.006771,
+              0.015278
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.597396,
+              0.517824,
+              0.007812,
+              0.020833
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.565755,
+              0.525694,
+              0.009115,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.72526,
+              0.586806,
+              0.008333,
+              0.029167
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 0,
+            "className": "Самосвал",
+            "classSlug": "dump-truck",
+            "bbox": [
+              0.787109,
+              0.730556,
+              0.057031,
+              0.119444
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.525391,
+              0.415046,
+              0.008594,
+              0.019907
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.523568,
+              0.391435,
+              0.00651,
+              0.029167
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.534635,
+              0.386343,
+              0.006771,
+              0.018981
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.513021,
+              0.362731,
+              0.009375,
+              0.026389
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.48763,
+              0.335648,
+              0.008594,
+              0.025
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.513411,
+              0.304167,
+              0.00651,
+              0.025926
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.517708,
+              0.309954,
+              0.00625,
+              0.027315
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.518359,
+              0.285185,
+              0.00651,
+              0.022222
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.511719,
+              0.29213,
+              0.005729,
+              0.021296
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.558464,
+              0.333565,
+              0.007031,
+              0.024537
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.563802,
+              0.329167,
+              0.008333,
+              0.023148
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.560807,
+              0.325231,
+              0.009115,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.54987,
+              0.370139,
+              0.008594,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.553906,
+              0.356713,
+              0.006771,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.560026,
+              0.371065,
+              0.007552,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.561719,
+              0.381481,
+              0.006771,
+              0.025
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.571354,
+              0.353704,
+              0.005729,
+              0.024074
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.565365,
+              0.353472,
+              0.005729,
+              0.025463
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.561719,
+              0.356019,
+              0.006771,
+              0.025
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.59401,
+              0.378704,
+              0.00625,
+              0.015741
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.582682,
+              0.40625,
+              0.008073,
+              0.018056
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.561328,
+              0.411111,
+              0.008073,
+              0.012963
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.580599,
+              0.433333,
+              0.008073,
+              0.024074
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.666146,
+              0.423148,
+              0.006771,
+              0.028704
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.650521,
+              0.431713,
+              0.009375,
+              0.020833
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.654036,
+              0.423843,
+              0.00651,
+              0.023611
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.642318,
+              0.408796,
+              0.00599,
+              0.023148
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.640755,
+              0.390972,
+              0.009115,
+              0.020833
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.628776,
+              0.366898,
+              0.007031,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.641276,
+              0.353009,
+              0.004948,
+              0.011574
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.442448,
+              0.372917,
+              0.007292,
+              0.021759
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.471094,
+              0.400231,
+              0.00625,
+              0.018056
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.465625,
+              0.506019,
+              0.008854,
+              0.024074
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.434635,
+              0.22963,
+              0.038542,
+              0.458333
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.819661,
+              0.51875,
+              0.232552,
+              0.961574
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.210807,
+              0.470833,
+              0.007552,
+              0.018519
+            ],
+            "confidence": 1
+          }
+        ],
+        "counts": {
+          "dump-truck": 1,
+          "tower-crane": 2
+        }
+      },
+      {
+        "timestamp": "2021-02-12T09:01:19",
+        "time": "09:01:19",
+        "dateLabel": "12.02.2021",
+        "cameraId": "Камера Torre H",
+        "image": "assets/timeline/torre-h-0176.jpg",
+        "split": "исходная разметка",
+        "sourceFrame": 176,
+        "boxes": [
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.438672,
+              0.224306,
+              0.039844,
+              0.447685
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 4,
+            "className": "Башенный кран",
+            "classSlug": "tower-crane",
+            "bbox": [
+              0.828125,
+              0.593519,
+              0.343229,
+              0.812963
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 2,
+            "className": "Автобетоносмеситель",
+            "classSlug": "mixer",
+            "bbox": [
+              0.71849,
+              0.847454,
+              0.108333,
+              0.130093
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 5,
+            "className": "Автокран",
+            "classSlug": "mobile-crane",
+            "bbox": [
+              0.555339,
+              0.664583,
+              0.195052,
+              0.385648
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 6,
+            "className": "Грузовик",
+            "classSlug": "truck",
+            "bbox": [
+              0.889974,
+              0.968056,
+              0.086719,
+              0.063889
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.148438,
+              0.799537,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.174219,
+              0.897222,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.167969,
+              0.888426,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.170052,
+              0.872222,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.130729,
+              0.356481,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.148438,
+              0.346296,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.18724,
+              0.42037,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.205729,
+              0.41713,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.211198,
+              0.389352,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.250521,
+              0.330093,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.200781,
+              0.285648,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.232552,
+              0.261574,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.209115,
+              0.290741,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.289062,
+              0.294907,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.22474,
+              0.948148,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.448437,
+              0.946759,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.51224,
+              0.90787,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.435937,
+              0.74537,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.420833,
+              0.736574,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.551823,
+              0.735185,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.677604,
+              0.971759,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.867969,
+              0.981944,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.89401,
+              0.969444,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.736198,
+              0.814352,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.770833,
+              0.797222,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.744531,
+              0.746759,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.716406,
+              0.785648,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.633594,
+              0.78287,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.608594,
+              0.775,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.731771,
+              0.512963,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.717187,
+              0.493981,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.663281,
+              0.554167,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.619792,
+              0.451852,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.647135,
+              0.435648,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.598698,
+              0.446296,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.589323,
+              0.39213,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.576562,
+              0.396296,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.501302,
+              0.337963,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.514583,
+              0.282407,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.363542,
+              0.472685,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          },
+          {
+            "classId": 7,
+            "className": "Работник",
+            "classSlug": "person",
+            "bbox": [
+              0.184115,
+              0.549074,
+              0.013021,
+              0.036111
+            ],
+            "confidence": 1
+          }
+        ],
+        "counts": {
+          "tower-crane": 2,
+          "mixer": 1,
+          "mobile-crane": 1,
+          "truck": 1
+        }
+      }
+    ]
+  },
+  "calibration": [
+    {
+      "cameraId": "Камера 8",
+      "keypoints": [
+        1802,
+        1800
+      ],
+      "matches": 1119,
+      "inliers": 1076,
+      "inlierRatio": 0.962,
+      "rmse": 0.17,
+      "spanSec": 306
+    },
+    {
+      "cameraId": "Камера 9",
+      "keypoints": [
+        1800,
+        1802
+      ],
+      "matches": 934,
+      "inliers": 922,
+      "inlierRatio": 0.987,
+      "rmse": 0.2,
+      "spanSec": 59
+    }
+  ],
+  "crossCamera": {
+    "epipolar": {
+      "keypoints": [
+        1800,
+        1800
+      ],
+      "matches": 104,
+      "inliers": 77,
+      "inlierRatio": 0.74,
+      "rmse": null
+    },
+    "mapHomography": {
+      "keypoints": [
+        1800,
+        1800
+      ],
+      "matches": 66,
+      "inliers": 50,
+      "inlierRatio": 0.758,
+      "rmse": 0.24,
+      "matrix": [
+        [
+          1.0009737202830946,
+          0.004415752398515265,
+          -0.09553967737488087
+        ],
+        [
+          0.00042828789831173914,
+          1.0074096710624425,
+          -0.262831259617785
+        ],
+        [
+          2.04371606099011e-08,
+          4.07105549785585e-05,
+          1
+        ]
+      ]
+    }
+  },
+  "observedCounts": {
+    "tower-crane": 2,
+    "mixer": 1,
+    "mobile-crane": 1,
+    "truck": 1
+  },
+  "stageScores": [
+    {
+      "name": "Монолитные конструкции",
+      "score": 0.483
+    },
+    {
+      "name": "Разработка котлована",
+      "score": 0
+    },
+    {
+      "name": "Буронабивные сваи",
+      "score": 0
+    },
+    {
+      "name": "Бетонирование",
+      "score": 0
+    }
+  ],
+  "progress": [
+    {
+      "index": 1,
+      "image": "assets/progress/progress-0001.webp",
+      "boxCount": 7,
+      "cranes": 3,
+      "workers": 4
+    },
+    {
+      "index": 100,
+      "image": "assets/progress/progress-0100.webp",
+      "boxCount": 32,
+      "cranes": 3,
+      "workers": 27
+    },
+    {
+      "index": 200,
+      "image": "assets/progress/progress-0200.webp",
+      "boxCount": 49,
+      "cranes": 2,
+      "workers": 44
+    },
+    {
+      "index": 300,
+      "image": "assets/progress/progress-0300.webp",
+      "boxCount": 8,
+      "cranes": 3,
+      "workers": 4
+    },
+    {
+      "index": 400,
+      "image": "assets/progress/progress-0400.webp",
+      "boxCount": 6,
+      "cranes": 3,
+      "workers": 3
+    },
+    {
+      "index": 500,
+      "image": "assets/progress/progress-0500.webp",
+      "boxCount": 70,
+      "cranes": 2,
+      "workers": 67
+    },
+    {
+      "index": 600,
+      "image": "assets/progress/progress-0600.webp",
+      "boxCount": 20,
+      "cranes": 3,
+      "workers": 15
+    },
+    {
+      "index": 700,
+      "image": "assets/progress/progress-0700.webp",
+      "boxCount": 8,
+      "cranes": 3,
+      "workers": 5
+    },
+    {
+      "index": 800,
+      "image": "assets/progress/progress-0800.webp",
+      "boxCount": 9,
+      "cranes": 3,
+      "workers": 6
+    },
+    {
+      "index": 900,
+      "image": "assets/progress/progress-0900.webp",
+      "boxCount": 7,
+      "cranes": 2,
+      "workers": 5
+    },
+    {
+      "index": 1000,
+      "image": "assets/progress/progress-1000.webp",
+      "boxCount": 36,
+      "cranes": 3,
+      "workers": 32
+    }
+  ],
+  "testSample": {
+    "image": "assets/real/test-sample.webp",
+    "boxes": [
+      {
+        "classId": 0,
+        "className": "Автобетоносмеситель",
+        "classSlug": "mixer",
+        "bbox": [
+          0.05520833333333333,
+          0.05260416666666667,
+          0.06510416666666667,
+          0.06822916666666666
+        ]
+      },
+      {
+        "classId": 1,
+        "className": "Бетононасос",
+        "classSlug": "pump",
+        "bbox": [
+          0.058333333333333334,
+          0.146875,
+          0.06822916666666666,
+          0.08385416666666666
+        ]
+      },
+      {
+        "classId": 2,
+        "className": "Бульдозер",
+        "classSlug": "bulldozer",
+        "bbox": [
+          0.058333333333333334,
+          0.24270833333333333,
+          0.07395833333333333,
+          0.059895833333333336
+        ]
+      },
+      {
+        "classId": 3,
+        "className": "Буровая установка",
+        "classSlug": "drill",
+        "bbox": [
+          0.0609375,
+          0.32395833333333335,
+          0.07083333333333333,
+          0.03958333333333333
+        ]
+      },
+      {
+        "classId": 4,
+        "className": "Экскаватор",
+        "classSlug": "excavator",
+        "bbox": [
+          0.052083333333333336,
+          0.39114583333333336,
+          0.05260416666666667,
+          0.035416666666666666
+        ]
+      },
+      {
+        "classId": 5,
+        "className": "Грузовик",
+        "classSlug": "truck",
+        "bbox": [
+          0.049479166666666664,
+          0.4713541666666667,
+          0.051041666666666666,
+          0.0625
+        ]
+      },
+      {
+        "classId": 6,
+        "className": "Работник",
+        "classSlug": "person",
+        "bbox": [
+          0.058854166666666666,
+          0.5666666666666667,
+          0.0640625,
+          0.06510416666666667
+        ]
+      },
+      {
+        "classId": 7,
+        "className": "Каска",
+        "classSlug": "helmet",
+        "bbox": [
+          0.07239583333333334,
+          0.6567708333333333,
+          0.059895833333333336,
+          0.08385416666666666
+        ]
+      },
+      {
+        "classId": 8,
+        "className": "Каток",
+        "classSlug": "roller",
+        "bbox": [
+          0.084375,
+          0.7630208333333334,
+          0.06666666666666667,
+          0.05677083333333333
+        ]
+      },
+      {
+        "classId": 9,
+        "className": "Башенный кран",
+        "classSlug": "tower-crane",
+        "bbox": [
+          0.08177083333333333,
+          0.8489583333333334,
+          0.06666666666666667,
+          0.06666666666666667
+        ]
+      },
+      {
+        "classId": 10,
+        "className": "Манипулятор",
+        "classSlug": "manipulator",
+        "bbox": [
+          0.23229166666666667,
+          0.16666666666666666,
+          0.0609375,
+          0.08072916666666667
+        ]
+      },
+      {
+        "classId": 11,
+        "className": "Мини-бульдозер",
+        "classSlug": "mini-bulldozer",
+        "bbox": [
+          0.2578125,
+          0.2838541666666667,
+          0.0609375,
+          0.09375
+        ]
+      },
+      {
+        "classId": 12,
+        "className": "Автокран",
+        "classSlug": "mobile-crane",
+        "bbox": [
+          0.240625,
+          0.4036458333333333,
+          0.07239583333333334,
+          0.059895833333333336
+        ]
+      },
+      {
+        "classId": 13,
+        "className": "Мусоровоз",
+        "classSlug": "garbage-truck",
+        "bbox": [
+          0.25,
+          0.5119791666666667,
+          0.11927083333333334,
+          0.11197916666666667
+        ]
+      },
+      {
+        "classId": 14,
+        "className": "Подъёмник",
+        "classSlug": "lift",
+        "bbox": [
+          0.24635416666666668,
+          0.6713541666666667,
+          0.13489583333333333,
+          0.0953125
+        ]
+      },
+      {
+        "classId": 15,
+        "className": "Самосвал",
+        "classSlug": "dump-truck",
+        "bbox": [
+          0.24427083333333333,
+          0.7875,
+          0.07083333333333333,
+          0.0640625
+        ]
+      },
+      {
+        "classId": 16,
+        "className": "Трактор",
+        "classSlug": "tractor",
+        "bbox": [
+          0.478125,
+          0.165625,
+          0.07552083333333333,
+          0.0921875
+        ]
+      },
+      {
+        "classId": 17,
+        "className": "Вилочный погрузчик",
+        "classSlug": "forklift",
+        "bbox": [
+          0.49947916666666664,
+          0.34010416666666665,
+          0.08072916666666667,
+          0.12083333333333333
+        ]
+      }
+    ]
+  },
+  "incidentEvidence": [
+    {
+      "id": "shortage-701-005",
+      "eventId": "shortage",
+      "timestamp": "2024-07-25T19:45:19",
+      "time": "19:45:19",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 7",
+      "image": "assets/incidents/shortage-701-005.jpg",
+      "boxes": [
+        {
+          "classId": 1,
+          "className": "Бетононасос",
+          "classSlug": "pump",
+          "bbox": [
+            0.3046875,
+            0.29739583333333336,
+            0.5921875,
+            0.421875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.051041666666666666,
+            0.27291666666666664,
+            0.021354166666666667,
+            0.059375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.09166666666666666,
+            0.19739583333333333,
+            0.01875,
+            0.0546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.18385416666666668,
+            0.225,
+            0.028645833333333332,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.0171875,
+            0.38125,
+            0.003125,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.025,
+            0.3890625,
+            0.00625,
+            0.033854166666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.03333333333333333,
+            0.38333333333333336,
+            0.0067708333333333336,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20052083333333334,
+            0.446875,
+            0.007291666666666667,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.20260416666666667,
+            0.4328125,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.271875,
+            0.43125,
+            0.008854166666666666,
+            0.015625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.27447916666666666,
+            0.4171875,
+            0.0067708333333333336,
+            0.022395833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2760416666666667,
+            0.409375,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2833333333333333,
+            0.4239583333333333,
+            0.0046875,
+            0.03229166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.29583333333333334,
+            0.4276041666666667,
+            0.008854166666666666,
+            0.027083333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2953125,
+            0.4171875,
+            0.003125,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.390625,
+            0.328125,
+            0.057291666666666664,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.5083333333333333,
+            0.36614583333333334,
+            0.0546875,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.3229166666666667,
+            0.27239583333333334,
+            0.030208333333333334,
+            0.0265625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.29322916666666665,
+            0.2609375,
+            0.025520833333333333,
+            0.028125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3734375,
+            0.2916666666666667,
+            0.027604166666666666,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.4817708333333333,
+            0.018229166666666668,
+            0.07239583333333334,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.21770833333333334,
+            0.1625,
+            0.057291666666666664,
+            0.325
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.07916666666666666,
+            0.20677083333333332,
+            0.0140625,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.10833333333333334,
+            0.20260416666666667,
+            0.015625,
+            0.020833333333333332
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "pump": 1,
+        "excavator": 3,
+        "mixer": 4,
+        "tower-crane": 2,
+        "dump-truck": 2
+      }
+    },
+    {
+      "id": "shortage-701-006",
+      "eventId": "shortage",
+      "timestamp": "2024-07-25T19:45:20",
+      "time": "19:45:20",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 7",
+      "image": "assets/incidents/shortage-701-006.jpg",
+      "boxes": [
+        {
+          "classId": 1,
+          "className": "Бетононасос",
+          "classSlug": "pump",
+          "bbox": [
+            0.3046875,
+            0.29739583333333336,
+            0.5921875,
+            0.421875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.051041666666666666,
+            0.27291666666666664,
+            0.021354166666666667,
+            0.059375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.09166666666666666,
+            0.19739583333333333,
+            0.01875,
+            0.0546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.18385416666666668,
+            0.225,
+            0.028645833333333332,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.0171875,
+            0.38125,
+            0.003125,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.025,
+            0.3890625,
+            0.00625,
+            0.033854166666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.03333333333333333,
+            0.38333333333333336,
+            0.0067708333333333336,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20052083333333334,
+            0.446875,
+            0.007291666666666667,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.20260416666666667,
+            0.4328125,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.271875,
+            0.43125,
+            0.008854166666666666,
+            0.015625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.27447916666666666,
+            0.4171875,
+            0.0067708333333333336,
+            0.022395833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2760416666666667,
+            0.409375,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2833333333333333,
+            0.4239583333333333,
+            0.0046875,
+            0.03229166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.29583333333333334,
+            0.4276041666666667,
+            0.008854166666666666,
+            0.027083333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2953125,
+            0.4171875,
+            0.003125,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.390625,
+            0.328125,
+            0.057291666666666664,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.5083333333333333,
+            0.36614583333333334,
+            0.0546875,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.3229166666666667,
+            0.27239583333333334,
+            0.030208333333333334,
+            0.0265625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.29322916666666665,
+            0.2609375,
+            0.025520833333333333,
+            0.028125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3734375,
+            0.2916666666666667,
+            0.027604166666666666,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.21666666666666667,
+            0.165625,
+            0.0625,
+            0.3307291666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.48072916666666665,
+            0.019791666666666666,
+            0.07395833333333333,
+            0.03958333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.07708333333333334,
+            0.20625,
+            0.016666666666666666,
+            0.0296875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.1078125,
+            0.20208333333333334,
+            0.016145833333333335,
+            0.020833333333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.2328125,
+            0.2,
+            0.015625,
+            0.044270833333333336
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "pump": 1,
+        "excavator": 3,
+        "mixer": 4,
+        "tower-crane": 2,
+        "dump-truck": 2,
+        "mobile-crane": 1
+      }
+    },
+    {
+      "id": "shortage-701-007",
+      "eventId": "shortage",
+      "timestamp": "2024-07-25T19:45:21",
+      "time": "19:45:21",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 7",
+      "image": "assets/incidents/shortage-701-007.jpg",
+      "boxes": [
+        {
+          "classId": 1,
+          "className": "Бетононасос",
+          "classSlug": "pump",
+          "bbox": [
+            0.3046875,
+            0.29739583333333336,
+            0.5921875,
+            0.421875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.051041666666666666,
+            0.27291666666666664,
+            0.021354166666666667,
+            0.059375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.09166666666666666,
+            0.19739583333333333,
+            0.01875,
+            0.0546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.18385416666666668,
+            0.225,
+            0.028645833333333332,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.0171875,
+            0.38125,
+            0.003125,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.025,
+            0.3890625,
+            0.00625,
+            0.033854166666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.03333333333333333,
+            0.38333333333333336,
+            0.0067708333333333336,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20052083333333334,
+            0.446875,
+            0.007291666666666667,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.20260416666666667,
+            0.4328125,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.271875,
+            0.43125,
+            0.008854166666666666,
+            0.015625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.26614583333333336,
+            0.4161458333333333,
+            0.00625,
+            0.0296875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.27447916666666666,
+            0.4171875,
+            0.0067708333333333336,
+            0.022395833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2760416666666667,
+            0.409375,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.390625,
+            0.328125,
+            0.057291666666666664,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.5083333333333333,
+            0.36614583333333334,
+            0.0546875,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.3229166666666667,
+            0.27239583333333334,
+            0.030208333333333334,
+            0.0265625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.29322916666666665,
+            0.2609375,
+            0.025520833333333333,
+            0.028125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3734375,
+            0.2916666666666667,
+            0.027604166666666666,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.29739583333333336,
+            0.4234375,
+            0.00625,
+            0.027604166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.296875,
+            0.41458333333333336,
+            0.0020833333333333333,
+            0.0020833333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.078125,
+            0.20572916666666666,
+            0.016666666666666666,
+            0.035416666666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.10677083333333333,
+            0.203125,
+            0.01875,
+            0.025
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.215625,
+            0.165625,
+            0.06197916666666667,
+            0.3307291666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.23229166666666667,
+            0.20052083333333334,
+            0.0171875,
+            0.049479166666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.484375,
+            0.019270833333333334,
+            0.06822916666666666,
+            0.03854166666666667
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "pump": 1,
+        "excavator": 3,
+        "mixer": 4,
+        "dump-truck": 2,
+        "tower-crane": 2,
+        "mobile-crane": 1
+      }
+    },
+    {
+      "id": "required-501-000",
+      "eventId": "required",
+      "timestamp": "2024-07-25T17:45:19",
+      "time": "17:45:19",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 5",
+      "image": "assets/incidents/required-501-000.jpg",
+      "boxes": [
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.1390625,
+            0.3234375,
+            0.025,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.5255208333333333,
+            0.24114583333333334,
+            0.04010416666666667,
+            0.20520833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.4875,
+            0.2078125,
+            0.027083333333333334,
+            0.19375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.4713541666666667,
+            0.2625,
+            0.011979166666666667,
+            0.023958333333333335
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.7182291666666667,
+            0.14270833333333333,
+            0.171875,
+            0.21302083333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.9729166666666667,
+            0.49895833333333334,
+            0.05364583333333333,
+            0.16354166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.8317708333333333,
+            0.284375,
+            0.017708333333333333,
+            0.059895833333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.8401041666666667,
+            0.30625,
+            0.020833333333333332,
+            0.0203125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.9880208333333333,
+            0.33958333333333335,
+            0.0234375,
+            0.040625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.9927083333333333,
+            0.43125,
+            0.011458333333333333,
+            0.022395833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.9958333333333333,
+            0.42552083333333335,
+            0.005208333333333333,
+            0.0109375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.5552083333333333,
+            0.26666666666666666,
+            0.0036458333333333334,
+            0.025520833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.559375,
+            0.2671875,
+            0.0046875,
+            0.024479166666666666
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "tractor": 1,
+        "tower-crane": 2,
+        "mobile-crane": 1,
+        "excavator": 4,
+        "dump-truck": 1
+      }
+    },
+    {
+      "id": "required-501-030",
+      "eventId": "required",
+      "timestamp": "2024-07-25T17:45:49",
+      "time": "17:45:49",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 5",
+      "image": "assets/incidents/required-501-030.jpg",
+      "boxes": [
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.1390625,
+            0.3234375,
+            0.025,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.5255208333333333,
+            0.24114583333333334,
+            0.04010416666666667,
+            0.20520833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.4875,
+            0.2078125,
+            0.027083333333333334,
+            0.19375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.4713541666666667,
+            0.2625,
+            0.011979166666666667,
+            0.023958333333333335
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.7182291666666667,
+            0.14270833333333333,
+            0.171875,
+            0.21302083333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.9729166666666667,
+            0.49895833333333334,
+            0.05364583333333333,
+            0.16354166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.8317708333333333,
+            0.284375,
+            0.017708333333333333,
+            0.059895833333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.8401041666666667,
+            0.30625,
+            0.020833333333333332,
+            0.0203125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.9880208333333333,
+            0.33958333333333335,
+            0.0234375,
+            0.040625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.5588541666666667,
+            0.2677083333333333,
+            0.004166666666666667,
+            0.0265625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.99375,
+            0.43072916666666666,
+            0.011979166666666667,
+            0.021354166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.9973958333333334,
+            0.4244791666666667,
+            0.004166666666666667,
+            0.0078125
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "tractor": 1,
+        "tower-crane": 2,
+        "mobile-crane": 1,
+        "excavator": 4,
+        "dump-truck": 1
+      }
+    },
+    {
+      "id": "required-501-059",
+      "eventId": "required",
+      "timestamp": "2024-07-25T17:46:18",
+      "time": "17:46:18",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 5",
+      "image": "assets/incidents/required-501-059.jpg",
+      "boxes": [
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.1390625,
+            0.3234375,
+            0.025,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.5255208333333333,
+            0.24114583333333334,
+            0.04010416666666667,
+            0.20520833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.4875,
+            0.2078125,
+            0.027083333333333334,
+            0.19375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.4713541666666667,
+            0.2625,
+            0.011979166666666667,
+            0.023958333333333335
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.7182291666666667,
+            0.14270833333333333,
+            0.171875,
+            0.21302083333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.9729166666666667,
+            0.49895833333333334,
+            0.05364583333333333,
+            0.16354166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.8317708333333333,
+            0.284375,
+            0.017708333333333333,
+            0.059895833333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.8401041666666667,
+            0.30625,
+            0.020833333333333332,
+            0.0203125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.9880208333333333,
+            0.33958333333333335,
+            0.0234375,
+            0.040625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.9317708333333333,
+            0.3380208333333333,
+            0.005208333333333333,
+            0.021875
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "tractor": 1,
+        "tower-crane": 2,
+        "mobile-crane": 1,
+        "excavator": 4,
+        "dump-truck": 1
+      }
+    },
+    {
+      "id": "idle-801-000",
+      "eventId": "idle",
+      "timestamp": "2024-07-25T20:46:22",
+      "time": "20:46:22",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 8",
+      "image": "assets/incidents/idle-801-000.jpg",
+      "boxes": [
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.05625,
+            0.46197916666666666,
+            0.04375,
+            0.04479166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.08802083333333334,
+            0.45677083333333335,
+            0.0046875,
+            0.015104166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.16510416666666666,
+            0.4296875,
+            0.04791666666666667,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.30364583333333334,
+            0.3109375,
+            0.021875,
+            0.1375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.34479166666666666,
+            0.5854166666666667,
+            0.13333333333333333,
+            0.36875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.18489583333333334,
+            0.4041666666666667,
+            0.016145833333333335,
+            0.027604166666666666
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "manipulator": 1,
+        "excavator": 2,
+        "drill": 1,
+        "tractor": 1
+      }
+    },
+    {
+      "id": "idle-801-060",
+      "eventId": "idle",
+      "timestamp": "2024-07-25T20:47:28",
+      "time": "20:47:28",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 8",
+      "image": "assets/incidents/idle-801-060.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.34791666666666665,
+            0.5859375,
+            0.13385416666666666,
+            0.37916666666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.18177083333333333,
+            0.40677083333333336,
+            0.021354166666666667,
+            0.0328125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.16354166666666667,
+            0.42864583333333334,
+            0.04479166666666667,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.3020833333333333,
+            0.3125,
+            0.018229166666666668,
+            0.14270833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.209375,
+            0.6098958333333333,
+            0.021354166666666667,
+            0.07291666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.057291666666666664,
+            0.46145833333333336,
+            0.04583333333333333,
+            0.04479166666666667
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 2,
+        "tractor": 1,
+        "drill": 1,
+        "manipulator": 1
+      }
+    },
+    {
+      "id": "idle-801-120",
+      "eventId": "idle",
+      "timestamp": "2024-07-25T20:48:28",
+      "time": "20:48:28",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 8",
+      "image": "assets/incidents/idle-801-120.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.346875,
+            0.584375,
+            0.134375,
+            0.37552083333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.0578125,
+            0.46145833333333336,
+            0.04583333333333333,
+            0.0453125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.16354166666666667,
+            0.4296875,
+            0.04479166666666667,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.18229166666666666,
+            0.40729166666666666,
+            0.024479166666666666,
+            0.03333333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.3020833333333333,
+            0.31302083333333336,
+            0.018229166666666668,
+            0.13958333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2828125,
+            0.3963541666666667,
+            0.005208333333333333,
+            0.019270833333333334
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 2,
+        "manipulator": 1,
+        "tractor": 1,
+        "drill": 1
+      }
+    },
+    {
+      "id": "idle-801-180",
+      "eventId": "idle",
+      "timestamp": "2024-07-25T20:49:28",
+      "time": "20:49:28",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 8",
+      "image": "assets/incidents/idle-801-180.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.346875,
+            0.584375,
+            0.134375,
+            0.37552083333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.0578125,
+            0.46145833333333336,
+            0.04583333333333333,
+            0.0453125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.16354166666666667,
+            0.4296875,
+            0.04479166666666667,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.18229166666666666,
+            0.40729166666666666,
+            0.024479166666666666,
+            0.03333333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.3020833333333333,
+            0.31302083333333336,
+            0.018229166666666668,
+            0.13958333333333334
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 2,
+        "manipulator": 1,
+        "tractor": 1,
+        "drill": 1
+      }
+    },
+    {
+      "id": "idle-801-241",
+      "eventId": "idle",
+      "timestamp": "2024-07-25T20:50:29",
+      "time": "20:50:29",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 8",
+      "image": "assets/incidents/idle-801-241.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.346875,
+            0.584375,
+            0.134375,
+            0.37552083333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.0578125,
+            0.46145833333333336,
+            0.04583333333333333,
+            0.0453125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.16354166666666667,
+            0.4296875,
+            0.04479166666666667,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.18229166666666666,
+            0.40729166666666666,
+            0.024479166666666666,
+            0.03333333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.3020833333333333,
+            0.31302083333333336,
+            0.018229166666666668,
+            0.13958333333333334
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 2,
+        "manipulator": 1,
+        "tractor": 1,
+        "drill": 1
+      }
+    },
+    {
+      "id": "idle-801-300",
+      "eventId": "idle",
+      "timestamp": "2024-07-25T20:51:28",
+      "time": "20:51:28",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 8",
+      "image": "assets/incidents/idle-801-300.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.346875,
+            0.584375,
+            0.134375,
+            0.37552083333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.0578125,
+            0.46145833333333336,
+            0.04583333333333333,
+            0.0453125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.16354166666666667,
+            0.4296875,
+            0.04479166666666667,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.18229166666666666,
+            0.40729166666666666,
+            0.024479166666666666,
+            0.03333333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.3020833333333333,
+            0.31302083333333336,
+            0.018229166666666668,
+            0.13958333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.08645833333333333,
+            0.459375,
+            0.0046875,
+            0.011979166666666667
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 2,
+        "manipulator": 1,
+        "tractor": 1,
+        "drill": 1
+      }
+    },
+    {
+      "id": "wrong-zone-901-000",
+      "eventId": "wrong-zone",
+      "timestamp": "2024-07-25T21:46:20",
+      "time": "21:46:20",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 9",
+      "image": "assets/incidents/wrong-zone-901-000.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7890625,
+            0.5859375,
+            0.10885416666666667,
+            0.39166666666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20833333333333334,
+            0.5177083333333333,
+            0.0140625,
+            0.059375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.1609375,
+            0.23020833333333332,
+            0.030208333333333334,
+            0.45208333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.39114583333333336,
+            0.3098958333333333,
+            0.049479166666666664,
+            0.058854166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.7911458333333333,
+            0.2942708333333333,
+            0.016666666666666666,
+            0.13854166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.5348958333333333,
+            0.3125,
+            0.0484375,
+            0.04010416666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.6442708333333333,
+            0.334375,
+            0.04375,
+            0.05520833333333333
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 3,
+        "tower-crane": 1,
+        "drill": 1,
+        "manipulator": 1
+      }
+    },
+    {
+      "id": "wrong-zone-901-020",
+      "eventId": "wrong-zone",
+      "timestamp": "2024-07-25T21:46:40",
+      "time": "21:46:40",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 9",
+      "image": "assets/incidents/wrong-zone-901-020.jpg",
+      "boxes": [
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.790625,
+            0.2942708333333333,
+            0.01875,
+            0.13645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.39166666666666666,
+            0.3098958333333333,
+            0.049479166666666664,
+            0.057291666666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.15989583333333332,
+            0.228125,
+            0.0265625,
+            0.4546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7880208333333333,
+            0.5854166666666667,
+            0.10885416666666667,
+            0.3963541666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.5348958333333333,
+            0.31354166666666666,
+            0.049479166666666664,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.64375,
+            0.3338541666666667,
+            0.041666666666666664,
+            0.05625
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "drill": 1,
+        "excavator": 3,
+        "tower-crane": 1,
+        "manipulator": 1
+      }
+    },
+    {
+      "id": "wrong-zone-901-040",
+      "eventId": "wrong-zone",
+      "timestamp": "2024-07-25T21:47:00",
+      "time": "21:47:00",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 9",
+      "image": "assets/incidents/wrong-zone-901-040.jpg",
+      "boxes": [
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.790625,
+            0.2942708333333333,
+            0.01875,
+            0.13645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.39166666666666666,
+            0.3098958333333333,
+            0.049479166666666664,
+            0.057291666666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.15989583333333332,
+            0.228125,
+            0.0265625,
+            0.4546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7880208333333333,
+            0.5854166666666667,
+            0.10885416666666667,
+            0.3963541666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.5348958333333333,
+            0.31354166666666666,
+            0.049479166666666664,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.7651041666666667,
+            0.36875,
+            0.004166666666666667,
+            0.020833333333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.64375,
+            0.33541666666666664,
+            0.0421875,
+            0.058333333333333334
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "drill": 1,
+        "excavator": 3,
+        "tower-crane": 1,
+        "manipulator": 1
+      }
+    },
+    {
+      "id": "wrong-zone-901-059",
+      "eventId": "wrong-zone",
+      "timestamp": "2024-07-25T21:47:19",
+      "time": "21:47:19",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 9",
+      "image": "assets/incidents/wrong-zone-901-059.jpg",
+      "boxes": [
+        {
+          "classId": 3,
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "bbox": [
+            0.790625,
+            0.2942708333333333,
+            0.01875,
+            0.13645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.39166666666666666,
+            0.3098958333333333,
+            0.049479166666666664,
+            0.057291666666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.15989583333333332,
+            0.228125,
+            0.0265625,
+            0.4546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7880208333333333,
+            0.5854166666666667,
+            0.10885416666666667,
+            0.3963541666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.5348958333333333,
+            0.31354166666666666,
+            0.049479166666666664,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.7276041666666667,
+            0.390625,
+            0.00625,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.6494791666666667,
+            0.33541666666666664,
+            0.0421875,
+            0.05572916666666667
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "drill": 1,
+        "excavator": 3,
+        "tower-crane": 1,
+        "manipulator": 1
+      }
+    },
+    {
+      "id": "extra-401-000",
+      "eventId": "extra",
+      "timestamp": "2024-07-25T16:45:21",
+      "time": "16:45:21",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 4",
+      "image": "assets/incidents/extra-401-000.jpg",
+      "boxes": [
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.020833333333333332,
+            0.18177083333333333,
+            0.04114583333333333,
+            0.234375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.09166666666666666,
+            0.3223958333333333,
+            0.011979166666666667,
+            0.023958333333333335
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.1546875,
+            0.33125,
+            0.03125,
+            0.0703125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.030208333333333334,
+            0.4432291666666667,
+            0.013541666666666667,
+            0.03854166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.24166666666666667,
+            0.40260416666666665,
+            0.0109375,
+            0.040625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2390625,
+            0.38645833333333335,
+            0.005208333333333333,
+            0.008854166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.25677083333333334,
+            0.36302083333333335,
+            0.008333333333333333,
+            0.0296875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.23072916666666668,
+            0.30833333333333335,
+            0.022916666666666665,
+            0.0328125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.4901041666666667,
+            0.31614583333333335,
+            0.025520833333333333,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.5703125,
+            0.34270833333333334,
+            0.0171875,
+            0.026041666666666668
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.7177083333333333,
+            0.44427083333333334,
+            0.0515625,
+            0.06979166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7192708333333333,
+            0.3802083333333333,
+            0.021875,
+            0.065625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 5,
+          "className": "Грузовик",
+          "classSlug": "truck",
+          "bbox": [
+            0.7713541666666667,
+            0.446875,
+            0.025520833333333333,
+            0.030208333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.19010416666666666,
+            0.3625,
+            0.0067708333333333336,
+            0.03697916666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 11,
+          "className": "Мини-бульдозер",
+          "classSlug": "mini-bulldozer",
+          "bbox": [
+            0.07083333333333333,
+            0.3375,
+            0.020833333333333332,
+            0.025
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2635416666666667,
+            0.36614583333333334,
+            0.0067708333333333336,
+            0.021875
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "tower-crane": 1,
+        "tractor": 1,
+        "mixer": 1,
+        "excavator": 4,
+        "manipulator": 1,
+        "truck": 1,
+        "mini-bulldozer": 1
+      }
+    },
+    {
+      "id": "extra-401-025",
+      "eventId": "extra",
+      "timestamp": "2024-07-25T16:45:46",
+      "time": "16:45:46",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 4",
+      "image": "assets/incidents/extra-401-025.jpg",
+      "boxes": [
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.020833333333333332,
+            0.18177083333333333,
+            0.04114583333333333,
+            0.234375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.1125,
+            0.32916666666666666,
+            0.041666666666666664,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.030208333333333334,
+            0.4432291666666667,
+            0.013541666666666667,
+            0.03854166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.16927083333333334,
+            0.36666666666666664,
+            0.0078125,
+            0.03802083333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.16927083333333334,
+            0.35052083333333334,
+            0.003125,
+            0.005729166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.23072916666666668,
+            0.30833333333333335,
+            0.022916666666666665,
+            0.0328125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.4901041666666667,
+            0.31614583333333335,
+            0.025520833333333333,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.5703125,
+            0.34270833333333334,
+            0.0171875,
+            0.026041666666666668
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.7177083333333333,
+            0.44427083333333334,
+            0.0515625,
+            0.06979166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7192708333333333,
+            0.3802083333333333,
+            0.021875,
+            0.065625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 5,
+          "className": "Грузовик",
+          "classSlug": "truck",
+          "bbox": [
+            0.7713541666666667,
+            0.446875,
+            0.025520833333333333,
+            0.030208333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.11145833333333334,
+            0.3692708333333333,
+            0.0078125,
+            0.03958333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 11,
+          "className": "Мини-бульдозер",
+          "classSlug": "mini-bulldozer",
+          "bbox": [
+            0.07135416666666666,
+            0.3380208333333333,
+            0.0203125,
+            0.027083333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.1109375,
+            0.3515625,
+            0.0036458333333333334,
+            0.007291666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.13854166666666667,
+            0.34427083333333336,
+            0.005729166666666666,
+            0.025520833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.1890625,
+            0.3640625,
+            0.007291666666666667,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.19010416666666666,
+            0.3484375,
+            0.004166666666666667,
+            0.0046875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.13802083333333334,
+            0.3333333333333333,
+            0.0026041666666666665,
+            0.004166666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.1953125,
+            0.3614583333333333,
+            0.005729166666666666,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "tower-crane": 1,
+        "mixer": 1,
+        "excavator": 4,
+        "manipulator": 1,
+        "truck": 1,
+        "mini-bulldozer": 1
+      }
+    },
+    {
+      "id": "extra-401-049",
+      "eventId": "extra",
+      "timestamp": "2024-07-25T16:46:10",
+      "time": "16:46:10",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 4",
+      "image": "assets/incidents/extra-401-049.jpg",
+      "boxes": [
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.030208333333333334,
+            0.4432291666666667,
+            0.0125,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.08333333333333333,
+            0.4078125,
+            0.009895833333333333,
+            0.050520833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.0828125,
+            0.3854166666666667,
+            0.0046875,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 11,
+          "className": "Мини-бульдозер",
+          "classSlug": "mini-bulldozer",
+          "bbox": [
+            0.07135416666666666,
+            0.3380208333333333,
+            0.017708333333333333,
+            0.026041666666666668
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 16,
+          "className": "Трактор",
+          "classSlug": "tractor",
+          "bbox": [
+            0.0921875,
+            0.3223958333333333,
+            0.011458333333333333,
+            0.0234375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.1328125,
+            0.3255208333333333,
+            0.0234375,
+            0.058333333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.14791666666666667,
+            0.353125,
+            0.00625,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.14739583333333334,
+            0.3375,
+            0.004166666666666667,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.18697916666666667,
+            0.3796875,
+            0.007291666666666667,
+            0.03958333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.18229166666666666,
+            0.3697916666666667,
+            0.00625,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.18385416666666668,
+            0.353125,
+            0.003125,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.1875,
+            0.3625,
+            0.0036458333333333334,
+            0.005208333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.23072916666666668,
+            0.30833333333333335,
+            0.021354166666666667,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.3807291666666667,
+            0.40260416666666665,
+            0.008854166666666666,
+            0.04739583333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.3828125,
+            0.38177083333333334,
+            0.004166666666666667,
+            0.005208333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.4901041666666667,
+            0.315625,
+            0.025520833333333333,
+            0.05364583333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.5703125,
+            0.34375,
+            0.0171875,
+            0.0328125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.7182291666666667,
+            0.3802083333333333,
+            0.021354166666666667,
+            0.0625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 5,
+          "className": "Грузовик",
+          "classSlug": "truck",
+          "bbox": [
+            0.7708333333333334,
+            0.446875,
+            0.024479166666666666,
+            0.03229166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 10,
+          "className": "Манипулятор",
+          "classSlug": "manipulator",
+          "bbox": [
+            0.7166666666666667,
+            0.4453125,
+            0.05260416666666667,
+            0.06822916666666666
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "mini-bulldozer": 1,
+        "tractor": 1,
+        "mixer": 1,
+        "excavator": 4,
+        "truck": 1,
+        "manipulator": 1
+      }
+    },
+    {
+      "id": "mismatch-701-000",
+      "eventId": "mismatch",
+      "timestamp": "2024-07-25T19:45:14",
+      "time": "19:45:14",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 7",
+      "image": "assets/incidents/mismatch-701-000.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.051041666666666666,
+            0.27239583333333334,
+            0.0234375,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.016666666666666666,
+            0.384375,
+            0.005208333333333333,
+            0.04375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.0171875,
+            0.36614583333333334,
+            0.0036458333333333334,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.026041666666666668,
+            0.3854166666666667,
+            0.0078125,
+            0.027604166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.034375,
+            0.38333333333333336,
+            0.0067708333333333336,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.034375,
+            0.37083333333333335,
+            0.0036458333333333334,
+            0.005208333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 1,
+          "className": "Бетононасос",
+          "classSlug": "pump",
+          "bbox": [
+            0.31354166666666666,
+            0.2953125,
+            0.528125,
+            0.41302083333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.18385416666666668,
+            0.22447916666666667,
+            0.03229166666666667,
+            0.028125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.29010416666666666,
+            0.2578125,
+            0.025520833333333333,
+            0.021354166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3229166666666667,
+            0.2708333333333333,
+            0.025,
+            0.022395833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3723958333333333,
+            0.290625,
+            0.025,
+            0.025
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.39010416666666664,
+            0.3229166666666667,
+            0.05677083333333333,
+            0.042708333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.5015625,
+            0.3640625,
+            0.040625,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.21822916666666667,
+            0.15729166666666666,
+            0.0578125,
+            0.3145833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.4817708333333333,
+            0.01875,
+            0.071875,
+            0.0375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20104166666666667,
+            0.4505208333333333,
+            0.008333333333333333,
+            0.022916666666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.20260416666666667,
+            0.4473958333333333,
+            0.0036458333333333334,
+            0.007291666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.29791666666666666,
+            0.425,
+            0.007291666666666667,
+            0.027083333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.29791666666666666,
+            0.4140625,
+            0.004166666666666667,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.27447916666666666,
+            0.42135416666666664,
+            0.007291666666666667,
+            0.030208333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2765625,
+            0.4088541666666667,
+            0.003125,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.078125,
+            0.20364583333333333,
+            0.013541666666666667,
+            0.027604166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.09166666666666666,
+            0.2046875,
+            0.015625,
+            0.03854166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.10677083333333333,
+            0.20208333333333334,
+            0.015625,
+            0.021875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.23229166666666667,
+            0.2,
+            0.016666666666666666,
+            0.04635416666666667
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 3,
+        "pump": 1,
+        "mixer": 5,
+        "tower-crane": 2,
+        "dump-truck": 2,
+        "mobile-crane": 1
+      }
+    },
+    {
+      "id": "mismatch-701-010",
+      "eventId": "mismatch",
+      "timestamp": "2024-07-25T19:45:24",
+      "time": "19:45:24",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 7",
+      "image": "assets/incidents/mismatch-701-010.jpg",
+      "boxes": [
+        {
+          "classId": 1,
+          "className": "Бетононасос",
+          "classSlug": "pump",
+          "bbox": [
+            0.3046875,
+            0.29739583333333336,
+            0.5921875,
+            0.421875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.051041666666666666,
+            0.27291666666666664,
+            0.021354166666666667,
+            0.059375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.09166666666666666,
+            0.19739583333333333,
+            0.01875,
+            0.0546875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.18385416666666668,
+            0.225,
+            0.028645833333333332,
+            0.030729166666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.0171875,
+            0.38125,
+            0.003125,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.025,
+            0.3890625,
+            0.00625,
+            0.033854166666666664
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.03333333333333333,
+            0.38333333333333336,
+            0.0067708333333333336,
+            0.03125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20052083333333334,
+            0.446875,
+            0.007291666666666667,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.20260416666666667,
+            0.4328125,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.275,
+            0.4354166666666667,
+            0.010416666666666666,
+            0.01875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2755208333333333,
+            0.42239583333333336,
+            0.0067708333333333336,
+            0.03177083333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.26510416666666664,
+            0.4161458333333333,
+            0.00625,
+            0.028125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2760416666666667,
+            0.409375,
+            0.0020833333333333333,
+            0.0036458333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.390625,
+            0.328125,
+            0.057291666666666664,
+            0.052083333333333336
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.5083333333333333,
+            0.36614583333333334,
+            0.0546875,
+            0.0390625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.29322916666666665,
+            0.2609375,
+            0.025520833333333333,
+            0.028125
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3734375,
+            0.2916666666666667,
+            0.027604166666666666,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2989583333333333,
+            0.4239583333333333,
+            0.005729166666666666,
+            0.029166666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.321875,
+            0.27447916666666666,
+            0.025520833333333333,
+            0.03229166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.07916666666666666,
+            0.2078125,
+            0.015104166666666667,
+            0.0296875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.1078125,
+            0.203125,
+            0.016145833333333335,
+            0.024479166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.21770833333333334,
+            0.165625,
+            0.058854166666666666,
+            0.3307291666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.23125,
+            0.20104166666666667,
+            0.016666666666666666,
+            0.046875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.4822916666666667,
+            0.019270833333333334,
+            0.07239583333333334,
+            0.03854166666666667
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "pump": 1,
+        "excavator": 3,
+        "mixer": 5,
+        "dump-truck": 2,
+        "tower-crane": 2,
+        "mobile-crane": 1
+      }
+    },
+    {
+      "id": "mismatch-701-060",
+      "eventId": "mismatch",
+      "timestamp": "2024-07-25T19:46:14",
+      "time": "19:46:14",
+      "dateLabel": "25.07.2024",
+      "camera": "Камера 7",
+      "image": "assets/incidents/mismatch-701-060.jpg",
+      "boxes": [
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.05,
+            0.253125,
+            0.027604166666666666,
+            0.05416666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 1,
+          "className": "Бетононасос",
+          "classSlug": "pump",
+          "bbox": [
+            0.28802083333333334,
+            0.2984375,
+            0.5505208333333333,
+            0.4166666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.01875,
+            0.38333333333333336,
+            0.0067708333333333336,
+            0.019791666666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.03125,
+            0.3932291666666667,
+            0.00625,
+            0.027083333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.20520833333333333,
+            0.4505208333333333,
+            0.0078125,
+            0.0375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.25885416666666666,
+            0.42916666666666664,
+            0.0078125,
+            0.03177083333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2598958333333333,
+            0.415625,
+            0.003125,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.22135416666666666,
+            0.42604166666666665,
+            0.008854166666666666,
+            0.019270833333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.21041666666666667,
+            0.421875,
+            0.0067708333333333336,
+            0.027083333333333334
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.2734375,
+            0.42291666666666666,
+            0.0078125,
+            0.025520833333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.278125,
+            0.42604166666666665,
+            0.0046875,
+            0.0296875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2760416666666667,
+            0.4125,
+            0.0026041666666666665,
+            0.005208333333333333
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.29635416666666664,
+            0.43385416666666665,
+            0.0046875,
+            0.021354166666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.29739583333333336,
+            0.4166666666666667,
+            0.004166666666666667,
+            0.015625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.2984375,
+            0.41302083333333334,
+            0.003125,
+            0.004166666666666667
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 7,
+          "className": "Каска",
+          "classSlug": "helmet",
+          "bbox": [
+            0.29583333333333334,
+            0.4265625,
+            0.003125,
+            0.00625
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.5020833333333333,
+            0.3645833333333333,
+            0.041666666666666664,
+            0.0375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 6,
+          "className": "Работник",
+          "classSlug": "person",
+          "bbox": [
+            0.4671875,
+            0.43697916666666664,
+            0.013020833333333334,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.390625,
+            0.32447916666666665,
+            0.0546875,
+            0.0421875
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.37395833333333334,
+            0.2911458333333333,
+            0.028645833333333332,
+            0.024479166666666666
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.3223958333333333,
+            0.2713541666666667,
+            0.030208333333333334,
+            0.0234375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 0,
+          "className": "Автобетоносмеситель",
+          "classSlug": "mixer",
+          "bbox": [
+            0.2921875,
+            0.25833333333333336,
+            0.028645833333333332,
+            0.022916666666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.2171875,
+            0.15833333333333333,
+            0.0578125,
+            0.31666666666666665
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 9,
+          "className": "Башенный кран",
+          "classSlug": "tower-crane",
+          "bbox": [
+            0.4786458333333333,
+            0.018229166666666668,
+            0.078125,
+            0.0359375
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.09114583333333333,
+            0.20052083333333334,
+            0.017708333333333333,
+            0.05
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 4,
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "bbox": [
+            0.18385416666666668,
+            0.2234375,
+            0.03125,
+            0.028645833333333332
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 15,
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "bbox": [
+            0.10677083333333333,
+            0.203125,
+            0.016666666666666666,
+            0.018229166666666668
+          ],
+          "confidence": 1
+        },
+        {
+          "classId": 12,
+          "className": "Автокран",
+          "classSlug": "mobile-crane",
+          "bbox": [
+            0.23229166666666667,
+            0.19947916666666668,
+            0.015625,
+            0.0453125
+          ],
+          "confidence": 1
+        }
+      ],
+      "counts": {
+        "excavator": 3,
+        "pump": 1,
+        "mixer": 5,
+        "tower-crane": 2,
+        "dump-truck": 1,
+        "mobile-crane": 1
+      }
+    }
+  ],
+  "vlmObservations": {
+    "shortage-701-005": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "shortage-701-006": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "shortage-701-007": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "required-501-000": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT =",
+      "raw_output": "WORK_FRONT ="
+    },
+    "required-501-030": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT =",
+      "raw_output": "WORK_FRONT ="
+    },
+    "required-501-059": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT = \"",
+      "raw_output": "WORK_FRONT = \""
+    },
+    "idle-801-000": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "idle-801-060": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "idle-801-120": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "idle-801-180": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "idle-801-241": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "idle-801-300": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "wrong-zone-901-000": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "wrong-zone-901-020": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "wrong-zone-901-040": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "wrong-zone-901-059": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "extra-401-000": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "extra-401-025": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "extra-401-049": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "mismatch-701-000": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "mismatch-701-010": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    },
+    "mismatch-701-060": {
+      "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "promptVersion": 1,
+      "scene_code": "WORK_FRONT",
+      "scene": "Основной фронт работ",
+      "summary_ru": "Ответ модели: WORK_FRONT.",
+      "raw_output": "WORK_FRONT."
+    }
+  },
+  "stageTimeline": [
+    {
+      "id": "timeline-excavation-01",
+      "timestamp": "2020-09-28T09:00:00",
+      "camera": "Камера 4",
+      "image": "assets/synthetic-timeline/timeline-excavation-01.jpg",
+      "counts": {
+        "excavator": 2,
+        "dump-truck": 1
+      },
+      "boxes": [
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.469792,
+            0.485938,
+            0.160417,
+            0.107292
+          ]
+        },
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.689583,
+            0.45625,
+            0.1,
+            0.066667
+          ]
+        },
+        {
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.579688,
+            0.606771,
+            0.130208,
+            0.086458
+          ]
+        }
+      ],
+      "source": "Синтетическая вставка PNG на реальный кадр датасета"
+    },
+    {
+      "id": "timeline-excavation-02",
+      "timestamp": "2020-10-08T11:20:00",
+      "camera": "Камера 4",
+      "image": "assets/synthetic-timeline/timeline-excavation-02.jpg",
+      "counts": {
+        "excavator": 1,
+        "dump-truck": 2
+      },
+      "boxes": [
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.489583,
+            0.5,
+            0.15,
+            0.1
+          ]
+        },
+        {
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.610417,
+            0.633854,
+            0.139583,
+            0.092708
+          ]
+        },
+        {
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.729688,
+            0.473438,
+            0.080208,
+            0.053125
+          ]
+        }
+      ],
+      "source": "Синтетическая вставка PNG на реальный кадр датасета"
+    },
+    {
+      "id": "timeline-excavation-03",
+      "timestamp": "2020-10-25T10:10:00",
+      "camera": "Камера 4",
+      "image": "assets/synthetic-timeline/timeline-excavation-03.jpg",
+      "counts": {
+        "excavator": 2,
+        "dump-truck": 1
+      },
+      "boxes": [
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.439583,
+            0.510417,
+            0.15,
+            0.1
+          ]
+        },
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.680208,
+            0.459896,
+            0.089583,
+            0.059375
+          ]
+        },
+        {
+          "className": "Самосвал",
+          "classSlug": "dump-truck",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.600521,
+            0.636979,
+            0.130208,
+            0.086458
+          ]
+        }
+      ],
+      "source": "Синтетическая вставка PNG на реальный кадр датасета"
+    },
+    {
+      "id": "timeline-piles-01",
+      "timestamp": "2020-10-25T15:00:00",
+      "camera": "Камера 5",
+      "image": "assets/synthetic-timeline/timeline-piles-01.jpg",
+      "counts": {
+        "drill": 1,
+        "excavator": 1
+      },
+      "boxes": [
+        {
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.249479,
+            0.428125,
+            0.094792,
+            0.164583
+          ]
+        },
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.630208,
+            0.451562,
+            0.085417,
+            0.057292
+          ]
+        }
+      ],
+      "source": "Синтетическая вставка PNG на реальный кадр датасета"
+    },
+    {
+      "id": "timeline-piles-02",
+      "timestamp": "2020-11-08T12:30:00",
+      "camera": "Камера 5",
+      "image": "assets/synthetic-timeline/timeline-piles-02.jpg",
+      "counts": {
+        "drill": 1,
+        "excavator": 1
+      },
+      "boxes": [
+        {
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.260417,
+            0.432812,
+            0.1,
+            0.173958
+          ]
+        },
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.650521,
+            0.453646,
+            0.080208,
+            0.053125
+          ]
+        }
+      ],
+      "source": "Синтетическая вставка PNG на реальный кадр датасета"
+    },
+    {
+      "id": "timeline-piles-03",
+      "timestamp": "2020-11-28T09:40:00",
+      "camera": "Камера 5",
+      "image": "assets/synthetic-timeline/timeline-piles-03.jpg",
+      "counts": {
+        "drill": 1,
+        "excavator": 1
+      },
+      "boxes": [
+        {
+          "className": "Буровая установка",
+          "classSlug": "drill",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.279687,
+            0.439063,
+            0.105208,
+            0.182292
+          ]
+        },
+        {
+          "className": "Экскаватор",
+          "classSlug": "excavator",
+          "confidence": 0.97,
+          "synthetic": true,
+          "bbox": [
+            0.650521,
+            0.463021,
+            0.080208,
+            0.053125
+          ]
+        }
+      ],
+      "source": "Синтетическая вставка PNG на реальный кадр датасета"
+    },
+    {
+      "id": "timeline-monolith-01",
+      "timestamp": "2020-11-28T14:00:00",
+      "camera": "Камера хода строительства",
+      "image": "assets/progress/progress-0001.webp",
+      "counts": {
+        "tower-crane": 3,
+        "mixer": 1
+      },
+      "boxes": [],
+      "source": "Долгосрочная серия датасета"
+    },
+    {
+      "id": "timeline-monolith-02",
+      "timestamp": "2020-12-20T11:00:00",
+      "camera": "Камера хода строительства",
+      "image": "assets/progress/progress-0200.webp",
+      "counts": {
+        "tower-crane": 2,
+        "mixer": 1
+      },
+      "boxes": [],
+      "source": "Долгосрочная серия датасета"
+    },
+    {
+      "id": "timeline-monolith-03",
+      "timestamp": "2021-01-10T10:00:00",
+      "camera": "Камера хода строительства",
+      "image": "assets/progress/progress-0500.webp",
+      "counts": {
+        "tower-crane": 2,
+        "mixer": 1
+      },
+      "boxes": [],
+      "source": "Долгосрочная серия датасета"
+    },
+    {
+      "id": "timeline-monolith-04",
+      "timestamp": "2021-01-30T09:00:00",
+      "camera": "Камера хода строительства",
+      "image": "assets/progress/progress-0800.webp",
+      "counts": {
+        "tower-crane": 3,
+        "mixer": 1
+      },
+      "boxes": [],
+      "source": "Долгосрочная серия датасета"
+    },
+    {
+      "id": "timeline-monolith-05",
+      "timestamp": "2021-02-12T09:00:00",
+      "camera": "Камера хода строительства",
+      "image": "assets/progress/progress-1000.webp",
+      "counts": {
+        "tower-crane": 3,
+        "mixer": 1
+      },
+      "boxes": [],
+      "source": "Долгосрочная серия датасета"
+    }
+  ]
+}
