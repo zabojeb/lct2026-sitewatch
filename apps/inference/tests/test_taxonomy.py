@@ -23,11 +23,12 @@ def test_training_order_matches_expected_checkpoint() -> None:
     ],
 )
 def test_canonical_aliases(raw: str, canonical: str) -> None:
-    assert map_class(raw, 0.9, 0.5) == (canonical, "mapped")
+    assert map_class(raw, 0.9) == (canonical, "mapped")
 
 
 def test_other_and_uncertain_are_not_rule_eligible() -> None:
-    assert map_class("motor_grader", 0.9, 0.5) == (None, "other")
-    assert map_class("excavator", 0.3, 0.5) == (None, "low_confidence")
-    assert map_class("excavator", float("nan"), 0.5) == (None, "low_confidence")
-    assert map_class("person", 0.99, 0.5) == (None, "ignored")
+    assert map_class("motor_grader", 0.9) == (None, "other")
+    assert map_class("excavator", 0.3) == ("excavator", "mapped")
+    assert map_class("excavator", float("nan")) == (None, "low_confidence")
+    assert map_class("person", 0.99) == (None, "ignored")
+    assert map_class("unknown", 0.8) == (None, "ignored")

@@ -11,13 +11,20 @@ from sitewatch_inference.settings import Settings
 class FakeEngine:
     model_version = "test-detector+test-classifier"
 
-    def predict(self, image: bytes) -> dict[str, object]:
+    def predict(self, image: bytes, recognition_mode: str = "640") -> dict[str, object]:
         assert image
-        return {"schema": "sitewatch.inference.v1", "detections": []}
+        return {
+            "schema": "sitewatch.inference.v1",
+            "recognition_mode": recognition_mode,
+            "detections": [],
+        }
 
 
 def client() -> TestClient:
-    settings = Settings(Path("unused.pt"), Path("unused.pth"), "t" * 32)
+    settings = Settings(
+        Path("unused-640.pt"), Path("unused-960.pt"), Path("unused.pth"),
+        Path("reject.json"), "t" * 32,
+    )
     return TestClient(create_app(settings, FakeEngine()))
 
 
@@ -25,6 +32,7 @@ def test_authentication_and_health() -> None:
     with client() as api:
         assert api.get("/health/live").status_code == 200
         assert api.get("/health/ready").json()["model_version"] == FakeEngine.model_version
+        assert api.get("/health/ready").json()["recognition_modes"] == ["640", "960"]
         assert (
             api.post("/v1/predict", files={"image": ("test.jpg", b"abc", "image/jpeg")}).status_code
             == 401
@@ -46,7 +54,14 @@ def test_upload_validation_and_prediction() -> None:
             "/v1/predict",
             headers=headers,
             files={"image": ("test.jpg", output.getvalue(), "image/jpeg")},
+            data={"recognition_mode": "960"},
         )
         assert result.status_code == 200
         assert result.json()["schema"] == "sitewatch.inference.v1"
+        assert result.json()["recognition_mode"] == "960"
         assert result.headers["cache-control"] == "no-store"
+        assert api.post(
+            "/v1/predict", headers=headers,
+            files={"image": ("test.jpg", output.getvalue(), "image/jpeg")},
+            data={"recognition_mode": "unsupported"},
+        ).status_code == 422

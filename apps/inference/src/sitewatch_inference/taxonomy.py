@@ -27,6 +27,7 @@ TRAINING_CLASSES = (
     "pile_driver",
     "person",
     "other_vehicle",
+    "unknown",
 )
 
 # Keep the raw label even when multiple classifier labels converge on one rule class.
@@ -49,13 +50,11 @@ RULE_CLASSES = {
 MappingStatus = Literal["mapped", "other", "ignored", "low_confidence"]
 
 
-def map_class(
-    raw_class: str, score: float, minimum_score: float
-) -> tuple[str | None, MappingStatus]:
-    """Unmapped/uncertain objects must never become automatic rule violations."""
-    if raw_class == "person":
+def map_class(raw_class: str, score: float) -> tuple[str | None, MappingStatus]:
+    """Preserve the release policy; rules apply their own confidence floor."""
+    if raw_class in {"person", "unknown"}:
         return None, "ignored"
-    if not math.isfinite(score) or score < minimum_score:
+    if not math.isfinite(score):
         return None, "low_confidence"
     canonical = RULE_CLASSES.get(raw_class)
     return (canonical, "mapped") if canonical else (None, "other")
