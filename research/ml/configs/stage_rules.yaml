@@ -1,0 +1,165 @@
+# Методика «этап работ → необходимая техника».
+#
+# Источник этапов: «Сводный перечень строительных работ_ЛТЦ.xlsx» (380 строк, 2 раздела).
+# Важное наблюдение: из 380 видов работ по камере наблюдаемы ~15%. Остальное —
+# внутренняя отделка, инженерия, гидроизоляция — видеонаблюдением не верифицируется
+# в принципе. Мы это фиксируем явно (см. `unobservable`), а не делаем вид, что
+# покрываем весь график: ТЗ п.5 требует описать «условия и ограничения».
+#
+# Семантика полей:
+#   required   — техника, без которой этап физически не идёт. Отсутствие => отклонение.
+#   optional   — техника, типичная для этапа. Её наличие повышает уверенность, отсутствие — нет.
+#   contra     — техника, характерная для ДРУГОГО этапа. Её присутствие => сигнал
+#                о рассинхроне плана и факта (работы идут не те, что в графике).
+#   min_count  — минимум единиц одновременно в кадре (или в окне агрегации).
+#   window_days — окно накопления наблюдений; решение принимается не по одному кадру.
+#   min_days_seen — сколько дней окна техника должна быть замечена, чтобы счесть этап активным.
+
+version: 1
+
+stages:
+
+  "10.3-10.4":
+    name: "Снос домов и нежилых объектов в пятне застройки"
+    required:  [{any_of: [excavator], min_count: 1}]
+    optional:  [dump_truck, truck, wheel_loader, water_truck]
+    contra:    [concrete_pump, concrete_mixer, tower_crane]
+    window_days: 7
+    min_days_seen: 2
+    note: "Снос ведёт экскаватор с гидроножницами/молотом. Отличить навеску по кадру
+           нельзя — считаем экскаватором и опираемся на контекст сцены от VLM (есть ли
+           разрушаемое здание)."
+
+  "10.9":
+    name: "Погрузка строительного мусора"
+    required:  [{any_of: [excavator, wheel_loader, backhoe_loader], min_count: 1},
+                {any_of: [dump_truck, truck], min_count: 1}]
+    optional:  []
+    contra:    [concrete_pump]
+    window_days: 7
+    min_days_seen: 2
+
+  "10.11.3":
+    name: "Устройство временных внутриплощадочных и подъездных дорог"
+    required:  [{any_of: [roller], min_count: 1}]
+    optional:  [grader, bulldozer, dump_truck, excavator]
+    contra:    [tower_crane, concrete_pump]
+    window_days: 7
+    min_days_seen: 1
+
+  "12.3.1":
+    name: "Устройство котлована"
+    required:  [{any_of: [excavator], min_count: 1},
+                {any_of: [dump_truck, truck], min_count: 1}]
+    optional:  [bulldozer, wheel_loader, backhoe_loader]
+    contra:    [concrete_pump, roller]
+    window_days: 5
+    min_days_seen: 2
+    note: "Пример из ТЗ: видим экскаватор, но нет самосвалов => предупреждение о
+           снижении темпа (вывоз грунта не организован)."
+
+  "12.3.2":
+    name: "Устройство свай"
+    required:  [{any_of: [pile_rig], min_count: 1}]
+    optional:  [crawler_crane, mobile_crane, excavator, dump_truck, concrete_mixer]
+    contra:    [roller]
+    window_days: 10
+    min_days_seen: 3
+    note: "Класс pile_rig отсутствует в перечне ТЗ, но это доминирующая техника в
+           выданных снимках. Без него этап не детектируется вообще."
+
+  "12.3.5":
+    name: "Ограждающие конструкции котлована (СВГ, БСС), бурение скважин"
+    required:  [{any_of: [pile_rig], min_count: 1}]
+    optional:  [crawler_crane, excavator, concrete_mixer, truck]
+    contra:    [roller]
+    window_days: 10
+    min_days_seen: 3
+
+  "12.3.7":
+    name: "Земляные работы (разработка, засыпка, планировка, уплотнение грунта)"
+    required:  [{any_of: [excavator, bulldozer], min_count: 1}]
+    optional:  [dump_truck, roller, wheel_loader, grader]
+    contra:    [concrete_pump]
+    window_days: 7
+    min_days_seen: 2
+
+  "12.3.4 / 12.3.9":
+    name: "Устройство фундамента, монолитные работы ниже отм. 0.000"
+    required:  [{any_of: [concrete_mixer], min_count: 1},
+                {any_of: [concrete_pump, crawler_crane, tower_crane, mobile_crane], min_count: 1}]
+    optional:  [truck, excavator, worker]
+    contra:    [pile_rig, roller]
+    window_days: 5
+    min_days_seen: 2
+    note: "Связка «миксер + средство подачи» — самый надёжный визуальный признак
+           бетонирования. Одиночный миксер без насоса/крана = подвоз, а не укладка."
+
+  "12.4.4 / 12.4.28":
+    name: "Монолитные работы выше отм. 0.000, несущие конструкции надземной части"
+    required:  [{any_of: [tower_crane], min_count: 1}]
+    optional:  [concrete_mixer, concrete_pump, truck, knuckle_crane, worker]
+    contra:    [pile_rig]
+    window_days: 7
+    min_days_seen: 3
+    note: "Появление башенного крана — маркер перехода подземная => надземная часть.
+           Для контроля опережения/отставания это самое информативное событие."
+
+  "12.4.8 / 12.4.11":
+    name: "Стены, перегородки, фасад"
+    required:  [{any_of: [tower_crane, knuckle_crane], min_count: 1}]
+    optional:  [truck, mobile_crane, worker]
+    contra:    [pile_rig, excavator]
+    window_days: 14
+    min_days_seen: 3
+    note: "Слабо наблюдаемый этап: материалы подаются краном, сама кладка/фасад
+           различимы только по изменению облика здания => опора на VLM-описание сцены."
+
+  "12.3.8 / 12.4.12 / 12.4.14":
+    name: "Дорожная одежда (основание и покрытие)"
+    required:  [{any_of: [roller], min_count: 1}]
+    optional:  [grader, dump_truck, bulldozer, asphalt_paver]
+    contra:    [pile_rig, tower_crane]
+    window_days: 7
+    min_days_seen: 2
+
+# Этапы, не верифицируемые по снимкам с камер обзора площадки.
+# Для них система выдаёт статус "не наблюдаемо", а не ложное "нарушений нет".
+unobservable:
+  - "10.1 Отселение домов"
+  - "10.2 Вынос инженерных сетей (работы в траншеях/помещениях)"
+  - "10.13–10.14 Оснащение стройплощадки оборудованием, СКУД, интеграции"
+  - "12.3.10–12.3.11 Гидроизоляция, инъектирование"
+  - "12.4.1–12.4.3 Заказ/поставка/монтаж оборудования"
+  - "12.4.8 (внутренние перегородки), 12.4.31 (кровельный пирог) — внутри контура здания"
+  - "Все отделочные и инженерные разделы"
+
+# Типы отклонений, которые формирует система.
+deviations:
+  MISSING_REQUIRED:
+    ru: "Отсутствует обязательная техника"
+    example: "Этап «Устройство котлована»: экскаватор есть, самосвалов нет 3 дня подряд"
+    severity: high
+  UNEXPECTED_EQUIPMENT:
+    ru: "Техника, не соответствующая текущему этапу"
+    example: "По плану фасадные работы, на площадке буровая установка => фактически идут свайные работы"
+    severity: high
+  STAGE_MISMATCH:
+    ru: "Наблюдаемый этап не совпадает с плановым"
+    example: "Обратная задача: по составу техники наиболее вероятен этап 12.3.2, в графике — 12.3.9"
+    severity: high
+  NO_ACTIVITY:
+    ru: "Простой площадки"
+    example: "В окне 5 дней техники нет вовсе при активном этапе по графику"
+    severity: medium
+  IDLE_EQUIPMENT:
+    ru: "Техника на площадке, но без признаков работы"
+    example: "Экскаватор неподвижен между кадрами серии, грунт не меняется"
+    severity: low
+  AHEAD_OF_PLAN:
+    ru: "Опережение графика"
+    example: "Башенный кран смонтирован до завершения подземной части по плану"
+    severity: low
+  NOT_OBSERVABLE:
+    ru: "Этап не верифицируется по камере"
+    severity: info

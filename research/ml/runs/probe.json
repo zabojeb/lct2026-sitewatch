@@ -1,0 +1,178 @@
+{
+  "yolo11n@640": {
+    "n_det": 236,
+    "n_vehicle": 114,
+    "vehicle_per_img": 1.14,
+    "sec_per_img": 0.416,
+    "pct_smaller_than_32px": 86.8,
+    "area_frac_pct": {
+      "10": 0.061,
+      "50": 0.239,
+      "90": 4.448
+    },
+    "rel_width_pct": {
+      "10": 2.56,
+      "50": 5.05,
+      "90": 22.08
+    },
+    "classes": {
+      "car": 67,
+      "truck": 44,
+      "bus": 3
+    }
+  },
+  "yolo11n@1280": {
+    "n_det": 640,
+    "n_vehicle": 361,
+    "vehicle_per_img": 3.61,
+    "sec_per_img": 0.312,
+    "pct_smaller_than_32px": 95.3,
+    "area_frac_pct": {
+      "10": 0.023,
+      "50": 0.072,
+      "90": 1.229
+    },
+    "rel_width_pct": {
+      "10": 1.46,
+      "50": 2.8,
+      "90": 10.7
+    },
+    "classes": {
+      "car": 246,
+      "truck": 112,
+      "bus": 3
+    }
+  },
+  "yolo26n@640": {
+    "n_det": 173,
+    "n_vehicle": 85,
+    "vehicle_per_img": 0.85,
+    "sec_per_img": 0.197,
+    "pct_smaller_than_32px": 76.5,
+    "area_frac_pct": {
+      "10": 0.092,
+      "50": 0.613,
+      "90": 7.699
+    },
+    "rel_width_pct": {
+      "10": 2.93,
+      "50": 7.12,
+      "90": 26.09
+    },
+    "classes": {
+      "truck": 38,
+      "car": 38,
+      "bus": 9
+    }
+  },
+  "yolo26n@1280": {
+    "n_det": 462,
+    "n_vehicle": 238,
+    "vehicle_per_img": 2.38,
+    "sec_per_img": 0.273,
+    "pct_smaller_than_32px": 93.3,
+    "area_frac_pct": {
+      "10": 0.028,
+      "50": 0.12,
+      "90": 1.898
+    },
+    "rel_width_pct": {
+      "10": 1.58,
+      "50": 3.77,
+      "90": 15.21
+    },
+    "classes": {
+      "car": 142,
+      "truck": 90,
+      "bus": 6
+    }
+  },
+  "yolo26s@1280": {
+    "n_det": 674,
+    "n_vehicle": 356,
+    "vehicle_per_img": 3.56,
+    "sec_per_img": 0.424,
+    "pct_smaller_than_32px": 95.2,
+    "area_frac_pct": {
+      "10": 0.017,
+      "50": 0.089,
+      "90": 1.275
+    },
+    "rel_width_pct": {
+      "10": 1.33,
+      "50": 3.1,
+      "90": 11.2
+    },
+    "classes": {
+      "car": 209,
+      "truck": 141,
+      "bus": 6
+    }
+  },
+  "yolo26m@1280": {
+    "n_det": 859,
+    "n_vehicle": 464,
+    "vehicle_per_img": 4.64,
+    "sec_per_img": 0.693,
+    "pct_smaller_than_32px": 93.1,
+    "area_frac_pct": {
+      "10": 0.016,
+      "50": 0.083,
+      "90": 1.704
+    },
+    "rel_width_pct": {
+      "10": 1.26,
+      "50": 2.91,
+      "90": 12.93
+    },
+    "classes": {
+      "car": 273,
+      "truck": 184,
+      "bus": 7
+    }
+  },
+  "yolo26n@640+tiled": {
+    "n_det": 633,
+    "n_vehicle": 321,
+    "vehicle_per_img": 3.21,
+    "sec_per_img": 0.591,
+    "pct_smaller_than_32px": 91.3,
+    "area_frac_pct": {
+      "10": 0.029,
+      "50": 0.165,
+      "90": 2.871
+    },
+    "rel_width_pct": {
+      "10": 1.69,
+      "50": 3.9,
+      "90": 17.15
+    },
+    "classes": {
+      "car": 171,
+      "truck": 137,
+      "bus": 13
+    }
+  },
+  "yolo26m@640+tiled": {
+    "n_det": 1179,
+    "n_vehicle": 634,
+    "vehicle_per_img": 6.34,
+    "sec_per_img": 1.547,
+    "pct_smaller_than_32px": 91.8,
+    "area_frac_pct": {
+      "10": 0.015,
+      "50": 0.112,
+      "90": 2.701
+    },
+    "rel_width_pct": {
+      "10": 1.22,
+      "50": 3.46,
+      "90": 15.38
+    },
+    "classes": {
+      "car": 328,
+      "truck": 303,
+      "bus": 3
+    }
+  }
+}

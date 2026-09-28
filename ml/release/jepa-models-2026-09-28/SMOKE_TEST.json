@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "model": "640",
+      "input": "single image",
+      "status": "passed",
+      "boxes": 6,
+      "device": "mps"
+    },
+    {
+      "model": "960",
+      "input": "ZIP with nested image",
+      "status": "passed",
+      "boxes": 5,
+      "device": "mps"
+    }
+  ],
+  "python": "3.9",
+  "torch": "2.8.0",
+  "torchvision": "0.23.0",
+  "ultralytics": "8.4.160",
+  "note": "Tested in existing environment; fresh dependency installation was not repeated."
+}

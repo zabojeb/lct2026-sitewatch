@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+*.pt
+weights/
+data/raw/
+data/external/
+data/preannot/
+ml/runs/*.json
+!ml/runs/probe.json

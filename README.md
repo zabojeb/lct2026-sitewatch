@@ -136,6 +136,8 @@ docs/
 ml/
   config/           Dataset taxonomy and versioned experiment definitions
   src/sitewatch_ml/ Data quality, splitting, training and promotion pipeline
+  release/          Final model package: predict.py, SHA-256, unknown threshold (weights outside Git)
+research/           ML experiments: YOLO comparison, augmentations, multi-camera stage inference
 ```
 
 Исходные материалы организаторов остаются в корне неизменёнными. Большие изображения, датасеты,
@@ -150,6 +152,17 @@ ml/
 - [Метрики, гипотезы и план блока презентации](docs/analysis-and-evaluation-plan.md):
   протокол до обучения, независимый holdout, mAP по базовым классам и отдельная оценка
   предупреждений. Независимая оценка переданных весов ещё не проведена.
+
+## Модели и исследования
+
+- [Обоснование итоговых моделей](docs/Обоснование_моделей.pdf): почему YOLO26x + ConvNeXt-small,
+  отбор 35 чекпойнтов, аугментации, метрики по источникам и на архиве кейса.
+- [Пакет итоговых моделей](ml/release/jepa-models-2026-09-28): `predict.py`, SHA-256, порог unknown;
+  веса передаются архивом, не через Git.
+- [research/](research/README.md): сравнение YOLO и zero-shot на Kaggle, доменные аугментации,
+  copy-paste синтез, свои архитектуры, определение этапа по технике с нескольких камер и сверка
+  с планом ([research/docs/STAGE_FUSION.md](research/docs/STAGE_FUSION.md)).
+- [Демо-сцены](ml/config/demo-scenes.json): 7 серий кадров кейса для сравнения «план × кадры».
 
 ## Архитектурные правила
 

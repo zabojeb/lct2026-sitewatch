@@ -1,0 +1,25 @@
+{
+  "id": "zabojeb/lct2026-yolo-comparison",
+  "title": "LCT2026 YOLO comparison",
+  "code_file": "compare_yolo.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "false",
+  "dataset_sources": [
+    "nickpudovkin/extcon",
+    "nickpudovkin/roboflowcontruction-heavy-equipment",
+    "nickpudovkin/const-video-v2i-yolo26",
+    "nickpudovkin/construction-machinery-v1i-yolo26",
+    "nickpudovkin/miniexcavconstruction-machines-images-dataset",
+    "nickpudovkin/dataset-object-identication-training-construction"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [
+    "zabojeb/lct2026-yolo-weights-offline-bundle"
+  ],
+  "model_sources": [],
+  "machine_shape": "NvidiaRtxPro6000"
+}

@@ -1,0 +1,12 @@
+# Проверено локально на Python 3.12 (macOS, MPS). Версии — нижние границы.
+ultralytics>=8.4.159
+torch>=2.6
+torchvision
+albumentations>=2.0      # ml/scripts/augment.py, API v2
+opencv-python
+numpy
+pandas
+matplotlib
+pillow
+pyyaml
+# только в Kaggle-ноутбуках, там уже стоят: kagglehub, pycocotools

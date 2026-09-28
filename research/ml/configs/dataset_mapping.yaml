@@ -1,0 +1,201 @@
+# Сведение пяти внешних датасетов в нашу таксономию из 16 классов.
+#
+# Источник имён классов — data.yaml каждого датасета (скачаны через Kaggle CLI).
+# Порядок классов MOCS в data.yaml отсутствует, но найден в ExtCon/extcon_gt.json
+# (COCO-формат, секция categories) — то есть ПОДТВЕРЖДЁН из самих данных, а не
+# взят из публикации. Дополнительно сверен визуально на 8 кадрах MOCS_Test.
+#
+# __drop__ = объект не относится к нашей задаче, аннотация отбрасывается.
+# ВАЖНО: отбрасывать надо именно аннотацию, а кадр оставлять — он всё равно
+# содержит размеченную технику других классов.
+
+target_classes: [excavator, dump_truck, truck, bulldozer, roller, concrete_mixer,
+                 mobile_crane, knuckle_crane, pile_rig, tower_crane, crawler_crane,
+                 concrete_pump, wheel_loader, backhoe_loader, grader, worker]
+
+datasets:
+
+  extcon:
+    kaggle: nickpudovkin/extcon
+    format: yolo            # + COCO-дубликаты разметки в *_gt.json
+    note: |
+      Это НЕ обучающий корпус MOCS на 41k, а бенчмарк доменной устойчивости:
+        ExtCon/images + labels + extcon_gt.json  — 506 кадров, 2168 аннотаций
+        ExtCon/MOCS_Test/test/test/{images,labels} — тест-сплит MOCS, кадры 640x640
+        ExtCon/Stylized_MOCS_Test/               — 4000 кадров, 18965 аннотаций,
+                                                   тот же MOCS после переноса стиля
+        ExtCon/labels_ppe/                       — разметка СИЗ
+      Train-сплита MOCS в датасете нет (проверял пути — отсутствуют).
+      Кадры наземные, крупным планом: доменный разрыв с кадрами ДГП
+      (верхний ракурс, объект ~35 px) максимальный.
+      Пара MOCS_Test / Stylized_MOCS_Test — готовый бенчмарк для ablation
+      аугментаций: меряем падение mAP при смене стиля.
+    map:
+      0: worker
+      1: tower_crane        # static crane
+      2: __drop__           # hanging head — крюк, не техника
+      3: mobile_crane       # vehicle crane
+      4: roller
+      5: bulldozer
+      6: excavator
+      7: truck              # MOCS не отделяет самосвал от грузовика
+      8: wheel_loader       # loader
+      9: concrete_pump      # pump truck
+      10: concrete_mixer
+      11: pile_rig          # pile driving  <-- доминирующий класс в кадрах ДГП
+      12: __drop__          # other vehicle — легковые, мусор для нашей задачи
+
+  heavy_equipment:
+    kaggle: nickpudovkin/roboflowcontruction-heavy-equipment
+    format: yolo
+    license: CC BY 4.0
+    note: |
+      Российский набор, 16 985 кадров — самый большой из доступных.
+      ПРОВЕРЕНО визуально: это неподвижные камеры стройплощадок с fisheye-объективом,
+      вшитым timestamp'ом и ночными кадрами — то есть ТОТ ЖЕ режим съёмки, что у ДГП.
+      Из всех источников это лучший обучающий корпус по домену, а не только по объёму.
+      Закрывает три редких класса, которых нет ни в MOCS, ни в наших вырезках:
+      кран-манипулятор, грейдер, каток.
+
+      Про класс `Gazelle`: проверил 9 кадров. Размечается НЕ только ГАЗель, а любой
+      фургон/бортовой грузовик — на одном кадре так помечен контейнеровоз
+      «Деловые линии». То есть это «лёгкий грузовой транспорт» вообще.
+      Свод в `truck` корректен. `Tanker` и `Trailer` в выборке не встретились,
+      сводятся в `truck` по смыслу названия.
+    map:
+      Autocran: mobile_crane
+      Bucket loader Big: wheel_loader
+      Bucket loader Standart: wheel_loader
+      Bulldozer: bulldozer
+      Cleaning equipment: __drop__
+      Crane manipulator: knuckle_crane      # единственный источник этого класса ТЗ
+      Dump truck: dump_truck
+      Excavator: excavator
+      Forklift Giraffe: __drop__
+      Forklift Standart: __drop__
+      Gazelle: truck                        # лёгкий фургон
+      Mixer: concrete_mixer
+      Motor grader: grader
+      Roller: roller
+      Tanker: truck
+      Trailer: truck
+      Truck: truck
+
+  const_video:
+    kaggle: nickpudovkin/const-video-v2i-yolo26
+    format: yolo
+    license: CC BY 4.0
+    note: |
+      Транслитерированные русские имена — набор собран под тот же домен, что и наш:
+      съёмка с неподвижных камер стройплощадок, кадры 960x960, есть ночные.
+      Единственный внешний источник класса bur_machine (буровая установка).
+
+      ДВЕ ПРОБЛЕМЫ, найденные при проверке:
+      1. Сплитов фактически нет: train=1406, test=1, valid=0. Делить надо самим.
+      2. Единственный кадр в test — `old_aug_1_old_old_1591788579` — это МУСОР:
+         ночной пейзаж с ровно одним боксом на каждый из 18 классов, то есть
+         легенда/калибровочный кадр, а не разметка. Выбрасывать безусловно.
+
+      Про класс `kran`: проверил 8 кадров. В большинстве это башенный кран
+      (высокая мачта на фоне неба), но на одном кадре тем же классом помечен
+      жёлтый стреловой кран на земле. Разметка шумная. Маплю в tower_crane,
+      потому что рядом есть отдельные mobile_kran и manipulator, то есть
+      `kran` — это "всё остальное крановое", а на площадке это почти всегда
+      башенный. Выборка маленькая (7 боксов), при расхождении на обучении
+      первым кандидатом на пересмотр будет именно он.
+    map:
+      betonomeshalka: concrete_mixer
+      betononasos: concrete_pump
+      buldozer: bulldozer
+      bur_machine: pile_rig                 # буровая/сваебойная
+      excavator: excavator
+      gruzovik: truck
+      human: worker
+      kaska: __drop__                       # каска — СИЗ, не техника
+      katok: roller
+      kran: tower_crane                     # ПРОВЕРЕНО визуально, см. ниже
+      manipulator: knuckle_crane
+      mini_bulldozer: bulldozer
+      mobile_kran: mobile_crane
+      musorovoz: truck
+      podemnik: __drop__                    # автовышка, вне таксономии
+      samosval: dump_truck
+      traktor: __drop__
+      vil_podemnik: __drop__                # вилочный погрузчик
+
+  panasia_machinery:
+    kaggle: nickpudovkin/construction-machinery-v1i-yolo26
+    format: yolo
+    license: CC BY 4.0
+    note: "На 2/3 это датасет по СИЗ (каски, жилеты, конусы), техники мало.
+           Ценность ограниченная — брать только ради классов ниже."
+    map:
+      aerial work truck: __drop__
+      concrete truck: concrete_mixer
+      crane: __AMBIGUOUS__
+      engineer vehicle: __drop__
+      excavator-crane: excavator
+      pump-truck: concrete_pump
+      roller: roller
+      shovel: __drop__
+      smalldigger: excavator                # мини-экскаватор
+      trailer: truck
+      PanAsia engineer: worker
+      HondaSUV: __drop__
+      cone: __drop__
+      generator: __drop__
+      motorcycle: __drop__
+      helmet: __drop__
+      PA-helmet: __drop__
+      sub-helmet: __drop__
+      no-helmet: __drop__
+      vest: __drop__
+      PA-vest: __drop__
+      no-vest: __drop__
+      safety shoes: __drop__
+      no safety shoes: __drop__
+
+  miniexcav:
+    kaggle: nickpudovkin/miniexcavconstruction-machines-images-dataset
+    format: yolo
+    note: "223 кадра, один класс. Мало, но домен релевантный."
+    map:
+      0: excavator
+
+# Требуют визуальной проверки перед обучением (тем же способом, каким проверен MOCS:
+# отрисовать боксы на выборке и посмотреть). Ошибка здесь тихо портит целый класс.
+  peru_construction:
+    kaggle: nickpudovkin/dataset-object-identication-training-construction
+    format: yolo      # classes.txt в выгрузке нет, имена взяты из публикации
+    license: CC BY 4.0
+    source: "Del Savio et al., Data in Brief 2022, doi:10.1016/j.dib.2022.108042
+             (Universidad de Lima). 1046 кадров, 4 неподвижные камеры."
+    note: |
+      САМЫЙ БЛИЗКИЙ К ДГП домен из всего, что у нас есть:
+        * разрешение 3840x2160 — исходное разрешение камеры, а не сжатый скриншот;
+        * верхний ракурс с неподвижных/PTZ камер;
+        * вшитый timestamp в кадре;
+        * мелкие объекты в широком кадре, плотная разметка
+          (медиана 17 боксов на кадр, максимум 66).
+      Поэтому его место — ВАЛИДАЦИЯ, а не добавка к обучению: это единственный
+      доступный прокси целевого домена, пока не размечены кадры ДГП.
+      Сильный перекос: класс Person — 86% всех боксов.
+    map:
+      0: dump_truck            # Dump_truck
+      1: excavator             # Excavator
+      2: concrete_mixer        # Concrete_mixer_truck
+      3: wheel_loader          # Skid_steer — мини-погрузчик, ближайший класс
+      4: tower_crane           # Tower_crane
+      5: mobile_crane          # Truck_crane (автокран)
+      6: truck                 # Truck
+      7: worker                # Person
+
+ambiguous:
+  - "panasia_machinery / crane — башенный или стреловой. Датасет 78 кадров,
+     вклад пренебрежимо мал, отдельную проверку не делал: маплю в tower_crane
+     по аналогии с const_video."
+  - "peru_construction / Skid_steer сведён в wheel_loader. Мини-погрузчик (Bobcat)
+     визуально отличается от фронтального; если на кадрах ДГП он встретится
+     значимо часто, стоит завести отдельный класс."
+  - "heavy_equipment / Gazelle, Tanker, Trailer сведены в truck. Если окажется,
+     что в кадрах ДГП это разные по смыслу объекты, разделить."

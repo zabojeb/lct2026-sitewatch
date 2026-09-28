@@ -1,0 +1,12 @@
+torch==2.8.0
+torchvision==0.23.0
+numpy==1.26.4
+opencv-python==4.11.0.86
+pillow==11.3.0
+matplotlib==3.9.4
+PyYAML==6.0.2
+requests==2.32.5
+psutil==7.2.2
+polars==1.35.2
+ultralytics-thop==2.1.6
+./wheels/ultralytics-8.4.160-py3-none-any.whl

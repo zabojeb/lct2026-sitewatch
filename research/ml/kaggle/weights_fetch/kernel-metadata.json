@@ -1,0 +1,15 @@
+{
+  "id": "zabojeb/lct2026-yolo-weights-offline-bundle",
+  "title": "LCT2026 YOLO weights (offline bundle)",
+  "code_file": "fetch_weights.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
