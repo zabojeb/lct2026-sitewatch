@@ -41,7 +41,7 @@ jobs:
       - run: pnpm build
       - run: pnpm --filter @sitewatch/web exec playwright install --with-deps chromium --only-shell
       - run: pnpm test:web
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: web-test-results
