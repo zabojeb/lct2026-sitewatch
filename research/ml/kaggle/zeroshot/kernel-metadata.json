@@ -1,0 +1,16 @@
+{
+  "id": "zabojeb/lct2026-zeroshot-25-models",
+  "title": "LCT2026 zeroshot 25 models",
+  "code_file": "zeroshot_eval.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "false",
+  "machine_shape": "NvidiaRtxPro6000",
+  "dataset_sources": ["xyzyxzzxy/construction-equipment"],
+  "competition_sources": [],
+  "kernel_sources": ["zabojeb/lct2026-yolo-weights-offline-bundle"],
+  "model_sources": []
+}

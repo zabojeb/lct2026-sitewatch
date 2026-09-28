@@ -1,0 +1,106 @@
+{
+  "description": "Серии кадров кейса (data/ml) с одной площадки — готовые входы для сравнения «план × кадры». Подготовлено командой 2026-09-28.",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "Каскад экскаваторов Sunward",
+      "date": null,
+      "frames": [
+        "Screenshot_97.png",
+        "Screenshot_98.png",
+        "Screenshot_99.png",
+        "Screenshot_100.png"
+      ],
+      "recommended": [
+        "Screenshot_97.png",
+        "Screenshot_98.png",
+        "Screenshot_100.png"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Котлован с трубчатыми распорками",
+      "date": null,
+      "frames": [
+        "Screenshot_74.png",
+        "Screenshot_75.png",
+        "Screenshot_76.png",
+        "Screenshot_77.png",
+        "Screenshot_78.png"
+      ],
+      "recommended": [
+        "Screenshot_74.png",
+        "Screenshot_76.png",
+        "Screenshot_78.png"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Котлован с фундаментами и CAT",
+      "date": null,
+      "frames": [
+        "Screenshot_54.png",
+        "Screenshot_55.png",
+        "Screenshot_56.png",
+        "Screenshot_57.png"
+      ],
+      "recommended": []
+    },
+    {
+      "id": 4,
+      "title": "Разработка котлована — май",
+      "date": "2024-05-27",
+      "frames": [
+        "Screenshot_42.png",
+        "Screenshot_43.png",
+        "Screenshot_44.png",
+        "Screenshot_45.png",
+        "Screenshot_46.png"
+      ],
+      "recommended": []
+    },
+    {
+      "id": 5,
+      "title": "Осенний котлован",
+      "date": null,
+      "frames": [
+        "Screenshot_49.png",
+        "Screenshot_50.png",
+        "Screenshot_51.png"
+      ],
+      "recommended": []
+    },
+    {
+      "id": 6,
+      "title": "Буровые установки — март",
+      "date": "2024-03-25",
+      "frames": [
+        "Screenshot_29.png",
+        "Screenshot_30.png",
+        "Screenshot_31.png"
+      ],
+      "recommended": []
+    },
+    {
+      "id": 7,
+      "title": "Буровые установки — апрель",
+      "date": "2024-04-24",
+      "frames": [
+        "Screenshot_33.png",
+        "Screenshot_34.png",
+        "Screenshot_35.png",
+        "Screenshot_36.png",
+        "Screenshot_37.png",
+        "Screenshot_38.png",
+        "Screenshot_39.png",
+        "Screenshot_40.png",
+        "Screenshot_41.png"
+      ],
+      "recommended": [
+        "Screenshot_33.png",
+        "Screenshot_39.png",
+        "Screenshot_41.png"
+      ]
+    }
+  ]
+}

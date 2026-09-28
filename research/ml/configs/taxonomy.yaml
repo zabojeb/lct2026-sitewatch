@@ -1,0 +1,54 @@
+# Таксономия классов техники.
+#
+# Базис — 8 типов, перечисленных в ТЗ (раздел 6.2). ТЗ прямо разрешает расширять
+# перечень при использовании сторонних датасетов, и это необходимо: в 100 снимках,
+# выданных организаторами, доминирует буровая/сваебойная установка, которой в
+# списке ТЗ нет, а башенный кран присутствует почти в каждом кадре. Модель,
+# обученная только на 8 классах ТЗ, будет расписывать эти объекты по чужим классам.
+#
+# id -> имя. `tz: true` = класс из ТЗ; `source` = откуда берём обучающие примеры.
+
+classes:
+  # --- обязательные по ТЗ ---
+  - {id: 0,  name: excavator,        ru: "Экскаватор",                tz: true,  source: [MOCS, ACID, AIDCON, roboflow, own]}
+  - {id: 1,  name: dump_truck,       ru: "Самосвал",                  tz: true,  source: [ACID, MOCS(truck), roboflow, own]}
+  - {id: 2,  name: truck,            ru: "Грузовик (бортовой/тягач)", tz: true,  source: [MOCS, roboflow, own]}
+  - {id: 3,  name: bulldozer,        ru: "Бульдозер",                 tz: true,  source: [MOCS, ACID, roboflow]}
+  - {id: 4,  name: roller,           ru: "Каток",                     tz: true,  source: [MOCS, ACID(compactor), roboflow]}
+  - {id: 5,  name: concrete_mixer,   ru: "Автобетоносмеситель",       tz: true,  source: [MOCS, ACID, own]}
+  - {id: 6,  name: mobile_crane,     ru: "Автокран",                  tz: true,  source: [MOCS(vehicle crane), ACID, own]}
+  - {id: 7,  name: knuckle_crane,    ru: "Кран-манипулятор",          tz: true,  source: [roboflow, own]}
+
+  # --- расширение: без него не описать реальные снимки ДГП ---
+  - {id: 8,  name: pile_rig,         ru: "Буровая/сваебойная установка", tz: false, source: [MOCS(pile driver), own],
+     note: "Доминирующий объект в выданных снимках: этапы 12.3.2 Устройство свай, 12.3.5 Ограждающие конструкции"}
+  - {id: 9,  name: tower_crane,      ru: "Башенный кран",             tz: false, source: [MOCS, ACID, own],
+     note: "Присутствует почти в каждом кадре; маркер перехода к надземной части"}
+  - {id: 10, name: crawler_crane,    ru: "Гусеничный кран",           tz: false, source: [MOCS(vehicle crane), own],
+     note: "Решётчатая стрела; визуально отличается от автокрана, в кадрах ДГП частый"}
+  - {id: 11, name: concrete_pump,    ru: "Автобетононасос",           tz: false, source: [MOCS(pump truck), own],
+     note: "Ключевой признак бетонирования — отличает монолитные работы от земляных"}
+  - {id: 12, name: wheel_loader,     ru: "Фронтальный погрузчик",     tz: false, source: [MOCS(loader), ACID]}
+  - {id: 13, name: backhoe_loader,   ru: "Экскаватор-погрузчик",      tz: false, source: [ACID, roboflow]}
+  - {id: 14, name: grader,           ru: "Автогрейдер",               tz: false, source: [ACID, roboflow]}
+  - {id: 15, name: worker,           ru: "Рабочий",                   tz: false, source: [MOCS, SODA],
+     note: "Не требуется ТЗ, но даёт признак активности площадки и почти бесплатен (есть в MOCS)"}
+
+# Классы, которые сливаем при обучении на внешних датасетах (разметка расходится):
+merge_rules:
+  MOCS:
+    {worker: worker, tower_crane: tower_crane, vehicle_crane: mobile_crane, roller: roller,
+     bulldozer: bulldozer, excavator: excavator, truck: truck, loader: wheel_loader,
+     pump_truck: concrete_pump, concrete_transport_mixer: concrete_mixer, pile_driver: pile_rig,
+     hanging_hook: __drop__, other_vehicle: __drop__}
+  ACID:
+    {excavator: excavator, compactor: roller, dozer: bulldozer, grader: grader,
+     dump_truck: dump_truck, concrete_mixer_truck: concrete_mixer, wheel_loader: wheel_loader,
+     backhoe_loader: backhoe_loader, tower_crane: tower_crane, mobile_crane: mobile_crane}
+
+# Осознанные ограничения:
+#  - `truck` vs `dump_truck`: в MOCS они не разделены. Разделяем только по ACID +
+#    собственной разметке; на кадрах ДГП самосвал часто различим только по кузову,
+#    поэтому в правилах сопоставления допускаем группу `any_truck = {truck, dump_truck}`.
+#  - `mobile_crane` vs `crawler_crane` vs `knuckle_crane`: телескоп / решётчатая стрела /
+#    манипулятор на шасси. Внешние датасеты их смешивают -> собственная доразметка.

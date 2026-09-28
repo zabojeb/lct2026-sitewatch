@@ -1,0 +1,22 @@
+{
+  "weights/yolo_640.pt": {
+    "sha256": "4f35c1c790721ac54491445375e53f6cdf48e4289ef46af92c0c6260c79b03df",
+    "bytes": 236256588
+  },
+  "weights/yolo_960.pt": {
+    "sha256": "898f8b7d942e60e5e9f345a6babe7a63986c7bdc6948d3a0e02877180131f179",
+    "bytes": 236387660
+  },
+  "weights/convnext_small_latest.pth": {
+    "sha256": "1aa87eac3f31514380d804ac29e4d72b39f654c548937b70cb9f4c17fb15f73a",
+    "bytes": 197997485
+  },
+  "wheels/ultralytics-8.4.160-py3-none-any.whl": {
+    "sha256": "639fa0f7f33009c9565a021789fd4467de5c1ba3d59cc0fb8d34a968d9cc8bbe",
+    "bytes": 1454696
+  },
+  "reject_threshold.json": {
+    "sha256": "923c5a14318dfeac612f261ff63a7e1f0624deda1093c94b3a56ef2576a80386",
+    "bytes": 205
+  }
+}

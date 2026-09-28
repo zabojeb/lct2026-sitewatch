@@ -1,0 +1,8 @@
+{
+  "threshold": 0.011581308208405972,
+  "comparison": "p_unknown > threshold",
+  "validation_known_count": 7791,
+  "allowed_false_rejects": 77,
+  "observed_false_rejects": 77,
+  "max_false_reject": 0.01
+}
