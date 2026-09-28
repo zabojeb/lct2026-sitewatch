@@ -12,6 +12,13 @@ resources:
   - schedule-serviceaccount.yaml
   - schedule-deployment.yaml
   - schedule-service.yaml
+  - inference-configmap.yaml
+  - inference-secret.yaml
+  - inference-deployment.yaml
+  - inference-service.yaml
+  - deviations-secret.yaml
+  - deviations-deployment.yaml
+  - deviations-service.yaml
   - web-deployment.yaml
   - web-service.yaml
   - ingress.yaml

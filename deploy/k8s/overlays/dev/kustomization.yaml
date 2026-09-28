@@ -16,3 +16,9 @@ images:
   - name: ghcr.io/sitewatch/schedule
     newName: sitewatch-schedule
     newTag: dev
+  - name: ghcr.io/sitewatch/inference
+    newName: sitewatch-inference
+    newTag: dev
+  - name: ghcr.io/sitewatch/deviations
+    newName: sitewatch-deviations
+    newTag: dev

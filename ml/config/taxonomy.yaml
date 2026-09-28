@@ -1,4 +1,4 @@
-version: 1
+version: 2
 classes:
   - code: dump_truck
     title_ru: Самосвал
@@ -20,3 +20,7 @@ classes:
     title_ru: Башенный кран
   - code: piling_rig
     title_ru: Буровая или сваебойная установка
+  - code: concrete_pump
+    title_ru: Бетононасос
+  - code: bucket_loader
+    title_ru: Ковшовый погрузчик

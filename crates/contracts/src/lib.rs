@@ -177,6 +177,109 @@ pub struct EquipmentRuleRevisionItem {
     pub source: String,
 }
 
+/// Stateless, explicitly non-authoritative preview of a configured stage against real frames.
+/// The owning deviations service never persists or emits an alert from this request.
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct EvaluationPreviewRequest {
+    pub stage: PreviewStage,
+    pub coverage: Option<PreviewCoverage>,
+    pub frames: Vec<PreviewFrame>,
+    pub progress: Option<PreviewProgress>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PreviewStage {
+    pub name: String,
+    pub zone_code: String,
+    pub planned_start: DateTime<Utc>,
+    pub planned_end: DateTime<Utc>,
+    pub observable_from_camera: bool,
+    pub rules: Vec<EquipmentRuleInput>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PreviewCoverage {
+    pub percent: f32,
+    pub source: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PreviewFrame {
+    pub id: Uuid,
+    pub camera_code: String,
+    pub zone_code: String,
+    pub captured_at: DateTime<Utc>,
+    pub captured_at_source: String,
+    pub image_sha256: String,
+    pub model_version: String,
+    pub detections: Vec<PreviewDetection>,
+    pub manual_counts: Vec<PreviewManualCount>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PreviewDetection {
+    pub equipment_class: Option<EquipmentClass>,
+    pub mapping_status: String,
+    pub detector_score: f32,
+    pub classifier_score: f32,
+    pub bounding_box: sitewatch_domain::BoundingBox,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PreviewManualCount {
+    pub equipment_class: EquipmentClass,
+    pub count: u16,
+    pub source: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PreviewProgress {
+    pub measured_at: DateTime<Utc>,
+    pub percent: f64,
+    pub source: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+pub struct EvaluationPreviewResponse {
+    pub schema: String,
+    pub status: String,
+    pub stage_name: String,
+    pub findings: Vec<PreviewFinding>,
+    pub unconfigured_observed: Vec<EquipmentClass>,
+    pub schedule: Option<PreviewScheduleResult>,
+    pub limitations: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+pub struct PreviewFinding {
+    pub equipment_class: EquipmentClass,
+    pub assessment: String,
+    pub expectation: RuleExpectation,
+    pub expected_min: u16,
+    pub expected_max: Option<u16>,
+    pub observed_count: Option<u16>,
+    pub rule_source: String,
+    pub evidence_frame_ids: Vec<Uuid>,
+    pub evidence_sources: Vec<String>,
+    pub explanation: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
+pub struct PreviewScheduleResult {
+    pub planned_percent_at_measurement: f64,
+    pub measured_percent: f64,
+    pub percentage_point_delta: f64,
+    pub variance_seconds: i64,
+    pub source: String,
+}
+
 /// RFC 9457-compatible problem details returned by every HTTP error path.
 #[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 pub struct ProblemDetails {

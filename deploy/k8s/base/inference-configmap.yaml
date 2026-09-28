@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sitewatch-inference-config
+data:
+  DETECTOR_WEIGHTS: /models/detector.pt
+  CLASSIFIER_WEIGHTS: /models/classifier.pth
+  INFERENCE_DEVICE: auto
+  YOLO_CONFIG_DIR: /tmp
+  XDG_CACHE_HOME: /tmp/cache
+  MPLCONFIGDIR: /tmp/matplotlib
+  MODEL_S3_ENDPOINT: REPLACE_ME
+  MODEL_S3_BUCKET: sitewatch-models

@@ -1,7 +1,8 @@
 .DEFAULT_GOAL := help
 
 .PHONY: help bootstrap dev infra-up infra-down check fmt test contracts db-migrate k8s-validate \
-	ml-bootstrap ml-check ml-data ml-import-labels mlops-up labeling-up mlops-down
+	ml-bootstrap ml-check ml-data ml-import-labels mlops-up labeling-up mlops-down inference-check \
+	demo-live demo-share demo-share-status demo-share-stop
 
 help:
 	@awk 'BEGIN {FS = ":.*## "}; /^[a-zA-Z_-]+:.*## / {printf "%-18s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -20,6 +21,24 @@ ml-check: ## Lint, type-check and test the ML pipeline
 	cd ml && uv run pytest
 	cd ml && uv run --extra orchestration dagster definitions validate \
 		-m sitewatch_ml.orchestration.definitions
+
+inference-check: ## Lint and test the private model-serving service
+	cd apps/inference && uv sync --frozen --group dev --extra serve
+	cd apps/inference && uv run ruff check src tests
+	cd apps/inference && uv run ruff format --check src tests
+	cd apps/inference && uv run pytest -q
+
+demo-live: ## Run the real-model local demo at http://127.0.0.1:5174/app/model
+	bash scripts/demo-live.sh
+
+demo-share: ## Start a protected temporary HTTPS link to the Mac-hosted demo
+	bash scripts/demo-share-control.sh start
+
+demo-share-status: ## Print the current temporary share link
+	bash scripts/demo-share-control.sh status
+
+demo-share-stop: ## Stop the temporary share link and local demo services
+	bash scripts/demo-share-control.sh stop
 
 ml-data: ## Reproduce ingestion, audit, safe split and labeling tasks with DVC
 	cd ml && uv run --extra data dvc repro ../dvc.yaml
@@ -74,4 +93,5 @@ db-migrate: ## Apply PostgreSQL migrations
 k8s-validate: ## Render both Kubernetes overlays
 	kubectl kustomize deploy/k8s/overlays/dev >/dev/null
 	kubectl kustomize deploy/k8s/overlays/prod >/dev/null
+	kubectl kustomize deploy/k8s/overlays/gpu >/dev/null
 	kubectl kustomize deploy/k8s/jobs >/dev/null

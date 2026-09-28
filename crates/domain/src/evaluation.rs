@@ -76,7 +76,7 @@ pub fn compare_schedule(
 #[derive(Debug, Clone, PartialEq)]
 pub struct CountEvidence {
     pub equipment_class: EquipmentClass,
-    /// Deduplicated tracked objects, not the sum of boxes across frames.
+    /// Per-frame object count, never summed across frames. Distinct physical machines require tracking.
     pub observed_count: u16,
     pub confirmed_frames: u16,
     pub evidence_ids: Vec<String>,
@@ -160,11 +160,99 @@ pub fn compare_equipment(
     })
 }
 
+/// Conservative temporal preview: only an unchanged count across distinct evidence frames
+/// can become a candidate finding. Without tracking it never identifies a physical machine.
+///
+/// # Errors
+/// Rejects invalid rules, missing frame references or invalid coverage/provenance.
+pub fn compare_equipment_window(
+    rule: &EquipmentRule,
+    rule_source: &str,
+    frames: &[CountEvidence],
+    coverage_percent: f32,
+    minimum_coverage_percent: f32,
+) -> Result<EquipmentComparison, DomainValidationError> {
+    if frames.is_empty()
+        || frames.iter().any(|frame| {
+            frame.equipment_class != rule.equipment_class || frame.evidence_ids.len() != 1
+        })
+    {
+        return Err(DomainValidationError::InvalidEvidence);
+    }
+    let evidence_ids = frames
+        .iter()
+        .flat_map(|frame| frame.evidence_ids.iter().cloned())
+        .collect();
+    let stable = frames
+        .iter()
+        .all(|frame| frame.observed_count == frames[0].observed_count);
+    let evidence = CountEvidence {
+        equipment_class: rule.equipment_class,
+        observed_count: frames
+            .last()
+            .ok_or(DomainValidationError::InvalidEvidence)?
+            .observed_count,
+        confirmed_frames: if stable {
+            u16::try_from(frames.len()).unwrap_or(u16::MAX)
+        } else {
+            0
+        },
+        evidence_ids,
+    };
+    compare_equipment(
+        rule,
+        rule_source,
+        &evidence,
+        coverage_percent,
+        minimum_coverage_percent,
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use chrono::{Duration, TimeZone};
 
     use super::*;
+
+    #[test]
+    fn unstable_or_single_frame_cannot_establish_missing_equipment() {
+        let rule = EquipmentRule {
+            equipment_class: EquipmentClass::Excavator,
+            expectation: RuleExpectation::Required,
+            min_count: 1,
+            max_count: None,
+            min_confidence: 0.6,
+            persistence_frames: 3,
+        };
+        let frames = (0..3)
+            .map(|index| CountEvidence {
+                equipment_class: EquipmentClass::Excavator,
+                observed_count: 0,
+                confirmed_frames: 1,
+                evidence_ids: vec![format!("frame-{index}")],
+            })
+            .collect::<Vec<_>>();
+        assert_eq!(
+            compare_equipment_window(&rule, "ППР", &frames[..1], 95.0, 80.0)
+                .unwrap()
+                .assessment,
+            RuleAssessment::InsufficientEvidence
+        );
+        assert_eq!(
+            compare_equipment_window(&rule, "ППР", &frames, 95.0, 80.0)
+                .unwrap()
+                .assessment,
+            RuleAssessment::Missing
+        );
+        let mut changing = frames;
+        changing[2].observed_count = 1;
+        assert_eq!(
+            compare_equipment_window(&rule, "ППР", &changing, 95.0, 80.0)
+                .unwrap()
+                .assessment,
+            RuleAssessment::InsufficientEvidence
+        );
+    }
 
     #[test]
     fn schedule_expresses_delay_and_lead_in_hours() {

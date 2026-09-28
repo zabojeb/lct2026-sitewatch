@@ -6,7 +6,7 @@ The ML platform is deliberately split into five contracts:
 
 1. **Dataset identity — DVC + MinIO.** Image bytes stay outside Git. SHA-256 manifests and the DVC
    lock make any experiment reproducible.
-2. **Human truth — Label Studio.** The repository contains the fixed ten-class taxonomy and labeling
+2. **Human truth — Label Studio.** The repository contains the stable twelve-class taxonomy and labeling
    UI. Exported rectangles are rejected on an unknown class, unsafe path, rotation or out-of-frame
    coordinates and are written atomically as YOLO labels.
 3. **Quality and lineage — Dagster.** The asset graph shows ingestion, decoding, annotation coverage,
@@ -116,11 +116,18 @@ these commands are gated by dataset readiness. Background-only weather synthesis
 violation augmentation need masks/event ground truth and are not currently enabled; see
 [`schedule-and-evidence-requirements.md`](schedule-and-evidence-requirements.md).
 
+Separately, the team supplied trained YOLO26x and ConvNeXt-Small checkpoints. They are integrated
+into a private serving candidate described in [model serving](model-serving.md), not silently marked
+as an MLflow `champion` or credited with the baseline pipeline's validation. The next evaluation
+must record the training dataset/version and run scene-disjoint detection, classification, alert
+quality, latency and confidence calibration checks before production promotion.
+
 ## Production shape
 
 Compose is for the hackathon workstation. In Kubernetes, use managed PostgreSQL and S3, separate
-Dagster webserver/daemon deployments, GPU training Jobs and a distinct inference Deployment that
-resolves the MLflow `champion` alias to a pinned ONNX checksum. Secrets belong in an external secret
+Dagster webserver/daemon deployments, GPU training Jobs and a distinct inference Deployment using
+pinned artifact checksums. ONNX export and MLflow `champion` resolution remain future promotion gates,
+not features of the currently supplied PyTorch serving path. Secrets belong in an external secret
 manager. Source images and evidence remain private and must never be placed in logs or public model
 artifacts.
 

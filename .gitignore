@@ -37,6 +37,10 @@ ml/mlruns/
 ml/mlflow.db*
 ml/runs/
 ml/**/__pycache__/
+apps/inference/.venv/
+apps/inference/.pytest_cache/
+apps/inference/.ruff_cache/
+apps/inference/**/__pycache__/
 .dvc/cache/
 .dvc/tmp/
 

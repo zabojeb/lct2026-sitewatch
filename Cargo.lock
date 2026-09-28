@@ -1843,6 +1843,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "sitewatch-deviations"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "axum",
+ "chrono",
+ "serde_json",
+ "sha2 0.10.9",
+ "sitewatch-contracts",
+ "sitewatch-domain",
+ "subtle",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "sitewatch-domain"
 version = "0.1.0"
 dependencies = [

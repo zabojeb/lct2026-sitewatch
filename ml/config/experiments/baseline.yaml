@@ -1,5 +1,5 @@
 name: yolo-baseline-640
-description: Reproducible transfer-learning baseline for the ten equipment classes.
+description: Reproducible transfer-learning baseline for the twelve equipment classes.
 base_model: yolo11s.pt
 image_size: 640
 epochs: 80

@@ -12,5 +12,7 @@
     <Label value="mobile_crane" background="#00BBF9" />
     <Label value="tower_crane" background="#00F5D4" />
     <Label value="piling_rig" background="#FEE440" />
+    <Label value="concrete_pump" background="#FB5607" />
+    <Label value="bucket_loader" background="#8AC926" />
   </RectangleLabels>
 </View>

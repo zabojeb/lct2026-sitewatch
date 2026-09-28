@@ -16,7 +16,7 @@
       "declared_license": "CC0: Public Domain",
       "admission": "pending_semantic_annotation_and_provenance_review",
       "class_names": ["Dump truck", "Excavator", "Motor grader", "Roller", "Crane manipulator", "Gazelle", "Forklift Standart", "Bucket loader Big", "Mixer", "Tanker", "Bulldozer", "Cleaning equipment", "Truck", "Trailer", "Forklift Giraffe", "Bucket loader Standart", "Autocran"],
-      "candidate_mapping": {"0": "dump_truck", "1": "excavator", "3": "road_roller", "4": "loader_crane", "8": "concrete_mixer", "10": "bulldozer", "12": "truck", "16": "mobile_crane"},
+      "candidate_mapping": {"0": "dump_truck", "1": "excavator", "3": "road_roller", "4": "loader_crane", "7": "bucket_loader", "8": "concrete_mixer", "10": "bulldozer", "12": "truck", "15": "bucket_loader", "16": "mobile_crane"},
       "mapping_status": "proposal_not_applied",
       "notes": "Names and IDs come from the publisher metadata. Other classes must remain explicitly out of scope, not become negative labels. The declared license is not independent proof of the rights to every image."
     },

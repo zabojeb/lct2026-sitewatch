@@ -7,8 +7,11 @@ deployed services (identity, projects, schedule, observations, inference, deviat
 Kubernetes, NATS JetStream and one PostgreSQL cluster with isolated databases and roles. See
 [ADR 0005](adr/0005-microservices-and-kubernetes.md) for ownership, consistency and deployment gates.
 
-The sections below describe the existing bootstrap, not the completed microservice target. Business
-routes are not implemented yet; the web application explicitly demonstrates local synthetic data.
+The sections below describe the original bootstrap, not the completed microservice target. The
+schedule service, private synchronous inference service and a stateless deviations preview service
+now exist; persistent observation, deviation and identity services do not. The main web workspace
+explicitly demonstrates local synthetic data; the separate `/app/model` screen runs real model
+inference and a sourced, evidence-gated plan preview when enabled.
 Do not build new cross-domain handlers or shared persistence around the legacy API. Existing
 Kustomize overlays deploy that bootstrap only and must be replaced as services are implemented.
 
@@ -46,9 +49,12 @@ transaction. The API never performs model inference inside an HTTP request.
 
 ### Inference processor
 
-The processor consumes `lct.observation.accepted.v1`, loads the image from object storage, executes
-the versioned ONNX model and persists normalized detections. CPU and GPU processors may consume from
-different JetStream queues without changing the public API.
+Target: an observations-owned job consumes `lct.observation.accepted.v1`, loads the image from object
+storage, invokes a pinned model and persists normalized detections before an outbox publishes the
+result. CPU and GPU serving replicas can scale independently. Current state: `apps/inference` serves
+the supplied PyTorch YOLO26x and ConvNeXt checkpoints through a private authenticated HTTP endpoint,
+with verified artifact hashes and a separate optional upload sandbox. Event consumption, detection
+persistence and rule evaluation are not yet implemented. See [model serving](model-serving.md).
 
 ### Rule processor
 

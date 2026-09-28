@@ -1,5 +1,11 @@
 # Frontend follow-through on Maria's proposals
 
+> Historical design record. On 2026-09-27 the synthetic `/app` scenario was removed from the
+> user-facing site. The following table describes the earlier browser-only prototype, not current
+> live functionality. The current `/app` shows service readiness, and `/app/model` offers real
+> inference plus a stateless Rust rules preview. Camera ingestion, persisted observations,
+> reviewed alerts and most scenario controls listed below remain to be connected to live data.
+
 Implemented on 2026-09-20, based on the discussion starting with message 618 on 2026-09-19.
 This is a frontend deliverable, not an assertion that the ML/backend system is complete.
 
@@ -66,6 +72,19 @@ construction norms, production forecasting, actual dataset generation, business 
 authentication, server persistence and outbound operational alerts still require integration.
 The existing Rust microservices / separate PostgreSQL databases / NATS / Kubernetes decision is
 unchanged. No backend handler, contract, migration or Kubernetes configuration changed in this pass.
+
+## Дополнение 2026-09-27
+
+Переданные командой YOLO26x и ConvNeXt-Small теперь работают в отдельном приватном сервисе и
+на экране `/app/model`, который принимает реальный кадр и показывает рамки и сырые классы.
+Синтетические наблюдения этого пульта не подменены результатами модели: сервис наблюдений,
+история, правила и алерты ещё не соединены с live-инференсом. См. [model serving](model-serving.md).
+
+Теперь отдельный локальный контур после инференса позволяет собрать несколько разных кадров
+и передать их в Rust-сервис предпросмотра правил: выбрать технику, количество, источник,
+обзор и ручной процент готовности. Он не создаёт алертов в БД и не подменяет существующие
+синтетические наблюдения. Один кадр, неполный обзор и нестабильные количества возвращают
+`insufficient_evidence`; сравнение сроков возможно только по ручному замеру с источником.
 
 ## Дополнение 2026-09-24
 

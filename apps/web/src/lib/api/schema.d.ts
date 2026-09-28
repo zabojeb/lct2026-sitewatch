@@ -157,6 +157,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/evaluations:preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Compare a manually sourced stage with distinct real model frames
+         * @description Stateless operator preview only. Never persists an observation, creates a deviation or sends a notification. Browser-supplied frames are untrusted until an authenticated observation pipeline exists. A single image or unknown coverage yields insufficient_evidence.
+         */
+        post: operations["previewEvaluation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/projects/{projectId}/deviations": {
         parameters: {
             query?: never;
@@ -201,7 +221,7 @@ export interface components {
             detail?: string;
         };
         /** @enum {string} */
-        EquipmentClass: "dump_truck" | "excavator" | "road_roller" | "loader_crane" | "concrete_mixer" | "bulldozer" | "truck" | "mobile_crane" | "tower_crane" | "piling_rig";
+        EquipmentClass: "dump_truck" | "excavator" | "road_roller" | "loader_crane" | "concrete_mixer" | "bulldozer" | "truck" | "mobile_crane" | "tower_crane" | "piling_rig" | "concrete_pump" | "bucket_loader";
         EquipmentClassMetadata: {
             code: components["schemas"]["EquipmentClass"];
             title_ru: string;
@@ -321,6 +341,101 @@ export interface components {
             persistence_frames: number;
             /** @description Document reference for this rule; omitted or null defaults to import source. */
             source?: string | null;
+        };
+        EvaluationPreviewRequest: {
+            stage: components["schemas"]["PreviewStage"];
+            coverage?: components["schemas"]["PreviewCoverage"] | null;
+            frames: components["schemas"]["PreviewFrame"][];
+            progress?: components["schemas"]["PreviewProgress"] | null;
+        };
+        PreviewStage: {
+            name: string;
+            zone_code: string;
+            /** Format: date-time */
+            planned_start: string;
+            /** Format: date-time */
+            planned_end: string;
+            observable_from_camera: boolean;
+            rules: components["schemas"]["PreviewRule"][];
+        };
+        PreviewRule: {
+            equipment_class: components["schemas"]["EquipmentClass"];
+            /** @enum {string} */
+            expectation: "required" | "optional" | "unexpected";
+            min_count: number;
+            max_count?: number | null;
+            min_confidence: number;
+            persistence_frames: number;
+            source: string;
+        };
+        PreviewCoverage: {
+            percent: number;
+            source: string;
+        };
+        PreviewFrame: {
+            /** Format: uuid */
+            id: string;
+            camera_code: string;
+            zone_code: string;
+            /** Format: date-time */
+            captured_at: string;
+            captured_at_source: string;
+            image_sha256: string;
+            model_version: string;
+            detections: components["schemas"]["PreviewDetection"][];
+            manual_counts: components["schemas"]["PreviewManualCount"][];
+        };
+        PreviewDetection: {
+            equipment_class: components["schemas"]["EquipmentClass"] | null;
+            /** @enum {string} */
+            mapping_status: "mapped" | "other" | "ignored" | "low_confidence";
+            detector_score: number;
+            classifier_score: number;
+            bounding_box: components["schemas"]["BoundingBox"];
+        };
+        PreviewManualCount: {
+            equipment_class: components["schemas"]["EquipmentClass"];
+            count: number;
+            source: string;
+        };
+        PreviewProgress: {
+            /** Format: date-time */
+            measured_at: string;
+            percent: number;
+            source: string;
+        };
+        EvaluationPreviewResponse: {
+            /** @constant */
+            schema: "sitewatch.evaluation.preview.v1";
+            /** @enum {string} */
+            status: "insufficient_evidence" | "review_required" | "observed_consistency";
+            stage_name: string;
+            findings: components["schemas"]["PreviewFinding"][];
+            unconfigured_observed: components["schemas"]["EquipmentClass"][];
+            schedule: components["schemas"]["PreviewScheduleResult"] | null;
+            limitations: string[];
+        };
+        PreviewFinding: {
+            equipment_class: components["schemas"]["EquipmentClass"];
+            /** @enum {string} */
+            assessment: "consistent" | "missing" | "below_minimum" | "above_maximum" | "unexpected" | "insufficient_evidence";
+            /** @enum {string} */
+            expectation: "required" | "optional" | "unexpected";
+            expected_min: number;
+            expected_max: number | null;
+            observed_count: number | null;
+            rule_source: string;
+            evidence_frame_ids: string[];
+            evidence_sources: string[];
+            explanation: string;
+        };
+        PreviewScheduleResult: {
+            planned_percent_at_measurement: number;
+            measured_percent: number;
+            percentage_point_delta: number;
+            /** Format: int64 */
+            variance_seconds: number;
+            source: string;
         };
         ScheduleRevisionResponse: {
             /** Format: uuid */
@@ -713,6 +828,32 @@ export interface operations {
             };
             401: components["responses"]["Unauthorized"];
             404: components["responses"]["NotFound"];
+        };
+    };
+    previewEvaluation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EvaluationPreviewRequest"];
+            };
+        };
+        responses: {
+            /** @description Non-authoritative comparison with explicit limitations */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EvaluationPreviewResponse"];
+                };
+            };
+            401: components["responses"]["Unauthorized"];
+            422: components["responses"]["UnprocessableEntity"];
         };
     };
     listDeviations: {
