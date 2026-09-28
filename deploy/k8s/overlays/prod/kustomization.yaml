@@ -17,6 +17,14 @@ patches:
       - op: replace
         path: /spec/rules/0/host
         value: sitewatch.example.ru
+  - target:
+      version: v1
+      kind: ConfigMap
+      name: sitewatch-config
+    patch: |-
+      - op: replace
+        path: /data/ORIGIN
+        value: https://sitewatch.example.ru
 images:
   - name: ghcr.io/sitewatch/api
     newTag: 0.1.0

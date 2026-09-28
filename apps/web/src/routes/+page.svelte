@@ -7,35 +7,8 @@
   import XIcon from 'phosphor-svelte/lib/XIcon';
   import Brand from '$lib/components/Brand.svelte';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-  import EvidenceViewer from '$lib/components/EvidenceViewer.svelte';
-  import { observations } from '$lib/demo/data';
   import { onMount } from 'svelte';
-  let active = $state(0);
   let about: HTMLDialogElement;
-  const tabs = ['Техника в кадре', 'Контекст плана', 'Причина сигнала'];
-  const details = [
-    {
-      heading: 'Видеть, что происходит.',
-      body: 'Объекты на снимке, класс техники и уверенность распознавания. Каждый результат можно проверить глазами.',
-      label: 'Экскаватор',
-      value: '1 объект',
-      foot: 'Рамка в демо задана вручную.',
-    },
-    {
-      heading: 'Учитывать, что запланировано.',
-      body: 'Техника сопоставляется с активным этапом, зоной и временем наблюдения.',
-      label: 'Разработка котлована',
-      value: '14-22 сентября',
-      foot: 'Ожидаются экскаватор и самосвал.',
-    },
-    {
-      heading: 'Понимать, что проверить.',
-      body: 'Самосвал не наблюдается. Это повод запросить дополнительные кадры, а не объявлять простой.',
-      label: 'EQ-01',
-      value: 'Нужна проверка',
-      foot: 'Один кадр не доказывает нарушение.',
-    },
-  ];
   onMount(() => {
     const observer = new IntersectionObserver(
       (entries) =>
@@ -114,38 +87,40 @@
   <section id="capabilities" class="capabilities section-wrap" aria-labelledby="capabilities-title">
     <div class="intro" data-reveal>
       <p class="section-kicker">От наблюдения к пониманию</p>
-      <h2 id="capabilities-title">За каждым сигналом<br /><span>есть основание.</span></h2>
+      <h2 id="capabilities-title">За каждым выводом<br /><span>есть основание.</span></h2>
       <p>Откройте снимок. Сверьте с планом. Примите решение, которому можно доверять.</p>
     </div>
     <div class="product-example" data-reveal>
       <div class="example-top">
-        <div class="scenario-tabs" aria-label="Сценарий демонстрации">
-          {#each tabs as tab, i}<button
-              class:active={active === i}
-              aria-pressed={active === i}
-              onclick={() => (active = i)}>{tab}</button
-            >{/each}
-        </div>
-        <span class="demo-label">Демонстрационный пример</span>
+        <span>01 / ПРОВЕРКА КАДРА</span>
+        <span>МОДЕЛЬ + ПРАВИЛА</span>
       </div>
       <div class="example-grid">
-        <EvidenceViewer
-          src="/images/excavation.webp"
-          alt="Экскаватор в котловане. Демонстрационная иллюстрация."
-          detections={active === 1 ? [] : observations[0].detections}
-        />
-        <div class="explanation" aria-live="polite">
-          <span class="step-marker" aria-hidden="true">{String(active + 1).padStart(2, '0')}</span>
-          <h3>{details[active].heading}</h3>
-          <p>{details[active].body}</p>
+        <div class="example-visual">
+          <img
+            src="/images/excavation.webp"
+            srcset="/images/excavation-768.webp 768w, /images/excavation.webp 1536w"
+            sizes="(max-width: 767px) 100vw, 65vw"
+            alt="Экскаватор в котловане. Иллюстрация, не результат модели."
+            width="1536"
+            height="1024"
+            loading="lazy"
+          />
+          <span>ИЛЛЮСТРАЦИЯ / НЕ РЕЗУЛЬТАТ АНАЛИЗА</span>
+        </div>
+        <div class="explanation">
+          <span class="step-marker" aria-hidden="true">01—03</span>
+          <h3>Проверьте свой кадр.</h3>
+          <p>
+            Загрузите снимок: модель покажет найденные объекты и свой score. Затем задайте этап,
+            правила и обзор зоны — отдельный сервис сопоставит их с несколькими кадрами.
+          </p>
           <dl>
-            <dt>{details[active].label}</dt>
-            <dd>{details[active].value}</dd>
+            <dt>Никаких подготовленных выводов</dt>
+            <dd>Результат зависит от ваших данных.</dd>
           </dl>
-          <p class="detail-foot">{details[active].foot}</p>
-          <a href="/app?observation=OBS-1042" class="text-link"
-            >Разобрать наблюдение <ArrowUpRightIcon size={19} /></a
-          >
+          <p class="detail-foot">Один кадр не доказывает отсутствие техники или простой.</p>
+          <a href="/app/model" class="text-link">Проверить кадр <ArrowUpRightIcon size={19} /></a>
         </div>
       </div>
     </div>
@@ -164,7 +139,8 @@
           <div>
             <h3>Снимок</h3>
             <p>
-              Снимки с интервалом 20 минут, с привязкой к площадке, зоне и времени. Не live-видео.
+              Загрузите собственные кадры, укажите камеру, зону, время и источник времени. Не
+              live-видео.
             </p>
           </div>
         </li>
@@ -172,7 +148,7 @@
           <StackIcon size={24} />
           <div>
             <h3>Контекст</h3>
-            <p>Редактируемый план, обязательная и возможная техника, сроки и соседние этапы.</p>
+            <p>Введите сроки этапа, ожидаемую технику, количество и источник каждого правила.</p>
           </div>
         </li>
         <li>
@@ -180,15 +156,16 @@
           <div>
             <h3>Проверка</h3>
             <p>
-              Обзор зоны, основание сигнала и решение ответственного. Нет данных — нет вывода о
-              нарушении.
+              Сервис правил показывает предпросмотр с основаниями и ограничениями. Нет данных — нет
+              вывода о нарушении.
             </p>
           </div>
         </li>
       </ol>
       <div class="closing-cta">
-        <h3>Посмотрите на стройку целиком.</h3>
-        <a href="/app" class="button primary">Открыть пульт <ArrowUpRightIcon size={20} /></a>
+        <h3>Начните с реального кадра.</h3>
+        <a href="/app/model" class="button primary">Проверить кадр <ArrowUpRightIcon size={20} /></a
+        >
       </div>
     </div>
     <div class="facade" data-reveal>
@@ -221,18 +198,17 @@
   </div>
   <div class="dialog-body about-copy">
     <p>
-      Пульт демонстрирует просмотр наблюдений, фильтры, сопоставление с планом, решения ревьюера и
-      экспорт отчёта. Также доступны редактор правил и сроков, схема зон, ручные замеры готовности,
-      сценарии отклонений и сводка с источниками каждого вывода.
+      Работают загрузка реального кадра, детектор и классификатор техники, ручной ввод плана,
+      источников правил и замеров, а также предпросмотр отклонений отдельным сервисом.
     </p>
     <p>
-      Площадки и события вымышлены. Фотографии сгенерированы, рамки заданы вручную. Инференс и
-      бизнес-API пока не подключены.
+      Фотографии на лендинге — синтетические иллюстрации, не доказательства. В рабочем пульте нет
+      подставленных площадок и наблюдений. Камеры и автоматический поток ещё не подключены.
     </p>
     <p>
-      Решения сохраняются только в этом браузере. Загруженные изображения не отправляются на сервер
-      и исчезают после закрытия страницы. Не загружайте чувствительные материалы на общем
-      устройстве.
+      Загруженные изображения передаются внутреннему сервису модели для разового анализа, но не
+      добавляются в архив. Результат доступен только в текущей вкладке. Не загружайте чувствительные
+      материалы без согласования.
     </p>
     <a href="/app" class="button primary">Открыть пульт <ArrowUpRightIcon size={20} /></a>
   </div>
@@ -375,31 +351,46 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--line);
-    margin-bottom: 22px;
     gap: 20px;
-  }
-  .scenario-tabs {
-    display: flex;
-    gap: 30px;
-  }
-  .scenario-tabs button {
-    font-size: 13px;
+    padding: 17px 0;
     color: var(--muted);
-    padding: 18px 0;
-    border-bottom: 2px solid transparent;
-  }
-  .scenario-tabs button.active {
-    color: var(--text);
-    border-bottom-color: var(--accent);
-  }
-  .demo-label {
-    color: var(--muted);
-    font-size: 10px;
+    font:
+      10px ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      monospace;
+    letter-spacing: 0.1em;
   }
   .example-grid {
     display: grid;
     grid-template-columns: 1.8fr 1fr;
     background: var(--surface);
+  }
+  .example-visual {
+    position: relative;
+    min-width: 0;
+    min-height: 470px;
+    overflow: hidden;
+    background: var(--raised);
+  }
+  .example-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .example-visual span {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    padding: 9px 11px;
+    background: rgb(20 25 18 / 0.88);
+    color: #edf0e8;
+    font:
+      10px ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      monospace;
+    letter-spacing: 0.08em;
   }
   .explanation {
     padding: clamp(24px, 3vw, 46px);
@@ -615,9 +606,6 @@
     .explanation dl {
       margin-top: 18px;
     }
-    .demo-label {
-      display: none;
-    }
     .workflow {
       gap: 6%;
     }
@@ -684,13 +672,8 @@
     .example-grid {
       grid-template-columns: 1fr;
     }
-    .scenario-tabs {
-      gap: 20px;
-      overflow: auto;
-    }
-    .scenario-tabs button {
-      font-size: 11px;
-      white-space: nowrap;
+    .example-visual {
+      min-height: 300px;
     }
     .product-example {
       margin-top: 28px;

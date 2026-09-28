@@ -11,4 +11,8 @@ data:
   S3_BUCKET: sitewatch-evidence
   S3_FORCE_PATH_STYLE: "false"
   PUBLIC_API_BASE_URL: /api
-
+  BODY_SIZE_LIMIT: 13M
+  ORIGIN: http://sitewatch.local
+  INFERENCE_DEMO_ENABLED: "false"
+  INFERENCE_URL: http://inference:8083
+  DEVIATIONS_URL: http://deviations:8084

@@ -7,6 +7,10 @@ node_modules
 apps/web/.svelte-kit
 apps/web/build
 ml/.venv
+apps/inference/.venv
+apps/inference/.pytest_cache
+apps/inference/.ruff_cache
+apps/inference/**/__pycache__
 ml/.pytest_cache
 ml/.ruff_cache
 data

@@ -31,6 +31,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: sitewatch-config
+          env:
+            - name: SITEWATCH_INTERNAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-inference-secrets
+                  key: SITEWATCH_INTERNAL_TOKEN
+            - name: DEVIATIONS_INTERNAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-deviations-secrets
+                  key: SITEWATCH_INTERNAL_TOKEN
           livenessProbe:
             httpGet:
               path: /
@@ -55,4 +66,3 @@ spec:
             capabilities:
               drop: ["ALL"]
             readOnlyRootFilesystem: true
-

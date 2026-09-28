@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference
+  labels:
+    app.kubernetes.io/name: inference
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: inference
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: inference
+        app.kubernetes.io/component: backend
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+        - name: fetch-models
+          image: quay.io/minio/mc:RELEASE.2025-04-16T18-13-26Z
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              mc --config-dir /tmp/mc alias set models "$MODEL_S3_ENDPOINT" "$MODEL_S3_ACCESS_KEY" "$MODEL_S3_SECRET_KEY"
+              mc --config-dir /tmp/mc cp "models/$MODEL_S3_BUCKET/sitewatch-v1/detector.pt" /models/detector.pt
+              mc --config-dir /tmp/mc cp "models/$MODEL_S3_BUCKET/sitewatch-v1/classifier.pth" /models/classifier.pth
+          envFrom:
+            - configMapRef:
+                name: sitewatch-inference-config
+          env:
+            - name: MODEL_S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-inference-secrets
+                  key: MODEL_S3_ACCESS_KEY
+            - name: MODEL_S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-inference-secrets
+                  key: MODEL_S3_SECRET_KEY
+          volumeMounts:
+            - name: models
+              mountPath: /models
+            - name: scratch
+              mountPath: /tmp
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+      containers:
+        - name: inference
+          image: ghcr.io/sitewatch/inference:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8083
+          envFrom:
+            - configMapRef:
+                name: sitewatch-inference-config
+          env:
+            - name: SITEWATCH_INTERNAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-inference-secrets
+                  key: SITEWATCH_INTERNAL_TOKEN
+          startupProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            periodSeconds: 5
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              cpu: "4"
+              memory: 8Gi
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+            - name: scratch
+              mountPath: /tmp
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+      volumes:
+        - name: models
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: scratch
+          emptyDir:
+            sizeLimit: 1Gi

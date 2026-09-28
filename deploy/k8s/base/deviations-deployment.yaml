@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deviations
+  labels:
+    app.kubernetes.io/name: deviations
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: deviations
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: deviations
+        app.kubernetes.io/component: backend
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10004
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: deviations
+          image: ghcr.io/sitewatch/deviations:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8084
+          env:
+            - name: DEVIATIONS_HTTP_ADDR
+              value: 0.0.0.0:8084
+            - name: SITEWATCH_INTERNAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sitewatch-deviations-secrets
+                  key: SITEWATCH_INTERNAL_TOKEN
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true

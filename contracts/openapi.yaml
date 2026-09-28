@@ -238,6 +238,34 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           $ref: "#/components/responses/NotFound"
+  /api/v1/evaluations:preview:
+    post:
+      tags: [Deviations]
+      operationId: previewEvaluation
+      summary: Compare a manually sourced stage with distinct real model frames
+      description: >-
+        Stateless operator preview only. Never persists an observation, creates a deviation or
+        sends a notification. Browser-supplied frames are untrusted until an authenticated
+        observation pipeline exists. A single image or unknown coverage yields insufficient_evidence.
+      security:
+        - serviceBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvaluationPreviewRequest"
+      responses:
+        "200":
+          description: Non-authoritative comparison with explicit limitations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvaluationPreviewResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
   /api/v1/projects/{projectId}/deviations:
     get:
       tags: [Deviations]
@@ -401,6 +429,8 @@ components:
         - mobile_crane
         - tower_crane
         - piling_rig
+        - concrete_pump
+        - bucket_loader
     EquipmentClassMetadata:
       type: object
       additionalProperties: false
@@ -665,6 +695,168 @@ components:
           type: [string, "null"]
           minLength: 1
           description: Document reference for this rule; omitted or null defaults to import source.
+    EvaluationPreviewRequest:
+      type: object
+      additionalProperties: false
+      required: [stage, frames]
+      properties:
+        stage:
+          $ref: "#/components/schemas/PreviewStage"
+        coverage:
+          oneOf:
+            - $ref: "#/components/schemas/PreviewCoverage"
+            - type: "null"
+        frames:
+          type: array
+          maxItems: 20
+          items:
+            $ref: "#/components/schemas/PreviewFrame"
+        progress:
+          oneOf:
+            - $ref: "#/components/schemas/PreviewProgress"
+            - type: "null"
+    PreviewStage:
+      type: object
+      additionalProperties: false
+      required: [name, zone_code, planned_start, planned_end, observable_from_camera, rules]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 200 }
+        zone_code: { type: string, minLength: 1, maxLength: 80 }
+        planned_start: { type: string, format: date-time }
+        planned_end: { type: string, format: date-time }
+        observable_from_camera: { type: boolean }
+        rules:
+          type: array
+          minItems: 1
+          maxItems: 12
+          items:
+            $ref: "#/components/schemas/PreviewRule"
+    PreviewRule:
+      type: object
+      additionalProperties: false
+      required: [equipment_class, expectation, min_count, min_confidence, persistence_frames, source]
+      properties:
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        expectation: { type: string, enum: [required, optional, unexpected] }
+        min_count: { type: integer, minimum: 0, maximum: 100 }
+        max_count: { type: [integer, "null"], minimum: 0, maximum: 100 }
+        min_confidence: { type: number, minimum: 0, maximum: 1 }
+        persistence_frames: { type: integer, minimum: 1, maximum: 20 }
+        source: { type: string, minLength: 1, maxLength: 1000 }
+    PreviewCoverage:
+      type: object
+      additionalProperties: false
+      required: [percent, source]
+      properties:
+        percent: { type: number, minimum: 0, maximum: 100 }
+        source: { type: string, minLength: 1, maxLength: 1000 }
+    PreviewFrame:
+      type: object
+      additionalProperties: false
+      required: [id, camera_code, zone_code, captured_at, captured_at_source, image_sha256, model_version, detections, manual_counts]
+      properties:
+        id: { type: string, format: uuid }
+        camera_code: { type: string, minLength: 1, maxLength: 80 }
+        zone_code: { type: string, minLength: 1, maxLength: 80 }
+        captured_at: { type: string, format: date-time }
+        captured_at_source: { type: string, minLength: 1, maxLength: 1000 }
+        image_sha256: { type: string, pattern: "^[0-9a-f]{64}$" }
+        model_version: { type: string, minLength: 1, maxLength: 200 }
+        detections:
+          type: array
+          maxItems: 100
+          items:
+            $ref: "#/components/schemas/PreviewDetection"
+        manual_counts:
+          type: array
+          maxItems: 12
+          items:
+            $ref: "#/components/schemas/PreviewManualCount"
+    PreviewDetection:
+      type: object
+      additionalProperties: false
+      required: [equipment_class, mapping_status, detector_score, classifier_score, bounding_box]
+      properties:
+        equipment_class:
+          oneOf:
+            - $ref: "#/components/schemas/EquipmentClass"
+            - type: "null"
+        mapping_status: { type: string, enum: [mapped, other, ignored, low_confidence] }
+        detector_score: { type: number, minimum: 0, maximum: 1 }
+        classifier_score: { type: number, minimum: 0, maximum: 1 }
+        bounding_box:
+          $ref: "#/components/schemas/BoundingBox"
+    PreviewManualCount:
+      type: object
+      additionalProperties: false
+      required: [equipment_class, count, source]
+      properties:
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        count: { type: integer, minimum: 0, maximum: 100 }
+        source: { type: string, minLength: 1, maxLength: 1000 }
+    PreviewProgress:
+      type: object
+      additionalProperties: false
+      required: [measured_at, percent, source]
+      properties:
+        measured_at: { type: string, format: date-time }
+        percent: { type: number, minimum: 0, maximum: 100 }
+        source: { type: string, minLength: 1, maxLength: 1000 }
+    EvaluationPreviewResponse:
+      type: object
+      additionalProperties: false
+      required: [schema, status, stage_name, findings, unconfigured_observed, schedule, limitations]
+      properties:
+        schema: { type: string, const: sitewatch.evaluation.preview.v1 }
+        status: { type: string, enum: [insufficient_evidence, review_required, observed_consistency] }
+        stage_name: { type: string }
+        findings:
+          type: array
+          items:
+            $ref: "#/components/schemas/PreviewFinding"
+        unconfigured_observed:
+          type: array
+          items:
+            $ref: "#/components/schemas/EquipmentClass"
+        schedule:
+          oneOf:
+            - $ref: "#/components/schemas/PreviewScheduleResult"
+            - type: "null"
+        limitations:
+          type: array
+          items: { type: string }
+    PreviewFinding:
+      type: object
+      additionalProperties: false
+      required: [equipment_class, assessment, expectation, expected_min, expected_max, observed_count, rule_source, evidence_frame_ids, evidence_sources, explanation]
+      properties:
+        equipment_class:
+          $ref: "#/components/schemas/EquipmentClass"
+        assessment: { type: string, enum: [consistent, missing, below_minimum, above_maximum, unexpected, insufficient_evidence] }
+        expectation: { type: string, enum: [required, optional, unexpected] }
+        expected_min: { type: integer, minimum: 0 }
+        expected_max: { type: [integer, "null"], minimum: 0 }
+        observed_count: { type: [integer, "null"], minimum: 0 }
+        rule_source: { type: string }
+        evidence_frame_ids:
+          type: array
+          items: { type: string, format: uuid }
+        evidence_sources:
+          type: array
+          items: { type: string }
+        explanation: { type: string }
+    PreviewScheduleResult:
+      type: object
+      additionalProperties: false
+      required: [planned_percent_at_measurement, measured_percent, percentage_point_delta, variance_seconds, source]
+      properties:
+        planned_percent_at_measurement: { type: number }
+        measured_percent: { type: number }
+        percentage_point_delta: { type: number }
+        variance_seconds: { type: integer, format: int64 }
+        source: { type: string }
     ScheduleRevisionResponse:
       type: object
       additionalProperties: false

@@ -2,6 +2,7 @@
 members = [
   "apps/api",
   "apps/schedule",
+  "apps/deviations",
   "crates/contracts",
   "crates/domain",
   "crates/platform",

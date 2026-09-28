@@ -18,6 +18,8 @@ class EquipmentClass(StrEnum):
     MOBILE_CRANE = "mobile_crane"
     TOWER_CRANE = "tower_crane"
     PILING_RIG = "piling_rig"
+    CONCRETE_PUMP = "concrete_pump"
+    BUCKET_LOADER = "bucket_loader"
 
 
 class StrictModel(BaseModel):

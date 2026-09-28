@@ -69,6 +69,24 @@ jobs:
       - run: uv run dagster definitions validate -m sitewatch_ml.orchestration.definitions
         working-directory: ml
 
+  inference-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y libgl1 libglib2.0-0
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: 0.11.7
+          enable-cache: true
+      - run: uv sync --frozen --group dev
+        working-directory: apps/inference
+      - run: uv run ruff check src tests
+        working-directory: apps/inference
+      - run: uv run ruff format --check src tests
+        working-directory: apps/inference
+      - run: uv run pytest -q
+        working-directory: apps/inference
+
   kubernetes:
     runs-on: ubuntu-latest
     steps:
@@ -79,4 +97,5 @@ jobs:
       - run: docker compose -f deploy/compose.yaml --profile mlops --profile labeling --profile live config --quiet
       - run: kubectl kustomize deploy/k8s/overlays/dev >/dev/null
       - run: kubectl kustomize deploy/k8s/overlays/prod >/dev/null
+      - run: kubectl kustomize deploy/k8s/overlays/gpu >/dev/null
       - run: kubectl kustomize deploy/k8s/jobs >/dev/null

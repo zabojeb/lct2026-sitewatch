@@ -75,9 +75,11 @@ services:
         mc mb --ignore-existing local/sitewatch-evidence
         mc mb --ignore-existing local/sitewatch-datasets
         mc mb --ignore-existing local/sitewatch-mlflow
+        mc mb --ignore-existing local/sitewatch-models
         mc anonymous set none local/sitewatch-evidence
         mc anonymous set none local/sitewatch-datasets
         mc anonymous set none local/sitewatch-mlflow
+        mc anonymous set none local/sitewatch-models
     restart: "no"
 
   mlops-postgres:
@@ -348,12 +350,66 @@ services:
         condition: service_completed_successfully
     restart: unless-stopped
 
+  inference:
+    build:
+      context: ..
+      dockerfile: apps/inference/Dockerfile
+    image: sitewatch/inference:0.1.0
+    profiles: ["live"]
+    environment:
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      DETECTOR_WEIGHTS: /models/detector.pt
+      CLASSIFIER_WEIGHTS: /models/classifier.pth
+      INFERENCE_DEVICE: ${INFERENCE_DEVICE:-auto}
+      YOLO_CONFIG_DIR: /tmp
+    volumes:
+      - ../models/sitewatch-v1:/models:ro
+    ports:
+      - "127.0.0.1:${INFERENCE_PORT:-8083}:8083"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen('http://localhost:8083/health/ready', timeout=2)
+      start_period: 60s
+      interval: 10s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  deviations:
+    build:
+      context: ..
+      dockerfile: apps/deviations/Dockerfile
+    image: sitewatch/deviations:0.1.0
+    profiles: ["live"]
+    environment:
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      DEVIATIONS_HTTP_ADDR: 0.0.0.0:8084
+    ports:
+      - "127.0.0.1:${DEVIATIONS_PORT:-8084}:8084"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://localhost:8084/health/ready"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
   web:
     build:
       context: ..
       dockerfile: apps/web/Dockerfile
     environment:
       PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-http://localhost:8080}
+      INFERENCE_DEMO_ENABLED: ${INFERENCE_DEMO_ENABLED:-false}
+      INFERENCE_URL: http://inference:8083
+      DEVIATIONS_URL: http://deviations:8084
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      BODY_SIZE_LIMIT: 13M
+      ORIGIN: ${WEB_ORIGIN:-http://localhost:3000}
       HOST: 0.0.0.0
       PORT: 3000
     ports:

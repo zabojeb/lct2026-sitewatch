@@ -76,7 +76,9 @@
         "truck",
         "mobile_crane",
         "tower_crane",
-        "piling_rig"
+        "piling_rig",
+        "concrete_pump",
+        "bucket_loader"
       ]
     }
   }

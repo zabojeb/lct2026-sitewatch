@@ -1,0 +1,23 @@
+[package]
+name = "sitewatch-deviations"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+axum.workspace = true
+chrono.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+sitewatch-contracts = { path = "../../crates/contracts" }
+sitewatch-domain = { path = "../../crates/domain" }
+subtle = "2.6.1"
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+uuid.workspace = true
+
+[lints]
+workspace = true

@@ -72,10 +72,12 @@ pub enum EquipmentClass {
     MobileCrane,
     TowerCrane,
     PilingRig,
+    ConcretePump,
+    BucketLoader,
 }
 
 impl EquipmentClass {
-    pub const ALL: [Self; 10] = [
+    pub const ALL: [Self; 12] = [
         Self::DumpTruck,
         Self::Excavator,
         Self::RoadRoller,
@@ -86,6 +88,8 @@ impl EquipmentClass {
         Self::MobileCrane,
         Self::TowerCrane,
         Self::PilingRig,
+        Self::ConcretePump,
+        Self::BucketLoader,
     ];
 
     pub const fn as_str(self) -> &'static str {
@@ -100,6 +104,8 @@ impl EquipmentClass {
             Self::MobileCrane => "mobile_crane",
             Self::TowerCrane => "tower_crane",
             Self::PilingRig => "piling_rig",
+            Self::ConcretePump => "concrete_pump",
+            Self::BucketLoader => "bucket_loader",
         }
     }
 
@@ -115,6 +121,8 @@ impl EquipmentClass {
             Self::MobileCrane => "Автокран",
             Self::TowerCrane => "Башенный кран",
             Self::PilingRig => "Буровая или сваебойная установка",
+            Self::ConcretePump => "Бетононасос",
+            Self::BucketLoader => "Ковшовый погрузчик",
         }
     }
 }
@@ -310,6 +318,17 @@ pub enum DomainValidationError {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn equipment_taxonomy_includes_pump_and_bucket_loader_without_duplicate_codes() {
+        let codes: std::collections::HashSet<_> = EquipmentClass::ALL
+            .into_iter()
+            .map(EquipmentClass::as_str)
+            .collect();
+        assert_eq!(codes.len(), 12);
+        assert!(codes.contains("concrete_pump"));
+        assert!(codes.contains("bucket_loader"));
+    }
 
     #[test]
     fn bounding_box_rejects_inverted_coordinates() {
