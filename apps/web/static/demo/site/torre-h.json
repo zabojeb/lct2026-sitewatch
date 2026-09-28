@@ -1,0 +1,2763 @@
+{
+ "id": "torre-h",
+ "name": "Torre H",
+ "subtitle": "1 камера · ноябрь 2020 — февраль 2021",
+ "kind": "dataset",
+ "provenance": {
+  "boxes": "annotation",
+  "text": "Долгосрочное наблюдение одной площадки. Рамки — эталонная разметка датасета, не результат модели.",
+  "sources": [
+   {
+    "name": "nickpudovkin/dataset-object-identication-training-construction",
+    "url": "https://www.kaggle.com/datasets/nickpudovkin/dataset-object-identication-training-construction"
+   }
+  ]
+ },
+ "shiftHours": 2880,
+ "cameras": [
+  {
+   "id": "cam-torre-h",
+   "name": "Камера Torre H",
+   "rules": {
+    "checkExtra": true,
+    "checkZones": true,
+    "trackIdle": []
+   }
+  }
+ ],
+ "frames": [
+  {
+   "id": "torre-h-0631",
+   "cameraId": "cam-torre-h",
+   "timestamp": "2020-11-20T11:13:33",
+   "image": "/demo/site/img/torre-h/torre-h-0631.jpg",
+   "preview": "/demo/site/img/torre-h/previews/torre-h-0631.jpg",
+   "boxes": [
+    {
+     "slug": "mini-loader",
+     "label": "Мини-погрузчик",
+     "bbox": [
+      0.74818,
+      0.85671,
+      0.04167,
+      0.05694
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.47474,
+      0.77523,
+      0.0099,
+      0.03657
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5056,
+      0.67893,
+      0.00807,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.60938,
+      0.74329,
+      0.00833,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.54323,
+      0.70093,
+      0.00729,
+      0.02593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.66341,
+      0.69792,
+      0.00859,
+      0.02639
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28477,
+      0.90718,
+      0.01016,
+      0.03009
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.32448,
+      0.95972,
+      0.00937,
+      0.03148
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.39518,
+      0.9088,
+      0.01537,
+      0.02593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.41094,
+      0.88912,
+      0.0099,
+      0.03009
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28945,
+      0.56088,
+      0.00911,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.31159,
+      0.23912,
+      0.00755,
+      0.02639
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.10573,
+      0.21551,
+      0.0849,
+      0.42268
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.44154,
+      0.18982,
+      0.03932,
+      0.3713
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.55234,
+      0.61343,
+      0.89531,
+      0.73889
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ]
+  },
+  {
+   "id": "torre-h-0076",
+   "cameraId": "cam-torre-h",
+   "timestamp": "2020-12-02T09:12:17",
+   "image": "/demo/site/img/torre-h/torre-h-0076.jpg",
+   "preview": "/demo/site/img/torre-h/previews/torre-h-0076.jpg",
+   "boxes": [
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.25612,
+      0.78264,
+      0.01432,
+      0.03194
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.33659,
+      0.84699,
+      0.01328,
+      0.03194
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.31537,
+      0.87361,
+      0.01719,
+      0.03704
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.06888,
+      0.65856,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.07695,
+      0.64143,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.07253,
+      0.63125,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.07591,
+      0.61505,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08529,
+      0.63079,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.0832,
+      0.61597,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.0905,
+      0.6169,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08034,
+      0.5956,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08034,
+      0.57477,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08685,
+      0.5706,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.10169,
+      0.5456,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.09388,
+      0.53542,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08711,
+      0.51551,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.12201,
+      0.5213,
+      0.00807,
+      0.02037
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.12799,
+      0.5162,
+      0.00599,
+      0.01296
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08464,
+      0.48495,
+      0.00677,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.09284,
+      0.45023,
+      0.00859,
+      0.02361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08607,
+      0.45764,
+      0.00859,
+      0.02361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.10352,
+      0.44838,
+      0.00443,
+      0.01898
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.1013,
+      0.45926,
+      0.00573,
+      0.02315
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.15651,
+      0.25602,
+      0.00677,
+      0.0213
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51471,
+      0.24745,
+      0.00703,
+      0.02269
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56094,
+      0.34398,
+      0.00885,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.63633,
+      0.72199,
+      0.00651,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.6418,
+      0.7412,
+      0.00807,
+      0.02037
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mini-loader",
+     "label": "Мини-погрузчик",
+     "bbox": [
+      0.68138,
+      0.54768,
+      0.03411,
+      0.03519
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.63333,
+      0.41181,
+      0.0375,
+      0.07361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.10052,
+      0.22037,
+      0.09167,
+      0.42963
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.43802,
+      0.18819,
+      0.03542,
+      0.37546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.8276,
+      0.61574,
+      0.18958,
+      0.73518
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ]
+  },
+  {
+   "id": "torre-h-0150",
+   "cameraId": "cam-torre-h",
+   "timestamp": "2021-01-06T11:05:02",
+   "image": "/demo/site/img/torre-h/torre-h-0150.jpg",
+   "preview": "/demo/site/img/torre-h/previews/torre-h-0150.jpg",
+   "boxes": [
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.0681,
+      0.22268,
+      0.13568,
+      0.43241
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.41068,
+      0.2162,
+      0.13594,
+      0.43148
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.86146,
+      0.5875,
+      0.27708,
+      0.825
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.80417,
+      0.87222,
+      0.07187,
+      0.12593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.66771,
+      0.47407,
+      0.07187,
+      0.12593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mini-loader",
+     "label": "Мини-погрузчик",
+     "bbox": [
+      0.6401,
+      0.88889,
+      0.06875,
+      0.09259
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mini-loader",
+     "label": "Мини-погрузчик",
+     "bbox": [
+      0.84115,
+      0.92963,
+      0.06875,
+      0.09259
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.14323,
+      0.48287,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.15833,
+      0.4787,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28073,
+      0.37222,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29557,
+      0.36667,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.33854,
+      0.31574,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29479,
+      0.55602,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29167,
+      0.58333,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.30339,
+      0.60278,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.31797,
+      0.55046,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.35599,
+      0.8162,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.45234,
+      0.95648,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.44323,
+      0.98009,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.79088,
+      0.96713,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.80677,
+      0.9787,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.79844,
+      0.93426,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.80937,
+      0.91435,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.77787,
+      0.88796,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.79453,
+      0.88796,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.70912,
+      0.76343,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.6125,
+      0.73333,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.60833,
+      0.69213,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5849,
+      0.6287,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.63516,
+      0.63611,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.67188,
+      0.63843,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.63828,
+      0.59444,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.62891,
+      0.56667,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.4888,
+      0.67824,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.44453,
+      0.55185,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.43854,
+      0.47407,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.58099,
+      0.48472,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.53333,
+      0.44444,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.59662,
+      0.43518,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.60286,
+      0.44907,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.61745,
+      0.45417,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.61797,
+      0.47593,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.60313,
+      0.47454,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.58359,
+      0.42685,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.53828,
+      0.29028,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.52604,
+      0.2588,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5888,
+      0.28194,
+      0.0125,
+      0.03982
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ]
+  },
+  {
+   "id": "torre-h-0501",
+   "cameraId": "cam-torre-h",
+   "timestamp": "2021-01-22T08:57:45",
+   "image": "/demo/site/img/torre-h/torre-h-0501.jpg",
+   "preview": "/demo/site/img/torre-h/previews/torre-h-0501.jpg",
+   "boxes": [
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.79609,
+      0.81782,
+      0.00573,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.7987,
+      0.83634,
+      0.00729,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.71588,
+      0.80486,
+      0.01042,
+      0.03009
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.69883,
+      0.79838,
+      0.00911,
+      0.02639
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.62656,
+      0.81134,
+      0.01094,
+      0.03009
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.49284,
+      0.89884,
+      0.01224,
+      0.03565
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.47148,
+      0.97315,
+      0.01068,
+      0.03333
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.42253,
+      0.81898,
+      0.00599,
+      0.02037
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.46966,
+      0.79792,
+      0.00911,
+      0.02824
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.36836,
+      0.91968,
+      0.01068,
+      0.04028
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.13125,
+      0.87639,
+      0.00885,
+      0.0287
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.15365,
+      0.82824,
+      0.00885,
+      0.03056
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.13893,
+      0.6831,
+      0.00963,
+      0.02731
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08034,
+      0.5956,
+      0.00859,
+      0.02454
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.14075,
+      0.46597,
+      0.01016,
+      0.02824
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.10586,
+      0.44468,
+      0.00755,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.1125,
+      0.42315,
+      0.00885,
+      0.03241
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.12266,
+      0.4213,
+      0.00833,
+      0.0287
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.12995,
+      0.36181,
+      0.01146,
+      0.01991
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.16055,
+      0.33611,
+      0.00807,
+      0.03056
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.31602,
+      0.52245,
+      0.00911,
+      0.02824
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.36055,
+      0.52708,
+      0.00651,
+      0.02454
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.37982,
+      0.45903,
+      0.00859,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.3918,
+      0.46412,
+      0.00755,
+      0.02361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.34818,
+      0.48912,
+      0.00833,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.33581,
+      0.48495,
+      0.00807,
+      0.02361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27096,
+      0.2787,
+      0.01068,
+      0.02778
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.48984,
+      0.66296,
+      0.01042,
+      0.02593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5263,
+      0.7287,
+      0.00885,
+      0.02593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.54049,
+      0.7294,
+      0.00755,
+      0.03287
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.44818,
+      0.69653,
+      0.01198,
+      0.01991
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.49883,
+      0.5419,
+      0.00911,
+      0.02361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.46107,
+      0.52477,
+      0.00651,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56706,
+      0.62593,
+      0.00755,
+      0.0287
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55872,
+      0.67685,
+      0.00859,
+      0.02315
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.64466,
+      0.55856,
+      0.0112,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.69037,
+      0.59792,
+      0.00781,
+      0.02824
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.70312,
+      0.59815,
+      0.00781,
+      0.02222
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.63255,
+      0.4875,
+      0.00625,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.60469,
+      0.50718,
+      0.00677,
+      0.01528
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5974,
+      0.51782,
+      0.00781,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56576,
+      0.52569,
+      0.00911,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.72526,
+      0.58681,
+      0.00833,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.78711,
+      0.73056,
+      0.05703,
+      0.11944
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.52539,
+      0.41505,
+      0.00859,
+      0.01991
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.52357,
+      0.39143,
+      0.00651,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.53463,
+      0.38634,
+      0.00677,
+      0.01898
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51302,
+      0.36273,
+      0.00937,
+      0.02639
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.48763,
+      0.33565,
+      0.00859,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51341,
+      0.30417,
+      0.00651,
+      0.02593
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51771,
+      0.30995,
+      0.00625,
+      0.02731
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51836,
+      0.28519,
+      0.00651,
+      0.02222
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51172,
+      0.29213,
+      0.00573,
+      0.0213
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55846,
+      0.33357,
+      0.00703,
+      0.02454
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5638,
+      0.32917,
+      0.00833,
+      0.02315
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56081,
+      0.32523,
+      0.00911,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.54987,
+      0.37014,
+      0.00859,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55391,
+      0.35671,
+      0.00677,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56003,
+      0.37106,
+      0.00755,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56172,
+      0.38148,
+      0.00677,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.57135,
+      0.3537,
+      0.00573,
+      0.02407
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56537,
+      0.35347,
+      0.00573,
+      0.02546
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56172,
+      0.35602,
+      0.00677,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.59401,
+      0.3787,
+      0.00625,
+      0.01574
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.58268,
+      0.40625,
+      0.00807,
+      0.01806
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.56133,
+      0.41111,
+      0.00807,
+      0.01296
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5806,
+      0.43333,
+      0.00807,
+      0.02407
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.66615,
+      0.42315,
+      0.00677,
+      0.0287
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.65052,
+      0.43171,
+      0.00937,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.65404,
+      0.42384,
+      0.00651,
+      0.02361
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.64232,
+      0.4088,
+      0.00599,
+      0.02315
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.64075,
+      0.39097,
+      0.00911,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.62878,
+      0.3669,
+      0.00703,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.64128,
+      0.35301,
+      0.00495,
+      0.01157
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.44245,
+      0.37292,
+      0.00729,
+      0.02176
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.47109,
+      0.40023,
+      0.00625,
+      0.01806
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.46563,
+      0.50602,
+      0.00885,
+      0.02407
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.43463,
+      0.22963,
+      0.03854,
+      0.45833
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.81966,
+      0.51875,
+      0.23255,
+      0.96157
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.21081,
+      0.47083,
+      0.00755,
+      0.01852
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ]
+  },
+  {
+   "id": "torre-h-0176",
+   "cameraId": "cam-torre-h",
+   "timestamp": "2021-02-12T09:01:19",
+   "image": "/demo/site/img/torre-h/torre-h-0176.jpg",
+   "preview": "/demo/site/img/torre-h/previews/torre-h-0176.jpg",
+   "boxes": [
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.43867,
+      0.22431,
+      0.03984,
+      0.44768
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.82812,
+      0.59352,
+      0.34323,
+      0.81296
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.71849,
+      0.84745,
+      0.10833,
+      0.13009
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.55534,
+      0.66458,
+      0.19505,
+      0.38565
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.88997,
+      0.96806,
+      0.08672,
+      0.06389
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.14844,
+      0.79954,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.17422,
+      0.89722,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.16797,
+      0.88843,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.17005,
+      0.87222,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.13073,
+      0.35648,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.14844,
+      0.3463,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.18724,
+      0.42037,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20573,
+      0.41713,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.2112,
+      0.38935,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.25052,
+      0.33009,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20078,
+      0.28565,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.23255,
+      0.26157,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20911,
+      0.29074,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28906,
+      0.29491,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.22474,
+      0.94815,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.44844,
+      0.94676,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51224,
+      0.90787,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.43594,
+      0.74537,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.42083,
+      0.73657,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55182,
+      0.73518,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.6776,
+      0.97176,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.86797,
+      0.98194,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.89401,
+      0.96944,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.7362,
+      0.81435,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.77083,
+      0.79722,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.74453,
+      0.74676,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.71641,
+      0.78565,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.63359,
+      0.78287,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.60859,
+      0.775,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.73177,
+      0.51296,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.71719,
+      0.49398,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.66328,
+      0.55417,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.61979,
+      0.45185,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.64714,
+      0.43565,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5987,
+      0.4463,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.58932,
+      0.39213,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.57656,
+      0.3963,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.5013,
+      0.33796,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.51458,
+      0.28241,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.36354,
+      0.47269,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.18412,
+      0.54907,
+      0.01302,
+      0.03611
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ]
+  }
+ ],
+ "plan": {
+  "start": "2020-09-28",
+  "example": true,
+  "stages": [
+   {
+    "id": "row-47",
+    "name": "Устройство котлована",
+    "days": 21,
+    "profileId": "earth_excavation",
+    "row": 47
+   },
+   {
+    "id": "row-74",
+    "name": "Буронабивные сваи",
+    "days": 28,
+    "profileId": "bored_piles",
+    "row": 74
+   },
+   {
+    "id": "row-85",
+    "name": "Устройство монолитной ж/б фундаментной плиты (плита под здание, плита под башенный кран, фундамент под оборудование), в т.ч. устройство бетонной подготовки",
+    "days": 35,
+    "profileId": "concrete",
+    "row": 85
+   },
+   {
+    "id": "row-88",
+    "name": "Устройство монолитных ж/б плит перекрытия/покрытия",
+    "days": 45,
+    "profileId": "concrete",
+    "row": 88
+   }
+  ]
+ },
+ "zones": {},
+ "geometry": null
+}

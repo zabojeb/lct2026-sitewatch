@@ -1,0 +1,4142 @@
+{
+ "id": "site-8",
+ "name": "Площадка №8",
+ "subtitle": "5 камер · смена 25.07.2024",
+ "kind": "dataset",
+ "provenance": {
+  "boxes": "annotation",
+  "text": "Реальные кадры пяти камер одной площадки. Рамки — эталонная разметка датасета, не результат модели. Время кадров исходное: камеры снимали в разные часы смены.",
+  "sources": [
+   {
+    "name": "nickpudovkin/const-video-v2i-yolo26",
+    "url": "https://www.kaggle.com/datasets/nickpudovkin/const-video-v2i-yolo26"
+   }
+  ]
+ },
+ "shiftHours": 12,
+ "cameras": [
+  {
+   "id": "cam-4",
+   "name": "Камера 4",
+   "rules": {
+    "checkExtra": true,
+    "checkZones": true,
+    "trackIdle": []
+   }
+  },
+  {
+   "id": "cam-5",
+   "name": "Камера 5",
+   "rules": {
+    "checkExtra": true,
+    "checkZones": true,
+    "trackIdle": []
+   }
+  },
+  {
+   "id": "cam-7",
+   "name": "Камера 7",
+   "rules": {
+    "checkExtra": true,
+    "checkZones": true,
+    "trackIdle": []
+   }
+  },
+  {
+   "id": "cam-8",
+   "name": "Камера 8",
+   "rules": {
+    "checkExtra": true,
+    "checkZones": true,
+    "trackIdle": [
+     "excavator"
+    ]
+   }
+  },
+  {
+   "id": "cam-9",
+   "name": "Камера 9",
+   "rules": {
+    "checkExtra": true,
+    "checkZones": true,
+    "trackIdle": []
+   }
+  }
+ ],
+ "frames": [
+  {
+   "id": "extra-401-000",
+   "cameraId": "cam-4",
+   "timestamp": "2024-07-25T16:45:21",
+   "image": "/demo/site/img/site-8/extra-401-000.jpg",
+   "preview": "/demo/site/img/site-8/previews/extra-401-000.jpg",
+   "boxes": [
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.02083,
+      0.18177,
+      0.04115,
+      0.23438
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.09167,
+      0.3224,
+      0.01198,
+      0.02396
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.15469,
+      0.33125,
+      0.03125,
+      0.07031
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03021,
+      0.44323,
+      0.01354,
+      0.03854
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.24167,
+      0.4026,
+      0.01094,
+      0.04063
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.23906,
+      0.38646,
+      0.00521,
+      0.00885
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.25677,
+      0.36302,
+      0.00833,
+      0.02969
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.23073,
+      0.30833,
+      0.02292,
+      0.03281
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.4901,
+      0.31615,
+      0.02552,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.57031,
+      0.34271,
+      0.01719,
+      0.02604
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.71771,
+      0.44427,
+      0.05156,
+      0.06979
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.71927,
+      0.38021,
+      0.02187,
+      0.06563
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.77135,
+      0.44688,
+      0.02552,
+      0.03021
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.1901,
+      0.3625,
+      0.00677,
+      0.03698
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mini-bulldozer",
+     "label": "Мини-бульдозер",
+     "bbox": [
+      0.07083,
+      0.3375,
+      0.02083,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.26354,
+      0.36615,
+      0.00677,
+      0.02187
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "extra-401-025",
+   "cameraId": "cam-4",
+   "timestamp": "2024-07-25T16:45:46",
+   "image": "/demo/site/img/site-8/extra-401-025.jpg",
+   "preview": "/demo/site/img/site-8/previews/extra-401-025.jpg",
+   "boxes": [
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.02083,
+      0.18177,
+      0.04115,
+      0.23438
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.1125,
+      0.32917,
+      0.04167,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03021,
+      0.44323,
+      0.01354,
+      0.03854
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.16927,
+      0.36667,
+      0.00781,
+      0.03802
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.16927,
+      0.35052,
+      0.00313,
+      0.00573
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.23073,
+      0.30833,
+      0.02292,
+      0.03281
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.4901,
+      0.31615,
+      0.02552,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.57031,
+      0.34271,
+      0.01719,
+      0.02604
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.71771,
+      0.44427,
+      0.05156,
+      0.06979
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.71927,
+      0.38021,
+      0.02187,
+      0.06563
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.77135,
+      0.44688,
+      0.02552,
+      0.03021
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.11146,
+      0.36927,
+      0.00781,
+      0.03958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mini-bulldozer",
+     "label": "Мини-бульдозер",
+     "bbox": [
+      0.07135,
+      0.33802,
+      0.02031,
+      0.02708
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.11094,
+      0.35156,
+      0.00365,
+      0.00729
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.13854,
+      0.34427,
+      0.00573,
+      0.02552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.18906,
+      0.36406,
+      0.00729,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.1901,
+      0.34844,
+      0.00417,
+      0.00469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.13802,
+      0.33333,
+      0.0026,
+      0.00417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.19531,
+      0.36146,
+      0.00573,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "extra-401-049",
+   "cameraId": "cam-4",
+   "timestamp": "2024-07-25T16:46:10",
+   "image": "/demo/site/img/site-8/extra-401-049.jpg",
+   "preview": "/demo/site/img/site-8/previews/extra-401-049.jpg",
+   "boxes": [
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03021,
+      0.44323,
+      0.0125,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08333,
+      0.40781,
+      0.0099,
+      0.05052
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.08281,
+      0.38542,
+      0.00469,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mini-bulldozer",
+     "label": "Мини-бульдозер",
+     "bbox": [
+      0.07135,
+      0.33802,
+      0.01771,
+      0.02604
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.09219,
+      0.3224,
+      0.01146,
+      0.02344
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.13281,
+      0.32552,
+      0.02344,
+      0.05833
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.14792,
+      0.35313,
+      0.00625,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.1474,
+      0.3375,
+      0.00417,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.18698,
+      0.37969,
+      0.00729,
+      0.03958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.18229,
+      0.36979,
+      0.00625,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.18385,
+      0.35313,
+      0.00313,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.1875,
+      0.3625,
+      0.00365,
+      0.00521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.23073,
+      0.30833,
+      0.02135,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.38073,
+      0.4026,
+      0.00885,
+      0.0474
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.38281,
+      0.38177,
+      0.00417,
+      0.00521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.4901,
+      0.31562,
+      0.02552,
+      0.05365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.57031,
+      0.34375,
+      0.01719,
+      0.03281
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.71823,
+      0.38021,
+      0.02135,
+      0.0625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "truck",
+     "label": "Грузовик",
+     "bbox": [
+      0.77083,
+      0.44688,
+      0.02448,
+      0.03229
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.71667,
+      0.44531,
+      0.0526,
+      0.06823
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "required-501-000",
+   "cameraId": "cam-5",
+   "timestamp": "2024-07-25T17:45:19",
+   "image": "/demo/site/img/site-8/required-501-000.jpg",
+   "preview": "/demo/site/img/site-8/previews/required-501-000.jpg",
+   "boxes": [
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.13906,
+      0.32344,
+      0.025,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.52552,
+      0.24115,
+      0.0401,
+      0.20521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.4875,
+      0.20781,
+      0.02708,
+      0.19375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.47135,
+      0.2625,
+      0.01198,
+      0.02396
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.71823,
+      0.14271,
+      0.17188,
+      0.21302
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.97292,
+      0.49896,
+      0.05365,
+      0.16354
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.83177,
+      0.28437,
+      0.01771,
+      0.0599
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.8401,
+      0.30625,
+      0.02083,
+      0.02031
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.98802,
+      0.33958,
+      0.02344,
+      0.04063
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.99271,
+      0.43125,
+      0.01146,
+      0.0224
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.99583,
+      0.42552,
+      0.00521,
+      0.01094
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55521,
+      0.26667,
+      0.00365,
+      0.02552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55937,
+      0.26719,
+      0.00469,
+      0.02448
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "required-501-030",
+   "cameraId": "cam-5",
+   "timestamp": "2024-07-25T17:45:49",
+   "image": "/demo/site/img/site-8/required-501-030.jpg",
+   "preview": "/demo/site/img/site-8/previews/required-501-030.jpg",
+   "boxes": [
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.13906,
+      0.32344,
+      0.025,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.52552,
+      0.24115,
+      0.0401,
+      0.20521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.4875,
+      0.20781,
+      0.02708,
+      0.19375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.47135,
+      0.2625,
+      0.01198,
+      0.02396
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.71823,
+      0.14271,
+      0.17188,
+      0.21302
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.97292,
+      0.49896,
+      0.05365,
+      0.16354
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.83177,
+      0.28437,
+      0.01771,
+      0.0599
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.8401,
+      0.30625,
+      0.02083,
+      0.02031
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.98802,
+      0.33958,
+      0.02344,
+      0.04063
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.55885,
+      0.26771,
+      0.00417,
+      0.02656
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.99375,
+      0.43073,
+      0.01198,
+      0.02135
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.9974,
+      0.42448,
+      0.00417,
+      0.00781
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "required-501-059",
+   "cameraId": "cam-5",
+   "timestamp": "2024-07-25T17:46:18",
+   "image": "/demo/site/img/site-8/required-501-059.jpg",
+   "preview": "/demo/site/img/site-8/previews/required-501-059.jpg",
+   "boxes": [
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.13906,
+      0.32344,
+      0.025,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.52552,
+      0.24115,
+      0.0401,
+      0.20521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.4875,
+      0.20781,
+      0.02708,
+      0.19375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.47135,
+      0.2625,
+      0.01198,
+      0.02396
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.71823,
+      0.14271,
+      0.17188,
+      0.21302
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.97292,
+      0.49896,
+      0.05365,
+      0.16354
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.83177,
+      0.28437,
+      0.01771,
+      0.0599
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.8401,
+      0.30625,
+      0.02083,
+      0.02031
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.98802,
+      0.33958,
+      0.02344,
+      0.04063
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.93177,
+      0.33802,
+      0.00521,
+      0.02187
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "mismatch-701-000",
+   "cameraId": "cam-7",
+   "timestamp": "2024-07-25T19:45:14",
+   "image": "/demo/site/img/site-8/mismatch-701-000.jpg",
+   "preview": "/demo/site/img/site-8/previews/mismatch-701-000.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.05104,
+      0.2724,
+      0.02344,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.01667,
+      0.38438,
+      0.00521,
+      0.04375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.01719,
+      0.36615,
+      0.00365,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.02604,
+      0.38542,
+      0.00781,
+      0.0276
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03438,
+      0.38333,
+      0.00677,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.03438,
+      0.37083,
+      0.00365,
+      0.00521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "pump",
+     "label": "Бетононасос",
+     "bbox": [
+      0.31354,
+      0.29531,
+      0.52812,
+      0.41302
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.18385,
+      0.22448,
+      0.03229,
+      0.02813
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.2901,
+      0.25781,
+      0.02552,
+      0.02135
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.32292,
+      0.27083,
+      0.025,
+      0.0224
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.3724,
+      0.29063,
+      0.025,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.3901,
+      0.32292,
+      0.05677,
+      0.04271
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.50156,
+      0.36406,
+      0.04063,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.21823,
+      0.15729,
+      0.05781,
+      0.31458
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.48177,
+      0.01875,
+      0.07187,
+      0.0375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20104,
+      0.45052,
+      0.00833,
+      0.02292
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.2026,
+      0.4474,
+      0.00365,
+      0.00729
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29792,
+      0.425,
+      0.00729,
+      0.02708
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.29792,
+      0.41406,
+      0.00417,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27448,
+      0.42135,
+      0.00729,
+      0.03021
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.27656,
+      0.40885,
+      0.00313,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.07812,
+      0.20365,
+      0.01354,
+      0.0276
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.09167,
+      0.20469,
+      0.01562,
+      0.03854
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.10677,
+      0.20208,
+      0.01562,
+      0.02187
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.23229,
+      0.2,
+      0.01667,
+      0.04635
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "shortage-701-005",
+   "cameraId": "cam-7",
+   "timestamp": "2024-07-25T19:45:19",
+   "image": "/demo/site/img/site-8/shortage-701-005.jpg",
+   "preview": "/demo/site/img/site-8/previews/shortage-701-005.jpg",
+   "boxes": [
+    {
+     "slug": "pump",
+     "label": "Бетононасос",
+     "bbox": [
+      0.30469,
+      0.2974,
+      0.59219,
+      0.42188
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.05104,
+      0.27292,
+      0.02135,
+      0.05937
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.09167,
+      0.1974,
+      0.01875,
+      0.05469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.18385,
+      0.225,
+      0.02865,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.01719,
+      0.38125,
+      0.00313,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.025,
+      0.38906,
+      0.00625,
+      0.03385
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03333,
+      0.38333,
+      0.00677,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20052,
+      0.44688,
+      0.00729,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.2026,
+      0.43281,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27187,
+      0.43125,
+      0.00885,
+      0.01562
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27448,
+      0.41719,
+      0.00677,
+      0.0224
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.27604,
+      0.40937,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28333,
+      0.42396,
+      0.00469,
+      0.03229
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29583,
+      0.4276,
+      0.00885,
+      0.02708
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.29531,
+      0.41719,
+      0.00313,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.39062,
+      0.32812,
+      0.05729,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.50833,
+      0.36615,
+      0.05469,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.32292,
+      0.2724,
+      0.03021,
+      0.02656
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.29323,
+      0.26094,
+      0.02552,
+      0.02813
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.37344,
+      0.29167,
+      0.0276,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.48177,
+      0.01823,
+      0.0724,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.21771,
+      0.1625,
+      0.05729,
+      0.325
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.07917,
+      0.20677,
+      0.01406,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.10833,
+      0.2026,
+      0.01562,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "shortage-701-006",
+   "cameraId": "cam-7",
+   "timestamp": "2024-07-25T19:45:20",
+   "image": "/demo/site/img/site-8/shortage-701-006.jpg",
+   "preview": "/demo/site/img/site-8/previews/shortage-701-006.jpg",
+   "boxes": [
+    {
+     "slug": "pump",
+     "label": "Бетононасос",
+     "bbox": [
+      0.30469,
+      0.2974,
+      0.59219,
+      0.42188
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.05104,
+      0.27292,
+      0.02135,
+      0.05937
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.09167,
+      0.1974,
+      0.01875,
+      0.05469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.18385,
+      0.225,
+      0.02865,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.01719,
+      0.38125,
+      0.00313,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.025,
+      0.38906,
+      0.00625,
+      0.03385
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03333,
+      0.38333,
+      0.00677,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20052,
+      0.44688,
+      0.00729,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.2026,
+      0.43281,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27187,
+      0.43125,
+      0.00885,
+      0.01562
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27448,
+      0.41719,
+      0.00677,
+      0.0224
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.27604,
+      0.40937,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28333,
+      0.42396,
+      0.00469,
+      0.03229
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29583,
+      0.4276,
+      0.00885,
+      0.02708
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.29531,
+      0.41719,
+      0.00313,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.39062,
+      0.32812,
+      0.05729,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.50833,
+      0.36615,
+      0.05469,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.32292,
+      0.2724,
+      0.03021,
+      0.02656
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.29323,
+      0.26094,
+      0.02552,
+      0.02813
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.37344,
+      0.29167,
+      0.0276,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.21667,
+      0.16562,
+      0.0625,
+      0.33073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.48073,
+      0.01979,
+      0.07396,
+      0.03958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.07708,
+      0.20625,
+      0.01667,
+      0.02969
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.10781,
+      0.20208,
+      0.01615,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.23281,
+      0.2,
+      0.01562,
+      0.04427
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "shortage-701-007",
+   "cameraId": "cam-7",
+   "timestamp": "2024-07-25T19:45:21",
+   "image": "/demo/site/img/site-8/shortage-701-007.jpg",
+   "preview": "/demo/site/img/site-8/previews/shortage-701-007.jpg",
+   "boxes": [
+    {
+     "slug": "pump",
+     "label": "Бетононасос",
+     "bbox": [
+      0.30469,
+      0.2974,
+      0.59219,
+      0.42188
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.05104,
+      0.27292,
+      0.02135,
+      0.05937
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.09167,
+      0.1974,
+      0.01875,
+      0.05469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.18385,
+      0.225,
+      0.02865,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.01719,
+      0.38125,
+      0.00313,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.025,
+      0.38906,
+      0.00625,
+      0.03385
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03333,
+      0.38333,
+      0.00677,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20052,
+      0.44688,
+      0.00729,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.2026,
+      0.43281,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27187,
+      0.43125,
+      0.00885,
+      0.01562
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.26615,
+      0.41615,
+      0.00625,
+      0.02969
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27448,
+      0.41719,
+      0.00677,
+      0.0224
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.27604,
+      0.40937,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.39062,
+      0.32812,
+      0.05729,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.50833,
+      0.36615,
+      0.05469,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.32292,
+      0.2724,
+      0.03021,
+      0.02656
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.29323,
+      0.26094,
+      0.02552,
+      0.02813
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.37344,
+      0.29167,
+      0.0276,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.2974,
+      0.42344,
+      0.00625,
+      0.0276
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.29688,
+      0.41458,
+      0.00208,
+      0.00208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.07812,
+      0.20573,
+      0.01667,
+      0.03542
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.10677,
+      0.20312,
+      0.01875,
+      0.025
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.21563,
+      0.16562,
+      0.06198,
+      0.33073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.23229,
+      0.20052,
+      0.01719,
+      0.04948
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.48438,
+      0.01927,
+      0.06823,
+      0.03854
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "mismatch-701-010",
+   "cameraId": "cam-7",
+   "timestamp": "2024-07-25T19:45:24",
+   "image": "/demo/site/img/site-8/mismatch-701-010.jpg",
+   "preview": "/demo/site/img/site-8/previews/mismatch-701-010.jpg",
+   "boxes": [
+    {
+     "slug": "pump",
+     "label": "Бетононасос",
+     "bbox": [
+      0.30469,
+      0.2974,
+      0.59219,
+      0.42188
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.05104,
+      0.27292,
+      0.02135,
+      0.05937
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.09167,
+      0.1974,
+      0.01875,
+      0.05469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.18385,
+      0.225,
+      0.02865,
+      0.03073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.01719,
+      0.38125,
+      0.00313,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.025,
+      0.38906,
+      0.00625,
+      0.03385
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03333,
+      0.38333,
+      0.00677,
+      0.03125
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20052,
+      0.44688,
+      0.00729,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.2026,
+      0.43281,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.275,
+      0.43542,
+      0.01042,
+      0.01875
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27552,
+      0.4224,
+      0.00677,
+      0.03177
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.2651,
+      0.41615,
+      0.00625,
+      0.02813
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.27604,
+      0.40937,
+      0.00208,
+      0.00365
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.39062,
+      0.32812,
+      0.05729,
+      0.05208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.50833,
+      0.36615,
+      0.05469,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.29323,
+      0.26094,
+      0.02552,
+      0.02813
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.37344,
+      0.29167,
+      0.0276,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29896,
+      0.42396,
+      0.00573,
+      0.02917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.32188,
+      0.27448,
+      0.02552,
+      0.03229
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.07917,
+      0.20781,
+      0.0151,
+      0.02969
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.10781,
+      0.20312,
+      0.01615,
+      0.02448
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.21771,
+      0.16562,
+      0.05885,
+      0.33073
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.23125,
+      0.20104,
+      0.01667,
+      0.04688
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.48229,
+      0.01927,
+      0.0724,
+      0.03854
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "mismatch-701-060",
+   "cameraId": "cam-7",
+   "timestamp": "2024-07-25T19:46:14",
+   "image": "/demo/site/img/site-8/mismatch-701-060.jpg",
+   "preview": "/demo/site/img/site-8/previews/mismatch-701-060.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.05,
+      0.25312,
+      0.0276,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "pump",
+     "label": "Бетононасос",
+     "bbox": [
+      0.28802,
+      0.29844,
+      0.55052,
+      0.41667
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.01875,
+      0.38333,
+      0.00677,
+      0.01979
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.03125,
+      0.39323,
+      0.00625,
+      0.02708
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20521,
+      0.45052,
+      0.00781,
+      0.0375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.25885,
+      0.42917,
+      0.00781,
+      0.03177
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.2599,
+      0.41563,
+      0.00313,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.22135,
+      0.42604,
+      0.00885,
+      0.01927
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.21042,
+      0.42188,
+      0.00677,
+      0.02708
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27344,
+      0.42292,
+      0.00781,
+      0.02552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.27813,
+      0.42604,
+      0.00469,
+      0.02969
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.27604,
+      0.4125,
+      0.0026,
+      0.00521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.29635,
+      0.43385,
+      0.00469,
+      0.02135
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.2974,
+      0.41667,
+      0.00417,
+      0.01562
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.29844,
+      0.41302,
+      0.00313,
+      0.00417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "helmet",
+     "label": "Каска",
+     "bbox": [
+      0.29583,
+      0.42656,
+      0.00313,
+      0.00625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.50208,
+      0.36458,
+      0.04167,
+      0.0375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.46719,
+      0.43698,
+      0.01302,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.39062,
+      0.32448,
+      0.05469,
+      0.04219
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.37396,
+      0.29115,
+      0.02865,
+      0.02448
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.3224,
+      0.27135,
+      0.03021,
+      0.02344
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mixer",
+     "label": "Автобетоносмеситель",
+     "bbox": [
+      0.29219,
+      0.25833,
+      0.02865,
+      0.02292
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.21719,
+      0.15833,
+      0.05781,
+      0.31667
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.47865,
+      0.01823,
+      0.07812,
+      0.03594
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.09115,
+      0.20052,
+      0.01771,
+      0.05
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.18385,
+      0.22344,
+      0.03125,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "dump-truck",
+     "label": "Самосвал",
+     "bbox": [
+      0.10677,
+      0.20312,
+      0.01667,
+      0.01823
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "mobile-crane",
+     "label": "Автокран",
+     "bbox": [
+      0.23229,
+      0.19948,
+      0.01562,
+      0.04531
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "idle-801-000",
+   "cameraId": "cam-8",
+   "timestamp": "2024-07-25T20:46:22",
+   "image": "/demo/site/img/site-8/idle-801-000.jpg",
+   "preview": "/demo/site/img/site-8/previews/idle-801-000.jpg",
+   "boxes": [
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.05625,
+      0.46198,
+      0.04375,
+      0.04479
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08802,
+      0.45677,
+      0.00469,
+      0.0151
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.1651,
+      0.42969,
+      0.04792,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.30365,
+      0.31094,
+      0.02187,
+      0.1375
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.34479,
+      0.58542,
+      0.13333,
+      0.36875
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.1849,
+      0.40417,
+      0.01615,
+      0.0276
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "idle-801-060",
+   "cameraId": "cam-8",
+   "timestamp": "2024-07-25T20:47:28",
+   "image": "/demo/site/img/site-8/idle-801-060.jpg",
+   "preview": "/demo/site/img/site-8/previews/idle-801-060.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.34792,
+      0.58594,
+      0.13385,
+      0.37917
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.18177,
+      0.40677,
+      0.02135,
+      0.03281
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.16354,
+      0.42865,
+      0.04479,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.30208,
+      0.3125,
+      0.01823,
+      0.14271
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20938,
+      0.6099,
+      0.02135,
+      0.07292
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.05729,
+      0.46146,
+      0.04583,
+      0.04479
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "idle-801-120",
+   "cameraId": "cam-8",
+   "timestamp": "2024-07-25T20:48:28",
+   "image": "/demo/site/img/site-8/idle-801-120.jpg",
+   "preview": "/demo/site/img/site-8/previews/idle-801-120.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.34687,
+      0.58437,
+      0.13437,
+      0.37552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.05781,
+      0.46146,
+      0.04583,
+      0.04531
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.16354,
+      0.42969,
+      0.04479,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.18229,
+      0.40729,
+      0.02448,
+      0.03333
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.30208,
+      0.31302,
+      0.01823,
+      0.13958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.28281,
+      0.39635,
+      0.00521,
+      0.01927
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "idle-801-180",
+   "cameraId": "cam-8",
+   "timestamp": "2024-07-25T20:49:28",
+   "image": "/demo/site/img/site-8/idle-801-180.jpg",
+   "preview": "/demo/site/img/site-8/previews/idle-801-180.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.34687,
+      0.58437,
+      0.13437,
+      0.37552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.05781,
+      0.46146,
+      0.04583,
+      0.04531
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.16354,
+      0.42969,
+      0.04479,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.18229,
+      0.40729,
+      0.02448,
+      0.03333
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.30208,
+      0.31302,
+      0.01823,
+      0.13958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "idle-801-241",
+   "cameraId": "cam-8",
+   "timestamp": "2024-07-25T20:50:29",
+   "image": "/demo/site/img/site-8/idle-801-241.jpg",
+   "preview": "/demo/site/img/site-8/previews/idle-801-241.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.34687,
+      0.58437,
+      0.13437,
+      0.37552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.05781,
+      0.46146,
+      0.04583,
+      0.04531
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.16354,
+      0.42969,
+      0.04479,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.18229,
+      0.40729,
+      0.02448,
+      0.03333
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.30208,
+      0.31302,
+      0.01823,
+      0.13958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "idle-801-300",
+   "cameraId": "cam-8",
+   "timestamp": "2024-07-25T20:51:28",
+   "image": "/demo/site/img/site-8/idle-801-300.jpg",
+   "preview": "/demo/site/img/site-8/previews/idle-801-300.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.34687,
+      0.58437,
+      0.13437,
+      0.37552
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.05781,
+      0.46146,
+      0.04583,
+      0.04531
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.16354,
+      0.42969,
+      0.04479,
+      0.05417
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tractor",
+     "label": "Трактор",
+     "bbox": [
+      0.18229,
+      0.40729,
+      0.02448,
+      0.03333
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.30208,
+      0.31302,
+      0.01823,
+      0.13958
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.08646,
+      0.45937,
+      0.00469,
+      0.01198
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "wrong-zone-901-000",
+   "cameraId": "cam-9",
+   "timestamp": "2024-07-25T21:46:20",
+   "image": "/demo/site/img/site-8/wrong-zone-901-000.jpg",
+   "preview": "/demo/site/img/site-8/previews/wrong-zone-901-000.jpg",
+   "boxes": [
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.78906,
+      0.58594,
+      0.10885,
+      0.39167
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.20833,
+      0.51771,
+      0.01406,
+      0.05937
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.16094,
+      0.23021,
+      0.03021,
+      0.45208
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.39115,
+      0.3099,
+      0.04948,
+      0.05885
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.79115,
+      0.29427,
+      0.01667,
+      0.13854
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.5349,
+      0.3125,
+      0.04844,
+      0.0401
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.64427,
+      0.33437,
+      0.04375,
+      0.05521
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "wrong-zone-901-020",
+   "cameraId": "cam-9",
+   "timestamp": "2024-07-25T21:46:40",
+   "image": "/demo/site/img/site-8/wrong-zone-901-020.jpg",
+   "preview": "/demo/site/img/site-8/previews/wrong-zone-901-020.jpg",
+   "boxes": [
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.79063,
+      0.29427,
+      0.01875,
+      0.13646
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.39167,
+      0.3099,
+      0.04948,
+      0.05729
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.1599,
+      0.22812,
+      0.02656,
+      0.45469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.78802,
+      0.58542,
+      0.10885,
+      0.39635
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.5349,
+      0.31354,
+      0.04948,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.64375,
+      0.33385,
+      0.04167,
+      0.05625
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "wrong-zone-901-040",
+   "cameraId": "cam-9",
+   "timestamp": "2024-07-25T21:47:00",
+   "image": "/demo/site/img/site-8/wrong-zone-901-040.jpg",
+   "preview": "/demo/site/img/site-8/previews/wrong-zone-901-040.jpg",
+   "boxes": [
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.79063,
+      0.29427,
+      0.01875,
+      0.13646
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.39167,
+      0.3099,
+      0.04948,
+      0.05729
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.1599,
+      0.22812,
+      0.02656,
+      0.45469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.78802,
+      0.58542,
+      0.10885,
+      0.39635
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.5349,
+      0.31354,
+      0.04948,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.7651,
+      0.36875,
+      0.00417,
+      0.02083
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.64375,
+      0.33542,
+      0.04219,
+      0.05833
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  },
+  {
+   "id": "wrong-zone-901-059",
+   "cameraId": "cam-9",
+   "timestamp": "2024-07-25T21:47:19",
+   "image": "/demo/site/img/site-8/wrong-zone-901-059.jpg",
+   "preview": "/demo/site/img/site-8/previews/wrong-zone-901-059.jpg",
+   "boxes": [
+    {
+     "slug": "drill",
+     "label": "Буровая установка",
+     "bbox": [
+      0.79063,
+      0.29427,
+      0.01875,
+      0.13646
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.39167,
+      0.3099,
+      0.04948,
+      0.05729
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "tower-crane",
+     "label": "Башенный кран",
+     "bbox": [
+      0.1599,
+      0.22812,
+      0.02656,
+      0.45469
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.78802,
+      0.58542,
+      0.10885,
+      0.39635
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "manipulator",
+     "label": "Манипулятор",
+     "bbox": [
+      0.5349,
+      0.31354,
+      0.04948,
+      0.03906
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "person",
+     "label": "Работник",
+     "bbox": [
+      0.7276,
+      0.39062,
+      0.00625,
+      0.02865
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    },
+    {
+     "slug": "excavator",
+     "label": "Экскаватор",
+     "bbox": [
+      0.64948,
+      0.33542,
+      0.04219,
+      0.05573
+     ],
+     "confidence": 1,
+     "source": "annotation"
+    }
+   ],
+   "vlm": {
+    "model": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "code": "WORK_FRONT",
+    "scene": "Основной фронт работ"
+   }
+  }
+ ],
+ "plan": {
+  "start": "2024-05-27",
+  "example": true,
+  "stages": [
+   {
+    "id": "row-47",
+    "name": "Устройство котлована",
+    "days": 21,
+    "profileId": "earth_excavation",
+    "row": 47
+   },
+   {
+    "id": "row-74",
+    "name": "Буронабивные сваи",
+    "days": 28,
+    "profileId": "bored_piles",
+    "row": 74
+   },
+   {
+    "id": "row-85",
+    "name": "Устройство монолитной ж/б фундаментной плиты (плита под здание, плита под башенный кран, фундамент под оборудование), в т.ч. устройство бетонной подготовки",
+    "days": 45,
+    "profileId": "concrete",
+    "row": 85
+   },
+   {
+    "id": "row-87",
+    "name": "Устройство монолитных ж/б колонн",
+    "days": 40,
+    "profileId": "concrete",
+    "row": 87
+   }
+  ]
+ },
+ "zones": {
+  "cam-9": [
+   {
+    "id": "zone-storage-example",
+    "name": "Склад материалов",
+    "equipment": [
+     "excavator"
+    ],
+    "points": [
+     [
+      67,
+      37
+     ],
+     [
+      98,
+      37
+     ],
+     [
+      98,
+      97
+     ],
+     [
+      81,
+      96
+     ],
+     [
+      66,
+      59
+     ]
+    ],
+    "example": true
+   }
+  ]
+ },
+ "geometry": {
+  "note": "SIFT + отбор выбросов RANSAC по парам кадров; статистика расчёта прототипа.",
+  "cameras": [
+   {
+    "cameraId": "cam-8",
+    "keypoints": [
+     1802,
+     1800
+    ],
+    "matches": 1119,
+    "inliers": 1076,
+    "inlierRatio": 0.962,
+    "rmse": 0.17,
+    "spanSec": 306
+   },
+   {
+    "cameraId": "cam-9",
+    "keypoints": [
+     1800,
+     1802
+    ],
+    "matches": 934,
+    "inliers": 922,
+    "inlierRatio": 0.987,
+    "rmse": 0.2,
+    "spanSec": 59
+   }
+  ],
+  "pairs": [
+   {
+    "from": "cam-8",
+    "to": "cam-9",
+    "kind": "epipolar",
+    "keypoints": [
+     1800,
+     1800
+    ],
+    "matches": 104,
+    "inliers": 77,
+    "inlierRatio": 0.74,
+    "rmse": null
+   },
+   {
+    "from": "cam-9",
+    "to": "cam-8",
+    "kind": "homography",
+    "keypoints": [
+     1800,
+     1800
+    ],
+    "matches": 66,
+    "inliers": 50,
+    "inlierRatio": 0.758,
+    "rmse": 0.24,
+    "matrix": [
+     [
+      1.0009737202830946,
+      0.004415752398515265,
+      -0.09553967737488087
+     ],
+     [
+      0.00042828789831173914,
+      1.0074096710624425,
+      -0.262831259617785
+     ],
+     [
+      2.04371606099011e-08,
+      4.07105549785585e-05,
+      1
+     ]
+    ]
+   }
+  ]
+ }
+}

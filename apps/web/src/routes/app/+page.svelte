@@ -68,6 +68,7 @@
   <Brand compact />
   <nav aria-label="Навигация пульта">
     <a href="/app" aria-current="page">Пульт</a>
+    <a href="/app/site">Площадка</a>
     <a href="/app/model">Проверка кадра</a>
   </nav>
   <ThemeToggle />

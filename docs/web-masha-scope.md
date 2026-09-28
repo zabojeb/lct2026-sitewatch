@@ -73,6 +73,14 @@ authentication, server persistence and outbound operational alerts still require
 The existing Rust microservices / separate PostgreSQL databases / NATS / Kubernetes decision is
 unchanged. No backend handler, contract, migration or Kubernetes configuration changed in this pass.
 
+## Дополнение 2026-09-28
+
+Функции синтетического пульта и первого MVP «СтройКонтур» возвращены в отдельный раздел
+`/app/site`: выбор камер, срез площадки, этап по составу техники, план с отставанием и полосами
+причин, запретные зоны с редактором, журнал, проектный вид. Раздел работает на реальных кадрах
+открытых датасетов с исходным временем съёмки, а синтетика и примеры подписаны. `/app` по-прежнему
+показывает только состояние сервисов. Подробности — [site-console.md](site-console.md).
+
 ## Дополнение 2026-09-27
 
 Переданные командой YOLO26x и ConvNeXt-Small теперь работают в отдельном приватном сервисе и

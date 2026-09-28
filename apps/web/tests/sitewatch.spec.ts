@@ -5,8 +5,18 @@ test('all public routes fit mobile, tablet and desktop without horizontal scroll
 }) => {
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 850 });
-    for (const route of ['/', '/app', '/app/model']) {
+    for (const route of [
+      '/',
+      '/app',
+      '/app/model',
+      '/app/site',
+      '/app/site/plan',
+      '/app/site/zones',
+      '/app/site/history',
+    ]) {
       await page.goto(route);
+      // the site console renders on the client after loading its project
+      if (route.startsWith('/app/site')) await page.getByRole('heading', { level: 1 }).waitFor();
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
         `${route} at ${width}px`,

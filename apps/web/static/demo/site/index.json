@@ -1,0 +1,26 @@
+[
+ {
+  "id": "site-8",
+  "name": "Площадка №8",
+  "subtitle": "5 камер · смена 25.07.2024",
+  "kind": "dataset",
+  "frames": 22,
+  "cameras": 5
+ },
+ {
+  "id": "torre-h",
+  "name": "Torre H",
+  "subtitle": "1 камера · ноябрь 2020 — февраль 2021",
+  "kind": "dataset",
+  "frames": 5,
+  "cameras": 1
+ },
+ {
+  "id": "scenario",
+  "name": "Сценарий смены этапов",
+  "subtitle": "синтетика · котлован → сваи",
+  "kind": "synthetic",
+  "frames": 6,
+  "cameras": 2
+ }
+]
