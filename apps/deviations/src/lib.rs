@@ -110,8 +110,8 @@ fn valid_score(score: f32) -> bool {
 
 fn validate_rule(input: &EquipmentRuleInput) -> Result<EquipmentRule, ApiError> {
     let source = input.source.as_deref().unwrap_or_default();
-    if source.trim().is_empty() || source.len() > 1000 {
-        return Err(ApiError::invalid("every rule requires a documented source"));
+    if source.trim().is_empty() || source.chars().count() > 1000 {
+        return Err(ApiError::invalid("У каждого правила должен быть документ-источник."));
     }
     let rule = EquipmentRule {
         equipment_class: input.equipment_class,
@@ -122,13 +122,13 @@ fn validate_rule(input: &EquipmentRuleInput) -> Result<EquipmentRule, ApiError> 
         persistence_frames: input.persistence_frames,
     };
     rule.validate()
-        .map_err(|_| ApiError::invalid("invalid equipment rule"))?;
+        .map_err(|_| ApiError::invalid("Правило по технике заполнено неверно."))?;
     if (rule.expectation == RuleExpectation::Required && rule.min_count == 0)
         || (rule.expectation != RuleExpectation::Required && rule.min_count != 0)
         || (rule.expectation == RuleExpectation::Unexpected && rule.max_count != Some(0))
         || rule.persistence_frames > 20
     {
-        return Err(ApiError::invalid("contradictory equipment rule"));
+        return Err(ApiError::invalid("Правило противоречиво: для обязательной техники минимум не меньше 1, окно не больше 20 кадров."));
     }
     Ok(rule)
 }
@@ -138,32 +138,32 @@ fn validate_rule(input: &EquipmentRuleInput) -> Result<EquipmentRule, ApiError> 
 fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
     let stage = &request.stage;
     if stage.name.trim().is_empty()
-        || stage.name.len() > 200
+        || stage.name.chars().count() > 200
         || stage.zone_code.trim().is_empty()
-        || stage.zone_code.len() > 80
+        || stage.zone_code.chars().count() > 80
         || stage.planned_end <= stage.planned_start
         || stage.rules.is_empty()
         || stage.rules.len() > EquipmentClass::ALL.len()
         || request.frames.len() > 20
     {
         return Err(ApiError::invalid(
-            "invalid stage, rule count or frame count",
+            "Проверьте этап: название, код зоны, плановые даты, не больше 20 кадров.",
         ));
     }
     if let Some(coverage) = &request.coverage
         && (!valid_score(coverage.percent / 100.0)
             || coverage.source.trim().is_empty()
-            || coverage.source.len() > 1000)
+            || coverage.source.chars().count() > 1000)
     {
         return Err(ApiError::invalid(
-            "coverage percent and source are required",
+            "Для обзора зоны нужны процент 0–100 и источник.",
         ));
     }
     let mut classes = HashSet::new();
     for input in &stage.rules {
         validate_rule(input)?;
         if !classes.insert(input.equipment_class) {
-            return Err(ApiError::invalid("duplicate equipment rule"));
+            return Err(ApiError::invalid("Для одного вида техники можно задать только одно правило."));
         }
     }
     let mut ids = HashSet::new();
@@ -180,16 +180,16 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
                 .bytes()
                 .all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase())
             || frame.captured_at_source.trim().is_empty()
-            || frame.captured_at_source.len() > 1000
+            || frame.captured_at_source.chars().count() > 1000
             || frame.camera_code.trim().is_empty()
-            || frame.camera_code.len() > 80
+            || frame.camera_code.chars().count() > 80
             || frame.zone_code != stage.zone_code
             || frame.model_version.trim().is_empty()
             || frame.model_version.len() > 200
             || frame.detections.len() > 100
             || frame.manual_counts.len() > EquipmentClass::ALL.len()
         {
-            return Err(ApiError::invalid("invalid or duplicate frame"));
+            return Err(ApiError::invalid("Кадр не подходит: повтор, другая камера или зона, либо неверные данные."));
         }
         model_versions.insert(&frame.model_version);
         camera_codes.insert(&frame.camera_code);
@@ -197,7 +197,7 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
             let gap = frame.captured_at - last;
             if !(Duration::minutes(1)..=Duration::minutes(60)).contains(&gap) {
                 return Err(ApiError::invalid(
-                    "frames must be 1-60 minutes apart and ordered",
+                    "Между соседними кадрами окна должно быть от 1 до 60 минут.",
                 ));
             }
         }
@@ -206,11 +206,11 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
         for manual in &frame.manual_counts {
             if !overridden.insert(manual.equipment_class)
                 || manual.source.trim().is_empty()
-                || manual.source.len() > 1000
+                || manual.source.chars().count() > 1000
                 || manual.count > 100
             {
                 return Err(ApiError::invalid(
-                    "manual counts require unique class and source",
+                    "У ручного уточнения нужны вид техники и источник, по одному на вид.",
                 ));
             }
         }
@@ -224,17 +224,17 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
                 )
                 || (detection.mapping_status == "mapped") != detection.equipment_class.is_some()
             {
-                return Err(ApiError::invalid("invalid detector evidence"));
+                return Err(ApiError::invalid("Результат распознавания кадра повреждён."));
             }
         }
     }
     if model_versions.len() > 1 {
         return Err(ApiError::invalid(
-            "all frames must use the same model version",
+            "Все кадры окна должны быть распознаны в одном режиме.",
         ));
     }
     if camera_codes.len() > 1 {
-        return Err(ApiError::invalid("all frames must come from one camera"));
+        return Err(ApiError::invalid("Все кадры окна должны быть с одной камеры."));
     }
     if let Some(progress) = &request.progress {
         compare_schedule(
@@ -246,7 +246,7 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
                 source: progress.source.clone(),
             },
         )
-        .map_err(|_| ApiError::invalid("invalid sourced progress measurement"))?;
+        .map_err(|_| ApiError::invalid("Проверьте замер готовности: 0–100 %, время и источник."))?;
     }
     Ok(())
 }
@@ -267,11 +267,11 @@ fn evaluate_inner(
     validate(request)?;
     let mut findings = Vec::new();
     let mut limitations = vec![
-        "Предпросмотр не создаёт алерт: нужны авторизованные наблюдения и проверка оператором."
+        "Это предварительный результат: без проверки оператором замечание не создаётся."
             .into(),
         "Модель не измеряет движение, фактический этап, расположение в зоне или готовность здания."
             .into(),
-        "Score классификатора не откалиброван как вероятность.".into(),
+        "Уверенность модели — условная оценка, а не вероятность.".into(),
     ];
     if request.coverage.is_none() {
         limitations.push("Обзор рабочей зоны не подтверждён источником.".into());
@@ -328,19 +328,19 @@ fn evaluate_inner(
             && !frames.is_empty()
         {
             compare_equipment_window(&rule, source, &frames, coverage, 80.0)
-                .map_err(|_| ApiError::invalid("invalid rule comparison evidence"))?
+                .map_err(|_| ApiError::invalid("Не удалось сопоставить кадры с правилом."))?
                 .assessment
         } else {
             RuleAssessment::InsufficientEvidence
         };
         let observed_count = frames.last().map(|evidence| evidence.observed_count);
         let explanation = match assessment {
-            RuleAssessment::Missing => "Не наблюдается в каждом подтверждённом кадре окна; проверьте площадку и обзор, это не доказанный простой.",
+            RuleAssessment::Missing => "Не видна ни на одном кадре окна. Проверьте площадку и обзор камеры — это ещё не доказанный простой.",
             RuleAssessment::BelowMinimum => "Во всех кадрах число ниже минимума; требуется проверка оператором.",
             RuleAssessment::AboveMaximum => "Во всех кадрах число выше максимума; требуется проверка оператором.",
-            RuleAssessment::Unexpected => "Во всех кадрах видна техника вне правила этапа; проверьте соседние работы.",
+            RuleAssessment::Unexpected => "На всех кадрах видна техника, не предусмотренная этапом; проверьте соседние работы.",
             RuleAssessment::Consistent => "В этом окне наблюдаемое число согласуется с правилом; это не подтверждает выполнение работ.",
-            RuleAssessment::InsufficientEvidence => "Недостаточно независимых кадров, устойчивости или обзора для вывода.",
+            RuleAssessment::InsufficientEvidence => "Для вывода не хватает данных: мало кадров, количество техники менялось, обзор зоны ниже 80 % или кадры вне плановых дат.",
         }.to_owned();
         let assessment_code = match assessment {
             RuleAssessment::Consistent => "consistent",
@@ -370,13 +370,13 @@ fn evaluate_inner(
                         .map_or_else(
                             || {
                                 format!(
-                                    "model {} / time: {}",
+                                    "модель {} · время: {}",
                                     frame.model_version, frame.captured_at_source
                                 )
                             },
                             |manual| {
                                 format!(
-                                    "manual: {} / time: {}",
+                                    "вручную: {} · время: {}",
                                     manual.source, frame.captured_at_source
                                 )
                             },
@@ -451,7 +451,7 @@ fn evaluate_inner(
                 variance_seconds: comparison.variance_seconds,
                 source: comparison.source,
             })
-            .map_err(|_| ApiError::invalid("invalid sourced progress measurement"))
+            .map_err(|_| ApiError::invalid("Проверьте замер готовности: 0–100 %, время и источник."))
         })
         .transpose()?;
     Ok(EvaluationPreviewResponse {

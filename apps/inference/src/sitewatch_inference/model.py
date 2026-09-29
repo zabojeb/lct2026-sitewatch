@@ -38,12 +38,12 @@ def decode_image(data: bytes, max_pixels: int) -> np.ndarray:
     try:
         with _image_open(io.BytesIO(data)) as source:
             if source.width * source.height > max_pixels:
-                raise PredictionError("Image exceeds the pixel limit")
+                raise PredictionError("Слишком большое разрешение кадра: не больше 32 Мп.")
             source.load()
             image = ImageOps.exif_transpose(source)
             return np.asarray(image.convert("RGB"))
     except (UnidentifiedImageError, Image.DecompressionBombError, OSError, ValueError) as exc:
-        raise PredictionError("Unsupported or damaged image") from exc
+        raise PredictionError("Файл повреждён или формат не поддерживается.") from exc
 
 
 def letterbox_crop(
@@ -157,7 +157,7 @@ class InferenceEngine:
         from ultralytics.models.yolo.detect import DetectionPredictor
 
         if recognition_mode not in self.detectors:
-            raise PredictionError("Recognition mode must be 640 or 960")
+            raise PredictionError("Режим распознавания должен быть 640 или 960.")
         image = decode_image(image_bytes, self.settings.max_image_pixels)
         height, width = image.shape[:2]
         proposals = self.detectors[recognition_mode].predict(
