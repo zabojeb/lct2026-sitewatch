@@ -101,7 +101,7 @@
           </div>
           <div class="frame-info"><b>{frame.name}</b><span>{objectCount(frame.prediction.detections.length)} найдено</span></div>
           {#if frame.visual}
-            <div class="visual"><small>Описание работ{frame.visual.model ? ` · ${frame.visual.model.split('/').at(-1)}` : ''}</small><b>{frame.visual.work_stage}</b><p>{frame.visual.stage_evidence}</p>
+            <div class="visual"><small>Описание работ</small><b>{frame.visual.work_stage}</b><p>{frame.visual.stage_evidence}</p>
               {#if frame.visual.planText}<div class="plan"><small>Плановая работа: {frame.visual.planText}</small><strong>{alignment[frame.visual.plan_alignment]}</strong><p>{frame.visual.plan_reason}</p></div>{/if}
             </div>
           {:else}

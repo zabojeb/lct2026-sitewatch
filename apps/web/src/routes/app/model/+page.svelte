@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
+  import { fade, fly, scale } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
   import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
   import UploadSimpleIcon from 'phosphor-svelte/lib/UploadSimpleIcon';
   import Brand from '$lib/components/Brand.svelte';
@@ -47,6 +49,9 @@
   let archiveMessage = $state('');
   const visualReports = new Map<string, ArchivedVisual>();
   const score = (value: number) => value.toFixed(2).replace('.', ',');
+  const calm = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ms = (value: number) => (calm ? 0 : value);
+  const recognised = $derived(frames.length > 0 && progress === frames.length);
   const mappingLabel: Record<string, string> = {
     mapped: 'учитывается в правилах',
     other: 'вне перечня правил',
@@ -222,13 +227,14 @@
     const mode = recognitionMode;
     const controller = new AbortController();
     currentAbort = controller;
-    try {
-      for (const [index, frame] of frames.entries()) {
-        if (!frame.file) continue;
-        if (frame.prediction?.recognition_mode === mode) continue;
-        if (controller.signal.aborted) break;
+    // Two requests in flight: the next frame uploads while the server is busy with the current one.
+    const queue = frames.flatMap((frame, index) => (frame.file && frame.prediction?.recognition_mode !== mode ? [index] : []));
+    const worker = async () => {
+      while (queue.length && !controller.signal.aborted) {
+        const index = queue.shift()!;
+        const frame = frames[index];
         const body = new FormData();
-        body.set('image', frame.file);
+        body.set('image', frame.file!);
         body.set('recognition_mode', mode);
         const response = await fetch('/api/model/predict', { method: 'POST', body, signal: controller.signal });
         const result = await response.json().catch(() => ({}));
@@ -242,8 +248,16 @@
         progress = frames.filter((item) => item.prediction?.recognition_mode === mode).length;
         if (frameIndex === index) prediction = result as ModelPrediction;
       }
-    } catch (cause) {
-      if (!controller.signal.aborted) error = cause instanceof Error ? cause.message : 'Не удалось обработать кадр.';
+    };
+    // The first real failure stops the other request; a user "Стоп" is not a failure.
+    let failure: unknown = null;
+    const guard = (run: Promise<void>) => run.catch((cause) => {
+      if (!failure && !(cause instanceof DOMException && cause.name === 'AbortError')) failure = cause;
+      controller.abort();
+    });
+    try {
+      await Promise.all([guard(worker()), guard(worker())]);
+      if (failure) error = failure instanceof Error ? failure.message : 'Не удалось обработать кадр.';
     } finally {
       currentAbort = null;
       busy = false;
@@ -401,6 +415,11 @@
   </section>
 
   <section class="workbench" aria-label="Распознавание">
+    <ol class="steps" aria-label="Порядок работы">
+      <li class:done={frames.length > 0} class:current={!frames.length}><i>1</i>Сцена</li>
+      <li class:done={recognised} class:current={frames.length > 0 && !recognised}><i>2</i>Распознавание</li>
+      <li class:done={showPlan} class:current={recognised && !showPlan}><i>3</i>Проверка по плану</li>
+    </ol>
     <div class="toolbar">
       <div class="frame-selector" role="group" aria-label="Кадры сцены">
         {#each frames as frame, index (frame.id)}
@@ -454,13 +473,16 @@
         {#if preview}
           <div class="image-shell">
             <div class="image-plane">
-              <img src={preview} alt="Кадр для распознавания" />
+              {#key preview}<img src={preview} alt="Кадр для распознавания" in:fade={{ duration: ms(220) }} />{/key}
+              {#if busy && !prediction}<div class="scan" aria-hidden="true"></div>{/if}
               {#if prediction}
                 {#each prediction.detections as detection, index}
                   <button
                     class="box"
                     class:other={detection.mapping_status !== 'mapped'}
                     class:selected={selected === index}
+                    class:edge-top={detection.bounding_box.y_min < 0.07}
+                    class:edge-right={detection.bounding_box.x_min > 0.6}
                     style:left={`${detection.bounding_box.x_min * 100}%`}
                     style:top={`${detection.bounding_box.y_min * 100}%`}
                     style:width={`${(detection.bounding_box.x_max - detection.bounding_box.x_min) * 100}%`}
@@ -468,6 +490,7 @@
                     aria-label={`${detectionLabel(detection)}, уверенность классификатора ${score(detection.classifier_score)}`}
                     aria-pressed={selected === index}
                     onclick={() => (selected = selected === index ? null : index)}
+                    in:scale={{ duration: ms(260), delay: ms(Math.min(index, 12) * 45), start: 0.92, easing: cubicOut }}
                     ><span class:quiet={index > 7 && selected !== index}>{detectionLabel(detection)}</span></button
                   >
                 {/each}
@@ -494,7 +517,7 @@
       <aside class="insights" aria-label="Результат по кадру">
         <VisualInterpretation {file} {prediction} available={vlmStatus === 'ready'} frameId={frames[frameIndex]?.id ?? ''} {sceneId} planSuggestion={currentScene?.planSuggestion ?? ''} onReport={onVisualReport} />
         {#if prediction}
-          <div class="card">
+          <div class="card" in:fly={{ y: 12, duration: ms(260), easing: cubicOut }}>
             <h3>Техника на кадре</h3>
             {#if frameInventory.length}
               <ul class="chips">{#each frameInventory as item (item.label)}<li><b>{item.label}</b>{#if item.count > 1}<span>×{item.count}</span>{/if}</li>{/each}</ul>
@@ -518,11 +541,11 @@
           </div>
         {/if}
         {#if sceneInventory.length}
-          <div class="card">
+          <div class="card" in:fly={{ y: 12, duration: ms(260), delay: ms(60), easing: cubicOut }}>
             <h3>По всей сцене <small>максимум на одном кадре</small></h3>
             <ul class="chips">{#each sceneInventory.slice(0, 8) as item (item.label)}<li><b>{item.label}</b><span>до {item.maxOnFrame} · {frameCount(item.frames)}</span></li>{/each}</ul>
           </div>
-          <button type="button" class="button primary to-plan" onclick={openPlan}>Проверить по плану <ArrowRightIcon size={16} /></button>
+          <button type="button" class="button primary to-plan" class:pulse={recognised && !showPlan} onclick={openPlan}>Проверить по плану <ArrowRightIcon size={16} /></button>
         {/if}
       </aside>
     </div>
@@ -549,7 +572,7 @@
   <footer class="fineprint">
     <p>
       Это подсказки моделей, а не заключение о стройке: отклонение фиксируется по этапу, правилу и нескольким кадрам во
-      времени. Кадры не хранятся на сервере; описание работ делает DeepSeek через OpenRouter; результаты — в архиве
+      времени. Кадры не хранятся на сервере; описание работ делает мультимодальная модель; результаты — в архиве
       этого браузера.
     </p>
     {#if frames.some((frame) => frame.prediction)}<button type="button" class="export-scene" onclick={downloadSceneReport}>Скачать результаты сцены (JSON)</button>{/if}
@@ -871,6 +894,10 @@
     padding: 3px 7px;
   }
   .box span.quiet { display: none; }
+  /* labels stay inside the frame: under the top edge and against the right edge */
+  .box.edge-top span { top: 2px; bottom: auto; left: 2px; }
+  .box.edge-right span { left: auto; right: -2px; }
+  .box.edge-top.edge-right span { right: 2px; }
   .box.other span { background: var(--warning); color: var(--bg); }
   .empty-frame {
     aspect-ratio: 16 / 9;
@@ -1005,5 +1032,30 @@
     .mode-switch button { flex: 1; }
     .image-shell { min-height: 220px; }
     .plan-entry:not(:has(.live-evaluation)), .fineprint { flex-direction: column; align-items: stretch; }
+  }
+
+  /* steps */
+  .steps { display: flex; gap: 8px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; }
+  .steps li { display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px 7px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); font-size: 12.5px; font-weight: 700; transition: background .25s, color .25s; }
+  .steps li i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 11px; background: var(--raised); color: var(--muted); transition: background .25s, color .25s; }
+  .steps li.current { background: var(--accent-soft); color: var(--text); }
+  .steps li.current i { background: var(--accent); color: var(--accent-ink); animation: breathe 1.8s ease-in-out infinite; }
+  .steps li.done { color: var(--text); }
+  .steps li.done i { background: var(--text); color: var(--bg); }
+  @keyframes breathe { 50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 35%, transparent); } }
+  /* scan line over the frame being recognised */
+  .scan { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 6px; }
+  .scan::after { content: ''; position: absolute; left: 0; right: 0; height: 30%; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 40%, transparent), transparent); animation: scan 1.4s ease-in-out infinite; }
+  @keyframes scan { from { top: -30%; } to { top: 100%; } }
+  /* tactile controls */
+  .scene-card, .own-card, .frame-selector button, .mode-switch button, .run, .to-plan { transition: transform .16s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, outline-color .2s ease; }
+  .scene-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .35); }
+  .scene-card:active, .run:active, .to-plan:active, .mode-switch button:active { transform: scale(.98); }
+  .frame-selector button:hover { transform: translateY(-1px); }
+  .to-plan.pulse { animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 30%, transparent); } }
+  @media (prefers-reduced-motion: reduce) {
+    .steps li.current i, .scan::after, .to-plan.pulse { animation: none; }
+    .scene-card:hover, .frame-selector button:hover { transform: none; }
   }
 </style>

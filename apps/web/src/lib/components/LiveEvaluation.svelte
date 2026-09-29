@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fly } from 'svelte/transition';
   import { sha256Hex, uid } from '$lib/browser-crypto';
   import type { ModelPrediction } from '$lib/model';
   import {
@@ -488,7 +489,7 @@
   {/if}
   {#if error}<p class="evaluation-error" role="alert">{error}</p>{/if}
   {#if currentEvaluation}
-    <div class="evaluation-result" aria-live="polite">
+    <div class="evaluation-result" aria-live="polite" in:fly={{ y: 16, duration: 280 }}>
       <div class="result-head">
         <span
           >РЕЗУЛЬТАТ / {currentEvaluation.status === 'review_required'

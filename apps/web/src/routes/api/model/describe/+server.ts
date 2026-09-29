@@ -104,7 +104,7 @@ function parseNarrative(content: unknown, hasPlan: boolean) {
 
 export const POST: RequestHandler = async ({ request, url }) => {
   if (env.INFERENCE_DEMO_ENABLED !== 'true' || !env.OPENROUTER_API_KEY) {
-    return json({ error: 'Описание работ не настроено: нет ключа OpenRouter.' }, { status: 503 });
+    return json({ error: 'Описание работ не настроено: нет ключа модели описания.' }, { status: 503 });
   }
   if (request.headers.get('origin') !== url.origin) {
     return json({ error: 'Недопустимый источник запроса.' }, { status: 403 });

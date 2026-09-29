@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte';
+  import { fade } from 'svelte/transition';
   import type { ModelPrediction } from '$lib/model';
   import type { ArchivedVisual } from '$lib/model/archive';
 
@@ -162,14 +163,14 @@
 
 {#if prediction}
   <section class="visual-review" aria-labelledby="visual-title">
-    <h3 id="visual-title">Описание работ <small>DeepSeek</small></h3>
+    <h3 id="visual-title">Описание работ <small>по кадру</small></h3>
     {#if report}
-      <strong class="stage" aria-live="polite">{report.work_stage}</strong>
+      <strong class="stage" aria-live="polite" in:fade={{ duration: 240 }}>{report.work_stage}</strong>
       {#if report.confidence}<span class="confidence">уверенность: {report.confidence}</span>{/if}
       {#if report.stage_evidence}<p class="evidence"><b>По каким признакам:</b> {report.stage_evidence}</p>{/if}
       {#if report.scene_summary && report.scene_summary !== report.stage_evidence}<p class="summary">{report.scene_summary}</p>{/if}
     {:else if pending}
-      <p class="working" role="status">Описываем видимые работы…</p>
+      <div class="skeleton" role="status" aria-label="Описываем видимые работы"><i></i><i></i><i></i></div>
     {:else if !available}
       <p class="notice">Описание работ недоступно: сервис не подключён.</p>
     {/if}
@@ -207,8 +208,7 @@
   .evidence, .summary { margin-top: 10px; font-size: 12.5px; line-height: 1.55; }
   .evidence b { font-weight: 700; }
   .summary { color: var(--muted); }
-  .working, .notice, .error { margin-top: 10px; font-size: 13px; line-height: 1.5; }
-  .working { color: var(--accent); }
+  .notice, .error { margin-top: 10px; font-size: 13px; line-height: 1.5; }
   .notice { color: var(--muted); }
   .error { color: var(--danger); }
   .retry { margin-top: 8px; color: var(--accent); font-size: 12px; text-decoration: underline; }
@@ -225,4 +225,10 @@
   .comparison { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
   .comparison strong { font-size: 13px; }
   .comparison p { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .skeleton { display: grid; gap: 9px; margin-top: 12px; }
+  .skeleton i { height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--raised) 0%, color-mix(in srgb, var(--raised) 40%, var(--surface)) 50%, var(--raised) 100%); background-size: 200% 100%; animation: shimmer 1.2s linear infinite; }
+  .skeleton i:first-child { height: 24px; width: 70%; }
+  .skeleton i:last-child { width: 55%; }
+  @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .skeleton i { animation: none; } }
 </style>
