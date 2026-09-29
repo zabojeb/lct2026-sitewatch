@@ -20,15 +20,24 @@ class FakeEngine:
         }
 
 
-def client() -> TestClient:
-    settings = Settings(
+class BrokenEngine(FakeEngine):
+    def predict(self, image: bytes, recognition_mode: str = "640") -> dict[str, object]:
+        raise AssertionError("cached frames must not reach the models")
+
+
+def settings(cache_dir: Path | None = None) -> Settings:
+    return Settings(
         Path("unused-640.pt"),
         Path("unused-960.pt"),
         Path("unused.pth"),
         Path("reject.json"),
         "t" * 32,
+        cache_dir=cache_dir,
     )
-    return TestClient(create_app(settings, FakeEngine()))
+
+
+def client(cache_dir: Path | None = None) -> TestClient:
+    return TestClient(create_app(settings(cache_dir), FakeEngine()))
 
 
 def test_authentication_and_health() -> None:
@@ -72,3 +81,20 @@ def test_upload_validation_and_prediction() -> None:
             ).status_code
             == 422
         )
+
+
+def test_results_survive_restart(tmp_path: Path) -> None:
+    output = io.BytesIO()
+    Image.new("RGB", (12, 12)).save(output, format="JPEG")
+    headers = {"Authorization": f"Bearer {'t' * 32}"}
+    upload = {"image": ("test.jpg", output.getvalue(), "image/jpeg")}
+    with client(tmp_path) as api:
+        first = api.post(
+            "/v1/predict", headers=headers, files=upload, data={"recognition_mode": "960"}
+        )
+    with TestClient(create_app(settings(tmp_path), BrokenEngine())) as api:
+        again = api.post(
+            "/v1/predict", headers=headers, files=upload, data={"recognition_mode": "960"}
+        )
+    assert again.status_code == 200
+    assert again.json() == first.json()

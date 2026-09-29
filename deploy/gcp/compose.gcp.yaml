@@ -4,6 +4,9 @@ services:
     restart: unless-stopped
     environment:
       INFERENCE_THREADS: ${INFERENCE_THREADS:-4}
+      INFERENCE_CACHE_DIR: /cache
+    volumes:
+      - inference-cache:/cache
   deviations:
     restart: unless-stopped
   web:
@@ -14,3 +17,6 @@ services:
       SITEWATCH_SHARE_TTL_HOURS: ${SITEWATCH_SHARE_TTL_HOURS:-336}
     ports:
       - "80:3000"
+
+volumes:
+  inference-cache:

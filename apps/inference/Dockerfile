@@ -13,7 +13,7 @@ COPY apps/inference/pyproject.toml apps/inference/uv.lock ./
 COPY apps/inference/src ./src
 RUN uv sync --frozen --no-dev --extra serve --no-install-project \
     && uv sync --frozen --no-dev --extra serve
-RUN useradd --uid 10001 --create-home inference
+RUN useradd --uid 10001 --create-home inference && install -d -o inference -g inference /cache
 USER inference
 ENV PATH=/app/.venv/bin:$PATH
 EXPOSE 8083

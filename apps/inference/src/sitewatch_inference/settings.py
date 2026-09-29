@@ -26,6 +26,8 @@ class Settings:
     max_detections: int = 300
     classifier_batch: int = 16
     threads: int = 4
+    # Results survive restarts when set; the folder is keyed by the pinned weights.
+    cache_dir: Path | None = None
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -45,6 +47,7 @@ class Settings:
             device=os.environ.get("INFERENCE_DEVICE", "auto"),
             detection_score=float(os.environ.get("DETECTION_SCORE", "0.25")),
             threads=int(os.environ.get("INFERENCE_THREADS", "4")),
+            cache_dir=Path(cache) if (cache := os.environ.get("INFERENCE_CACHE_DIR")) else None,
         )
         if not 0 < settings.detection_score <= 1 or settings.threads < 1:
             raise ValueError("Invalid detector confidence or thread count")

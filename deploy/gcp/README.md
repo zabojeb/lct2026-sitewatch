@@ -13,10 +13,14 @@ as the local demo, plus `compose.gcp.yaml`: the site listens on port 80 and open
 
 2. Copy the repository, `models/sitewatch-v2/` and `deploy/gcp/.env` to the VM. The env file is not in git:
 
-       OPENROUTER_API_KEY=…
+       DESCRIBE_API_URL=…
+       DESCRIBE_API_KEY=…
+       DESCRIBE_MODEL=…
        SITEWATCH_INTERNAL_TOKEN=<openssl rand -hex 32>
        SITEWATCH_SHARE_TOKEN=<openssl rand -hex 32>
        SITEWATCH_ORIGIN=http://<static IP>
 
-3. On the VM run `deploy/gcp/vm-up.sh`. The link for the jury is
+3. On the VM run `deploy/gcp/vm-up.sh`, then `deploy/gcp/prewarm.sh` once: it runs every demo frame through
+   both recognition modes, and the results are kept in the `inference-cache` volume across restarts.
+   The link for the jury is
    `http://<static IP>/app/model?access=<SITEWATCH_SHARE_TOKEN>`; one visit keeps access for 14 days.
