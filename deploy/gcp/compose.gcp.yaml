@@ -1,0 +1,16 @@
+# Override for the Google Cloud VM: public port 80, real origin, secret share link, restarts.
+services:
+  inference:
+    restart: unless-stopped
+    environment:
+      INFERENCE_THREADS: ${INFERENCE_THREADS:-4}
+  deviations:
+    restart: unless-stopped
+  web:
+    restart: unless-stopped
+    environment:
+      ORIGIN: ${SITEWATCH_ORIGIN:?set SITEWATCH_ORIGIN, e.g. http://203.0.113.10}
+      SITEWATCH_SHARE_TOKEN: ${SITEWATCH_SHARE_TOKEN:-}
+      SITEWATCH_SHARE_TTL_HOURS: ${SITEWATCH_SHARE_TTL_HOURS:-336}
+    ports:
+      - "80:3000"
