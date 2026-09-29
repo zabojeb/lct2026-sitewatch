@@ -1,5 +1,301 @@
 [
   {
+    "id": "8",
+    "title": "Камера 8 · котлован без самосвалов",
+    "date": "25.07.2024",
+    "context": "Котлован / реальная камера стройки",
+    "photos": [
+      {
+        "id": "8-1",
+        "src": "/demo-scenes/media/scene-8-01.webp",
+        "filename": "cam8_21-02-11.jpg",
+        "capturedAt": "2024-07-25T21:02:11",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "id": "8-2",
+        "src": "/demo-scenes/media/scene-8-02.webp",
+        "filename": "cam8_21-03-17.jpg",
+        "capturedAt": "2024-07-25T21:03:17",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "id": "8-3",
+        "src": "/demo-scenes/media/scene-8-03.webp",
+        "filename": "cam8_21-04-17.jpg",
+        "capturedAt": "2024-07-25T21:04:17",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "id": "8-4",
+        "src": "/demo-scenes/media/scene-8-04.webp",
+        "filename": "cam8_21-05-17.jpg",
+        "capturedAt": "2024-07-25T21:05:17",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "id": "8-5",
+        "src": "/demo-scenes/media/scene-8-05.webp",
+        "filename": "cam8_21-06-18.jpg",
+        "capturedAt": "2024-07-25T21:06:18",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "id": "8-6",
+        "src": "/demo-scenes/media/scene-8-06.webp",
+        "filename": "cam8_21-07-17.jpg",
+        "capturedAt": "2024-07-25T21:07:17",
+        "width": 960,
+        "height": 960
+      }
+    ],
+    "source": "Датасет команды const-video-v2i-yolo26, площадка №8, камера 8",
+    "annotation": "Шесть кадров одной камеры с шагом около минуты (21:02–21:07 по часам камеры). Экскаватор работает, самосвалов нет — пример из ТЗ. Плановые даты этапа в сценарии — пример.",
+    "planSuggestion": "Устройство котлована: разработка грунта экскаватором с погрузкой в самосвалы",
+    "check": {
+      "stage": "Устройство котлована (строка 47 перечня работ)",
+      "zone": "Котлован у камеры 8",
+      "camera": "Камера 8",
+      "plannedStart": "2024-07-15T08:00",
+      "plannedEnd": "2024-08-09T20:00",
+      "observable": true,
+      "coverage": {
+        "percent": 85,
+        "source": "Оператор по кадру: котлован целиком в поле зрения камеры 8"
+      },
+      "rules": [
+        {
+          "equipment_class": "excavator",
+          "expectation": "required",
+          "min_count": 1,
+          "max_count": null,
+          "min_confidence": 0.5,
+          "persistence_frames": 3,
+          "source": "Пример из ТЗ: котлован — экскаватор и самосвалы; ГЭСН 01-01-011 (ФСНБ-2022)"
+        },
+        {
+          "equipment_class": "dump_truck",
+          "expectation": "required",
+          "min_count": 1,
+          "max_count": null,
+          "min_confidence": 0.5,
+          "persistence_frames": 3,
+          "source": "Пример из ТЗ: котлован — экскаватор и самосвалы; ГЭСН 01-01-011 (ФСНБ-2022)"
+        }
+      ],
+      "timeSource": "Экранная подпись камеры 8 (часы камеры)"
+    }
+  },
+  {
+    "id": "9",
+    "title": "Видео: котлован в Праге, 49 с",
+    "date": "10.03.2013",
+    "context": "Котлован / кадры из видеоролика",
+    "photos": [
+      {
+        "id": "9-1",
+        "src": "/demo-scenes/media/scene-9-01.webp",
+        "filename": "copa_00.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:00.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-2",
+        "src": "/demo-scenes/media/scene-9-02.webp",
+        "filename": "copa_02.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:02.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-3",
+        "src": "/demo-scenes/media/scene-9-03.webp",
+        "filename": "copa_05.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:05.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-4",
+        "src": "/demo-scenes/media/scene-9-04.webp",
+        "filename": "copa_07.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:07.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-5",
+        "src": "/demo-scenes/media/scene-9-05.webp",
+        "filename": "copa_10.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:10.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-6",
+        "src": "/demo-scenes/media/scene-9-06.webp",
+        "filename": "copa_12.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:12.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-7",
+        "src": "/demo-scenes/media/scene-9-07.webp",
+        "filename": "copa_15.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:15.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-8",
+        "src": "/demo-scenes/media/scene-9-08.webp",
+        "filename": "copa_17.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:17.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-9",
+        "src": "/demo-scenes/media/scene-9-09.webp",
+        "filename": "copa_20.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:20.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-10",
+        "src": "/demo-scenes/media/scene-9-10.webp",
+        "filename": "copa_22.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:22.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-11",
+        "src": "/demo-scenes/media/scene-9-11.webp",
+        "filename": "copa_25.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:25.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-12",
+        "src": "/demo-scenes/media/scene-9-12.webp",
+        "filename": "copa_27.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:27.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-13",
+        "src": "/demo-scenes/media/scene-9-13.webp",
+        "filename": "copa_30.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:30.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-14",
+        "src": "/demo-scenes/media/scene-9-14.webp",
+        "filename": "copa_32.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:32.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-15",
+        "src": "/demo-scenes/media/scene-9-15.webp",
+        "filename": "copa_35.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:35.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-16",
+        "src": "/demo-scenes/media/scene-9-16.webp",
+        "filename": "copa_37.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:37.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-17",
+        "src": "/demo-scenes/media/scene-9-17.webp",
+        "filename": "copa_40.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:40.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-18",
+        "src": "/demo-scenes/media/scene-9-18.webp",
+        "filename": "copa_42.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:42.500",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-19",
+        "src": "/demo-scenes/media/scene-9-19.webp",
+        "filename": "copa_45.0s.jpg",
+        "capturedAt": "2013-03-10T12:00:45.000",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "id": "9-20",
+        "src": "/demo-scenes/media/scene-9-20.webp",
+        "filename": "copa_47.5s.jpg",
+        "capturedAt": "2013-03-10T12:00:47.500",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "source": "Wikimedia Commons: «COPA center, hloubení jámy (001).ogv», автор Juandev, CC BY-SA 3.0",
+    "annotation": "Двадцать кадров ролика с шагом 2,5 с: самосвал уезжает, экскаваторы работают, новый самосвал подъезжает. Для вывода об отсутствии техники ролик слишком короткий — это пример случая «данных недостаточно».",
+    "planSuggestion": "Выемка грунта котлована с погрузкой в самосвалы",
+    "check": {
+      "stage": "Выемка грунта котлована (строка 72 перечня работ)",
+      "zone": "Котлован COPA",
+      "camera": "Камера видеоролика",
+      "plannedStart": "2013-03-01T08:00",
+      "plannedEnd": "2013-03-29T20:00",
+      "observable": true,
+      "coverage": {
+        "percent": 80,
+        "source": "Оператор по кадру: котлован виден с дальнего края"
+      },
+      "rules": [
+        {
+          "equipment_class": "excavator",
+          "expectation": "required",
+          "min_count": 1,
+          "max_count": null,
+          "min_confidence": 0.5,
+          "persistence_frames": 3,
+          "source": "Пример из ТЗ: котлован — экскаватор и самосвалы; ГЭСН 01-01-011 (ФСНБ-2022)"
+        },
+        {
+          "equipment_class": "dump_truck",
+          "expectation": "required",
+          "min_count": 1,
+          "max_count": null,
+          "min_confidence": 0.5,
+          "persistence_frames": 3,
+          "source": "Пример из ТЗ: котлован — экскаватор и самосвалы; ГЭСН 01-01-011 (ФСНБ-2022)"
+        }
+      ],
+      "timeSource": "Смещение кадра от начала ролика; время суток условное"
+    }
+  },
+  {
     "id": "1",
     "title": "Каскад экскаваторов Sunward",
     "date": null,
