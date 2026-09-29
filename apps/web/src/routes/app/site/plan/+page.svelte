@@ -4,6 +4,7 @@
   import ArrowDownIcon from 'phosphor-svelte/lib/ArrowDownIcon';
   import XIcon from 'phosphor-svelte/lib/XIcon';
   import PlusIcon from 'phosphor-svelte/lib/PlusIcon';
+  import PlanGantt from '$lib/components/site/PlanGantt.svelte';
   import ScheduleEvidence from '$lib/components/site/ScheduleEvidence.svelte';
   import { isControllable } from '$lib/site/analysis';
   import { EQUIPMENT, equipmentName } from '$lib/site/catalog';
@@ -16,6 +17,12 @@
 
   /* ---------- plan editing ---------- */
   let dragging = $state<string | null>(null);
+  let flashId = $state<string | null>(null);
+  function pick(id: string) {
+    document.getElementById(`stage-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    flashId = id;
+    setTimeout(() => flashId === id && (flashId = null), 1400);
+  }
   let query = $state('');
   const matches = $derived(
     query.trim().length < 2
@@ -147,7 +154,7 @@
       <p>
         {site.plan.stages.length} {plural(site.plan.stages.length, ['этап', 'этапа', 'этапов'])} · {days(
           site.plan.stages.reduce((sum, s) => sum + s.days, 0),
-        )} · перетаскивайте строки за ручку
+        )} · порядок меняйте за ручку строки, длительность — за край полосы
       </p>
     </div>
     <label class="start">
@@ -155,6 +162,7 @@
       <input type="date" bind:value={site.plan.start} />
     </label>
   </div>
+  <PlanGantt onpick={pick} />
   <ol class="plan-list">
     {#each site.plan.stages as stage, index (stage.id)}
       {@const w = site.windows[index]}
@@ -162,6 +170,7 @@
         id="stage-{stage.id}"
         class="plan-item"
         class:dragging={dragging === stage.id}
+        class:flash={flashId === stage.id}
         class:current={site.plannedWindow?.id === stage.id}
         draggable="true"
         ondragstart={(e) => {
@@ -366,6 +375,16 @@
   }
   .plan-item.dragging {
     opacity: 0.5;
+  }
+  .plan-item.flash {
+    animation: flash 1.4s ease-out;
+  }
+  @keyframes flash {
+    0%,
+    35% {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+    }
   }
   .handle {
     color: var(--muted);

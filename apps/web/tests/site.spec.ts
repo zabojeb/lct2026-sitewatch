@@ -8,11 +8,9 @@ async function open(page: Page, route: string) {
   return errors;
 }
 
-test('archive project labels provenance without asserting a construction stage', async ({ page }) => {
+test('archive project overview does not assert a construction stage', async ({ page }) => {
   const errors = await open(page, '/app/site');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Обзор проекта');
-  await expect(page.getByText('Рамки: разметка датасета.')).toBeVisible();
-  await expect(page.getByRole('link', { name: /const-video-v2i-yolo26/ })).toBeVisible();
   await expect(page.getByText('Архивный проект', { exact: true })).toBeVisible();
   await page.getByLabel('Камера', { exact: true }).selectOption('cam-8');
   await expect(page.getByText('Этап работ по технике не определяется')).toBeVisible();
@@ -34,6 +32,9 @@ test('plan: a stage from the works list joins the calendar without inferring com
     .click();
   await expect(page.locator('.plan-item')).toHaveCount(before + 1);
   await expect(page.getByText('строка 354 перечня')).toBeVisible();
+  // The Gantt chart follows the plan: one row per stage, and the new stage is drawn too.
+  await expect(page.getByRole('figure', { name: 'Диаграмма Ганта календарного плана' })).toBeVisible();
+  await expect(page.locator('.gantt .row')).toHaveCount(before + 1);
   expect(errors).toEqual([]);
 });
 
@@ -66,6 +67,5 @@ test('history summarises control dates of a long-term project', async ({ page })
   await page.getByLabel('Проект').selectOption('torre-h');
   await expect(page.getByText('Контрольные даты')).toBeVisible();
   await expect(page.locator('.dates .row:not(.head)')).toHaveCount(5);
-  await expect(page.getByText('Рамки: разметка датасета.')).toBeVisible();
   expect(errors).toEqual([]);
 });

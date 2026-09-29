@@ -1,12 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/state';
-  import InfoIcon from 'phosphor-svelte/lib/InfoIcon';
   import Brand from '$lib/components/Brand.svelte';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
   import EvidenceModal from '$lib/components/site/EvidenceModal.svelte';
   import DesignViewDialog from '$lib/components/site/DesignViewDialog.svelte';
-  import { SOURCE_LABELS } from '$lib/site/catalog';
   import { SiteConsole, provideSite } from '$lib/site/store.svelte';
   import '$lib/site/site.css';
 
@@ -90,18 +88,6 @@
       </div>
     </div>
 
-    <p class="provenance" class:synthetic={site.project.kind === 'synthetic'}>
-      <InfoIcon size={16} />
-      <span>
-        <b>Демопроект собран из готовой подборки кадров. Ваши запуски анализа — во вкладке «Кадры».</b>
-        <b>Рамки: {SOURCE_LABELS[site.project.provenance.boxes]}.</b>
-        {site.project.provenance.text}
-        {#each site.project.provenance.sources as source (source.url)}
-          <a href={source.url} target="_blank" rel="noreferrer">{source.name} ↗</a>
-        {/each}
-        {#if site.plan.example}<em>График — пример для проверки, его можно менять.</em>{/if}
-      </span>
-    </p>
     {#if site.storageFailed}
       <p class="storage-warning" role="status">
         Браузер не сохранил изменения — они действуют до перезагрузки, отчёт можно скачать.
