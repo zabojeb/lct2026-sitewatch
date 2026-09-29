@@ -14,7 +14,6 @@
   const oneDay = $derived(numericDate(span.start) === numericDate(span.end));
   const label = (value: number) => (oneDay ? clock(value) : shortDate(value));
   const left = (value: number) => 2 + ((value - span.start) / span.length) * 96;
-  const alertFrames = $derived(new Set(site.journal.flatMap((e) => e.frameIds)));
 </script>
 
 <section class="shift" aria-label="Кадры всех камер по времени">
@@ -31,7 +30,6 @@
           <button
             class="tick"
             class:current={frame.id === site.frame?.id}
-            class:flagged={alertFrames.has(frame.id)}
             style="left:{left(time(frame.timestamp))}%"
             onclick={() => site.selectFrame(frame.id)}
             aria-label="{camera.name}, {numericDate(frame.timestamp)} {clock(frame.timestamp)}"
@@ -43,7 +41,6 @@
   {/each}
   <p class="legend">
     <span><i class="tick-key"></i> кадр</span>
-    <span><i class="tick-key flagged"></i> есть отклонение</span>
     <span
       >Срез площадки на момент кадра — последний кадр каждой камеры за {project.shiftHours >= 48
         ? `${Math.round(project.shiftHours / 24)} дн.`
@@ -102,9 +99,6 @@
     border-radius: 2px;
     background: var(--muted);
   }
-  .tick.flagged {
-    background: var(--warning);
-  }
   .tick.current {
     top: 2px;
     height: 22px;
@@ -133,9 +127,6 @@
     height: 12px;
     border-radius: 2px;
     background: var(--muted);
-  }
-  .tick-key.flagged {
-    background: var(--warning);
   }
   @media (max-width: 560px) {
     .axis {

@@ -1,0 +1,306 @@
+{
+  "id": "scenario-ahead",
+  "name": "Демо · опережение свай",
+  "subtitle": "котлован → сваи · −14 дней по сценарию",
+  "kind": "synthetic",
+  "provenance": {
+    "boxes": "synthetic",
+    "text": "Учебный сценарий на синтетических кадрах. Плановые даты и рубеж начала свай заданы вручную для демонстрации сравнения. Рубеж не определяется моделью по технике.",
+    "sources": []
+  },
+  "shiftHours": 24,
+  "cameras": [
+    {
+      "id": "cam-4",
+      "name": "Камера 4",
+      "rules": {
+        "checkExtra": true,
+        "checkZones": true,
+        "trackIdle": []
+      }
+    },
+    {
+      "id": "cam-5",
+      "name": "Камера 5",
+      "rules": {
+        "checkExtra": true,
+        "checkZones": true,
+        "trackIdle": []
+      }
+    }
+  ],
+  "frames": [
+    {
+      "id": "timeline-excavation-01",
+      "cameraId": "cam-4",
+      "timestamp": "2020-09-28T09:00:00",
+      "image": "/demo/site/img/scenario/timeline-excavation-01.jpg",
+      "preview": "/demo/site/img/scenario/previews/timeline-excavation-01.jpg",
+      "boxes": [
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.46979,
+            0.48594,
+            0.16042,
+            0.10729
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.68958,
+            0.45625,
+            0.1,
+            0.06667
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "dump-truck",
+          "label": "Самосвал",
+          "bbox": [
+            0.57969,
+            0.60677,
+            0.13021,
+            0.08646
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        }
+      ]
+    },
+    {
+      "id": "timeline-excavation-02",
+      "cameraId": "cam-4",
+      "timestamp": "2020-10-08T11:20:00",
+      "image": "/demo/site/img/scenario/timeline-excavation-02.jpg",
+      "preview": "/demo/site/img/scenario/previews/timeline-excavation-02.jpg",
+      "boxes": [
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.48958,
+            0.5,
+            0.15,
+            0.1
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "dump-truck",
+          "label": "Самосвал",
+          "bbox": [
+            0.61042,
+            0.63385,
+            0.13958,
+            0.09271
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "dump-truck",
+          "label": "Самосвал",
+          "bbox": [
+            0.72969,
+            0.47344,
+            0.08021,
+            0.05312
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        }
+      ]
+    },
+    {
+      "id": "timeline-excavation-03",
+      "cameraId": "cam-4",
+      "timestamp": "2020-10-25T10:10:00",
+      "image": "/demo/site/img/scenario/timeline-excavation-03.jpg",
+      "preview": "/demo/site/img/scenario/previews/timeline-excavation-03.jpg",
+      "boxes": [
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.43958,
+            0.51042,
+            0.15,
+            0.1
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.68021,
+            0.4599,
+            0.08958,
+            0.05937
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "dump-truck",
+          "label": "Самосвал",
+          "bbox": [
+            0.60052,
+            0.63698,
+            0.13021,
+            0.08646
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        }
+      ]
+    },
+    {
+      "id": "timeline-piles-01",
+      "cameraId": "cam-5",
+      "timestamp": "2020-10-25T15:00:00",
+      "image": "/demo/site/img/scenario/timeline-piles-01.jpg",
+      "preview": "/demo/site/img/scenario/previews/timeline-piles-01.jpg",
+      "boxes": [
+        {
+          "slug": "drill",
+          "label": "Буровая установка",
+          "bbox": [
+            0.24948,
+            0.42812,
+            0.09479,
+            0.16458
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.63021,
+            0.45156,
+            0.08542,
+            0.05729
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        }
+      ]
+    },
+    {
+      "id": "timeline-piles-02",
+      "cameraId": "cam-5",
+      "timestamp": "2020-11-08T12:30:00",
+      "image": "/demo/site/img/scenario/timeline-piles-02.jpg",
+      "preview": "/demo/site/img/scenario/previews/timeline-piles-02.jpg",
+      "boxes": [
+        {
+          "slug": "drill",
+          "label": "Буровая установка",
+          "bbox": [
+            0.26042,
+            0.43281,
+            0.1,
+            0.17396
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.65052,
+            0.45365,
+            0.08021,
+            0.05312
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        }
+      ]
+    },
+    {
+      "id": "timeline-piles-03",
+      "cameraId": "cam-5",
+      "timestamp": "2020-11-28T09:40:00",
+      "image": "/demo/site/img/scenario/timeline-piles-03.jpg",
+      "preview": "/demo/site/img/scenario/previews/timeline-piles-03.jpg",
+      "boxes": [
+        {
+          "slug": "drill",
+          "label": "Буровая установка",
+          "bbox": [
+            0.27969,
+            0.43906,
+            0.10521,
+            0.18229
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        },
+        {
+          "slug": "excavator",
+          "label": "Экскаватор",
+          "bbox": [
+            0.65052,
+            0.46302,
+            0.08021,
+            0.05312
+          ],
+          "confidence": 0.97,
+          "source": "synthetic"
+        }
+      ]
+    }
+  ],
+  "plan": {
+    "start": "2020-09-21",
+    "example": true,
+    "stages": [
+      {
+        "id": "row-47",
+        "name": "Устройство котлована",
+        "days": 48,
+        "profileId": "earth_excavation",
+        "row": 47
+      },
+      {
+        "id": "row-74",
+        "name": "Буронабивные сваи",
+        "days": 28,
+        "profileId": "bored_piles",
+        "row": 74
+      },
+      {
+        "id": "row-85",
+        "name": "Устройство монолитной ж/б фундаментной плиты (плита под здание, плита под башенный кран, фундамент под оборудование), в т.ч. устройство бетонной подготовки",
+        "days": 60,
+        "profileId": "concrete",
+        "row": 85
+      }
+    ]
+  },
+  "zones": {},
+  "geometry": null,
+  "stageObservations": [
+    {
+      "stageId": "row-74",
+      "at": "2020-10-25T15:00:00",
+      "frameId": "timeline-piles-01",
+      "source": "scripted-demo",
+      "note": "Демонстрационный рубеж: начало свайных работ задано автором сценария, а не распознано автоматически."
+    }
+  ]
+}

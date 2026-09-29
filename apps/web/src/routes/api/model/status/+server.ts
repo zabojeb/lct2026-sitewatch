@@ -28,8 +28,11 @@ export const GET: RequestHandler = async () => {
   let modelVersion = '';
   if (inference.status === 'fulfilled' && inference.value.ok) {
     try {
-      const ready = (await inference.value.json()) as { model_version?: string };
-      if (ready.model_version) {
+      const ready = (await inference.value.json()) as {
+        model_version?: string;
+        recognition_modes?: string[];
+      };
+      if (ready.model_version && ready.recognition_modes?.includes('640') && ready.recognition_modes?.includes('960')) {
         status = 'ready';
         modelVersion = ready.model_version;
       }
@@ -42,7 +45,9 @@ export const GET: RequestHandler = async () => {
       status,
       rules_status:
         deviations.status === 'fulfilled' && deviations.value.ok ? 'ready' : 'unavailable',
+      vlm_status: env.OPENROUTER_API_KEY ? 'ready' : 'disabled',
       ...(modelVersion ? { model_version: modelVersion } : {}),
+      recognition_modes: status === 'ready' ? ['640', '960'] : [],
     },
     { headers: { 'Cache-Control': 'no-store' } },
   );

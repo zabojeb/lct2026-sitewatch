@@ -25,24 +25,20 @@ test('all public routes fit mobile, tablet and desktop without horizontal scroll
   }
 });
 
-test('landing explains the real flow and opens the live workspace', async ({ page }) => {
+test('landing opens the scene workspace without an intermediate page', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Вся стройка.В поле зрения.');
-  await expect(page.getByText('ИЛЛЮСТРАЦИЯ / НЕ РЕЗУЛЬТАТ АНАЛИЗА')).toBeVisible();
-  await page.getByRole('button', { name: 'О демо' }).click();
-  await expect(page.getByRole('dialog')).toContainText('детектор и классификатор техники');
-  await expect(page.getByRole('dialog')).toContainText('не добавляются в архив');
-  await page.getByRole('button', { name: 'Закрыть' }).click();
-  await page.getByRole('main').getByRole('link', { name: 'Открыть пульт' }).first().click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Сначала кадр.Затем вывод.');
-  await expect(page.getByText('Здесь нет подставленных объектов', { exact: false })).toBeVisible();
-  await expect(page.getByText('Северный квартал')).toHaveCount(0);
+  await page.getByRole('main').getByRole('link', { name: 'Начать анализ' }).first().click();
+  await expect(page).toHaveURL(/\/app\/model$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Анализ сцен');
+  await page.goto('/app');
+  await expect(page).toHaveURL(/\/app\/model$/);
   expect(errors).toEqual([]);
 });
 
-test('workspace reports service state from status endpoint, never manufactured observations', async ({
+test('workspace keeps technical model status out of the main layout', async ({
   page,
 }) => {
   await page.route('**/api/model/status', (route) =>
@@ -55,14 +51,9 @@ test('workspace reports service state from status endpoint, never manufactured o
     }),
   );
   await page.goto('/app');
-  await expect(page.getByRole('article').first().getByText('Работает')).toBeVisible();
-  await expect(page.getByRole('article').nth(1).getByText('Нет соединения')).toBeVisible();
-  await expect(page.getByRole('article').nth(2).getByText('Не подключён')).toBeVisible();
-  await expect(page.getByText('real-version-under-test')).toBeVisible();
-  await page.getByRole('button', { name: 'Обновить состояние сервисов' }).click();
-  await expect(page.getByText('Проверено в', { exact: false })).toBeVisible();
-  await page.getByRole('link', { name: 'Проверить кадр' }).first().click();
-  await expect(page.getByRole('heading', { name: 'Загрузите кадр площадки' })).toBeVisible();
+  await expect(page.getByText('МОДЕЛЬ ГОТОВА')).toHaveCount(0);
+  await expect(page.getByText('real-version-under-test')).toHaveCount(0);
+  await expect(page.getByText('Северный квартал')).toHaveCount(0);
 });
 
 test('theme persists and 404 offers a route back', async ({ page }) => {
@@ -76,6 +67,6 @@ test('theme persists and 404 offers a route back', async ({ page }) => {
   ).toBeVisible();
   await page.goto('/unknown-page');
   await expect(page.getByRole('heading', { name: 'Этот участок ещё не найден.' })).toBeVisible();
-  await page.getByRole('link', { name: 'Открыть пульт' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Сначала кадр.Затем вывод.');
+  await page.getByRole('link', { name: 'К анализу сцен' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Анализ сцен');
 });

@@ -2,7 +2,7 @@
   let { compact = false } = $props<{ compact?: boolean }>();
 </script>
 
-<a href="/" class="brand" aria-label="SW SiteWatch, главная">
+<a href="/" class="brand" aria-label="SiteWatch, главная">
   <span class="brand-mark" aria-hidden="true">SW</span>
   <span class:compact>SITEWATCH</span>
 </a>

@@ -47,7 +47,7 @@
     </svg>
   {/if}
   {#each frame.boxes as box, index (index)}
-    {@const state = tones[index] ?? { tone: 'green', messages: [] }}
+    {@const state = tones[index] ?? { tone: 'neutral', messages: [] }}
     {@const label = [equipmentName(box.slug), ...state.messages].join(' · ')}
     {#if isMachine(box.slug)}
       <button

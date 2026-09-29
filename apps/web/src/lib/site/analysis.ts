@@ -161,7 +161,7 @@ export function standstillMs(
 /* ---------- analysis of the selected frame ---------- */
 
 export type AlertCode = 'required' | 'shortage' | 'extra' | 'zone' | 'idle' | 'stage';
-export type Tone = 'red' | 'yellow' | 'green';
+export type Tone = 'red' | 'yellow' | 'green' | 'neutral';
 
 export interface Alert {
   code: AlertCode;

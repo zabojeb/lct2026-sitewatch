@@ -8,27 +8,24 @@ async function open(page: Page, route: string) {
   return errors;
 }
 
-test('site console labels where every box comes from and flags a standstill', async ({ page }) => {
+test('archive project labels provenance without asserting a construction stage', async ({ page }) => {
   const errors = await open(page, '/app/site');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Контроль площадки');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Обзор проекта');
   await expect(page.getByText('Рамки: разметка датасета.')).toBeVisible();
   await expect(page.getByRole('link', { name: /const-video-v2i-yolo26/ })).toBeVisible();
-  await expect(page.getByText('Отставание', { exact: false }).first()).toBeVisible();
+  await expect(page.getByText('Архивный прототип:', { exact: false })).toBeVisible();
   await page.getByLabel('Камера', { exact: true }).selectOption('cam-8');
-  await expect(page.getByText('Вероятный простой', { exact: true })).toBeVisible();
+  await expect(page.getByText('Этап работ по технике не определяется')).toBeVisible();
   await expect(page.getByText(/^Срез площадки на \d/)).toBeVisible();
-  await page.getByRole('button', { name: /Журнал отклонений/ }).click();
-  await expect(page.getByRole('complementary', { name: 'Журнал отклонений' })).toContainText(
-    'Площадка',
-  );
+  await expect(page.getByText('Визуальное сопоставление без процента готовности')).toBeVisible();
   expect(errors).toEqual([]);
 });
 
-test('plan: a stage from the works list joins the calendar and the delay is explained', async ({
+test('plan: a stage from the works list joins the calendar without inferring completion', async ({
   page,
 }) => {
   const errors = await open(page, '/app/site/plan');
-  await expect(page.getByText('Начало этапа камеры не застали', { exact: false })).toBeVisible();
+  await expect(page.getByText('Для вывода нужны визуальные признаки работ', { exact: false })).toBeVisible();
   const before = await page.locator('.plan-item').count();
   await page.getByPlaceholder('Например: котлован, сваи, асфальт…').fill('асфальт');
   await page

@@ -151,6 +151,9 @@
     if (!prediction || !file || busy) return;
     error = '';
     try {
+      if (frames.length && frames[0].model_version !== prediction.model_version) {
+        throw new Error('В окне уже есть кадры другого режима. Очистите окно перед сменой модели.');
+      }
       if (!zoneCode.trim() || !cameraCode.trim()) {
         throw new Error('Перед добавлением кадра укажите код зоны и камеры.');
       }
@@ -346,8 +349,9 @@
     <div>
       <h2 id="evaluation-title">Проверка по плану</h2>
       <p>
-        Введите фактический план и его источник, затем соберите окно из разных снимков. Пустые поля
-        не подменяются демонстрационными данными. Результат — предпросмотр, не автоматический алерт.
+        Укажите этап из графика и источник правил. Для вывода об отсутствии техники нужны
+        несколько кадров одной камеры с подтверждённым временем и обзором зоны. Разные камеры
+        помогают осмотреть сцену, но не считаются последовательными наблюдениями.
       </p>
     </div>
     <span class="frame-total"
@@ -497,8 +501,8 @@
     <div class="column evidence-column">
       <h3>03. Свидетельства и замеры</h3>
       <p class="hint">
-        Сначала запустите модель на кадре выше, затем добавьте его сюда. Для временного правила
-        нужны разные файлы и время между кадрами 1–60 минут.
+        Переключайте кадры обработанной серии выше и добавляйте снимки одной камеры. Время между
+        соседними кадрами для временного правила — 1–60 минут; источник времени обязателен.
       </p>
       <div class="fields two">
         <label>Время текущего кадра<input type="datetime-local" bind:value={capturedAt} /></label>
@@ -513,6 +517,9 @@
         >+ Добавить результат модели в окно</button
       >
       {#if frames.length}
+        <button class="clear-window" onclick={() => { frames = []; selectedFrameId = ''; evaluation = null; }}>
+          Очистить окно наблюдений
+        </button>
         <div class="timeline">
           {#each frames as frame, index}
             <div class="frame-row">
@@ -687,6 +694,14 @@
 </section>
 
 <style>
+  .clear-window {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .clear-window:hover { color: var(--text); }
   .export-row {
     display: flex;
     align-items: center;

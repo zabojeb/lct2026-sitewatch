@@ -1,0 +1,59 @@
+name: sitewatch-colleague-demo
+
+services:
+  inference:
+    build:
+      context: .
+      dockerfile: apps/inference/Dockerfile
+    environment:
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      DETECTOR_WEIGHTS_640: /models/yolo_640.pt
+      DETECTOR_WEIGHTS_960: /models/yolo_960.pt
+      CLASSIFIER_WEIGHTS: /models/convnext_small_latest.pth
+      REJECT_THRESHOLD_FILE: /models/reject_threshold.json
+      INFERENCE_DEVICE: cpu
+      INFERENCE_THREADS: 4
+      YOLO_CONFIG_DIR: /tmp
+    volumes:
+      - ./models/sitewatch-v2:/models:ro
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8083/health/ready', timeout=3)"]
+      start_period: 120s
+      interval: 10s
+      timeout: 5s
+      retries: 18
+
+  deviations:
+    build:
+      context: .
+      dockerfile: apps/deviations/Dockerfile
+    environment:
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      DEVIATIONS_HTTP_ADDR: 0.0.0.0:8084
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, "http://localhost:8084/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      ORIGIN: http://localhost:${SITEWATCH_WEB_PORT:-3000}
+      BODY_SIZE_LIMIT: 13M
+      INFERENCE_DEMO_ENABLED: "true"
+      INFERENCE_URL: http://inference:8083
+      DEVIATIONS_URL: http://deviations:8084
+      SITEWATCH_INTERNAL_TOKEN: ${SITEWATCH_INTERNAL_TOKEN:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+    ports:
+      - "127.0.0.1:${SITEWATCH_WEB_PORT:-3000}:3000"
+    depends_on:
+      inference:
+        condition: service_healthy
+      deviations:
+        condition: service_healthy

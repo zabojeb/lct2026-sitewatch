@@ -213,7 +213,7 @@
               <span class="metrics">
                 <span>Видимость {vis === undefined || vis < 0 ? 'считается…' : `${vis}%`}</span>
                 <span class="tone {hits ? 'yellow' : 'green'}"
-                  >{hits ? `${objects(hits)} в зоне` : 'нарушений нет'}</span
+                  >{hits ? `${objects(hits)} в зоне` : 'объекты в зоне не найдены'}</span
                 >
               </span>
               {#if editing}

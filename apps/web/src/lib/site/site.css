@@ -4,6 +4,31 @@
   --bad: var(--danger);
   --warn: var(--warning);
   --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  & .my-runs-entry { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 18px; padding: 18px 20px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--raised); }
+  & .my-runs-entry > span { display: grid; gap: 5px; }
+  & .my-runs-entry b { font-size: 17px; }
+  & .my-runs-entry small { color: var(--muted); font-size: 12px; }
+  & .my-runs-entry strong { white-space: nowrap; font-size: 12px; }
+  @media (max-width: 550px) { & .my-runs-entry { align-items: start; } & .my-runs-entry strong { white-space: normal; text-align: right; } }
+
+  & .scenario-picker {
+    display: grid;
+    grid-template-columns: minmax(250px, 1.8fr) repeat(2, minmax(170px, 1fr));
+    gap: 12px;
+    align-items: stretch;
+    margin: 0 0 20px;
+  }
+  & .scenario-picker > div { padding: 16px 18px 16px 0; }
+  & .scenario-picker h2 { margin: 5px 0 7px; font-size: 21px; letter-spacing: -.03em; }
+  & .scenario-picker p { margin: 0; max-width: 62ch; color: var(--muted); font-size: 12px; line-height: 1.6; }
+  & .scenario-picker button { display: grid; align-content: center; gap: 5px; text-align: left; padding: 15px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); cursor: pointer; }
+  & .scenario-picker button:hover, & .scenario-picker button.active { border-color: var(--accent); }
+  & .scenario-picker button span { color: var(--muted); font: 11px var(--mono); }
+  & .scenario-picker button b { font-size: 17px; }
+  & .scenario-picker button small { color: var(--muted); font-size: 11px; }
+  @media (max-width: 850px) { & .scenario-picker { grid-template-columns: repeat(2, 1fr); } & .scenario-picker > div { grid-column: 1 / -1; } }
+  @media (max-width: 500px) { & .scenario-picker { grid-template-columns: 1fr; } }
   max-width: 1680px;
   margin: 0 auto;
   padding: 0 clamp(16px, 3vw, 48px) 64px;
@@ -387,6 +412,9 @@
     border-radius: 2px;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35);
     outline: none;
+  }
+  & .box.neutral {
+    border-color: var(--text);
   }
   & .box.yellow {
     border-color: var(--warn);

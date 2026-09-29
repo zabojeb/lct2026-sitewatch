@@ -1,6 +1,6 @@
 import { rankStages, snapshotAt, type JournalEntry } from './analysis';
 import { DAY, time } from './format';
-import type { PlanStage, SitePlan, SiteProject, StageProfile } from './types';
+import type { PlanStage, SitePlan, SiteProject, StageObservation, StageProfile } from './types';
 
 export interface PlanWindow extends PlanStage {
   index: number;
@@ -27,6 +27,18 @@ export function planWindows(plan: SitePlan): PlanWindow[] {
 
 export const windowAt = (windows: PlanWindow[], at: number) =>
   windows.find((w) => at >= w.start && at < w.end) ?? null;
+
+/** Calendar-day difference between a plan start and an explicitly supplied milestone. */
+export function compareStageObservation(windows: PlanWindow[], observation: StageObservation) {
+  const stage = windows.find((window) => window.id === observation.stageId);
+  if (!stage) return null;
+  const calendarDay = (date: string) => Date.parse(`${date.slice(0, 10)}T00:00:00Z`);
+  const start = new Date(stage.start);
+  const planDate = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, '0')}-${String(start.getDate()).padStart(2, '0')}`;
+  const days = Math.round((calendarDay(observation.at) - calendarDay(planDate)) / DAY);
+  if (!Number.isFinite(days)) return null;
+  return { stage, observation, days, status: days > 0 ? 'late' : days < 0 ? 'ahead' : 'on_time' } as const;
+}
 
 export interface ObservedSegment {
   profile: StageProfile;

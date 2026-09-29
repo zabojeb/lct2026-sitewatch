@@ -1,8 +1,7 @@
 import { getContext, setContext } from 'svelte';
 import { alertJournal, analyzeFrame, cameraFrames, rankStages } from './analysis';
 import { time } from './format';
-import { observedSegments, planWindows, reasonIntervals, scheduleVariance, windowAt } from './plan';
-import type { Readiness } from './readiness';
+import { compareStageObservation, observedSegments, planWindows, reasonIntervals, scheduleVariance, windowAt } from './plan';
 import type {
   Methodology,
   ProjectSummary,
@@ -56,13 +55,12 @@ export class SiteConsole {
 
   cameraId = $state('');
   frameId = $state('');
-  stageMode = $state<'auto' | 'manual'>('auto');
+  stageMode = $state<'auto' | 'manual'>('manual');
   acceptedProfileId = $state('');
   plan = $state<SitePlan>({ start: '2024-01-01', stages: [] });
   profileOverrides = $state<Record<string, StageProfile>>({});
   zones = $state<Record<string, Zone[]>>({});
   designView = $state<{ image: string; name: string } | null>(null);
-  readiness = $state<Readiness | null>(null);
   visibility = $state<Record<string, number>>({});
 
   panel = $state<'tasks' | 'journal' | null>(null);
@@ -80,6 +78,9 @@ export class SiteConsole {
   frameIndex = $derived(this.frame ? this.frames.indexOf(this.frame) : -1);
   at = $derived(this.frame ? time(this.frame.timestamp) : 0);
   windows = $derived(planWindows(this.plan));
+  planComparison = $derived(this.project?.stageObservations?.[0]
+    ? compareStageObservation(this.windows, this.project.stageObservations[0])
+    : null);
   plannedWindow = $derived(windowAt(this.windows, this.at));
   plannedProfile = $derived(this.profile(this.plannedWindow?.profileId));
   analysis = $derived(
@@ -94,11 +95,7 @@ export class SiteConsole {
       : null,
   );
   ranked = $derived(this.analysis ? rankStages(this.analysis.snapshot.counts, this.profiles) : []);
-  acceptedProfile = $derived(
-    this.stageMode === 'manual'
-      ? this.profile(this.acceptedProfileId)
-      : (this.analysis?.observed?.profile ?? null),
-  );
+  acceptedProfile = $derived(this.profile(this.acceptedProfileId) ?? this.plannedProfile);
   segments = $derived(this.project ? observedSegments(this.project, this.profiles) : []);
   variance = $derived(scheduleVariance(this.windows, this.segments));
   journal = $derived(
@@ -158,7 +155,8 @@ export class SiteConsole {
     this.plan = saved.plan ?? clone(project.plan);
     this.profileOverrides = saved.profileOverrides ?? {};
     this.zones = saved.zones ?? clone(project.zones);
-    this.stageMode = saved.stageMode ?? 'auto';
+    // Older browser state could enable automatic stage selection by equipment.
+    this.stageMode = 'manual';
     this.acceptedProfileId = saved.acceptedProfileId ?? '';
     this.cameraId =
       saved.cameraId && project.cameras.some((c) => c.id === saved.cameraId)
@@ -166,7 +164,6 @@ export class SiteConsole {
         : project.cameras[0].id;
     this.frameId = '';
     this.designView = read(`${PREFIX}.${project.id}.design`);
-    this.readiness = null;
     this.visibility = {};
     this.evidenceFrameId = null;
   }
@@ -186,7 +183,6 @@ export class SiteConsole {
 
   setDesignView(view: { image: string; name: string } | null) {
     this.designView = view;
-    this.readiness = null;
     if (this.project) this.storageFailed = !write(`${PREFIX}.${this.project.id}.design`, view);
   }
 
@@ -234,10 +230,8 @@ export class SiteConsole {
       этап_по_графику: this.plannedWindow
         ? { название: this.plannedWindow.name, профиль: this.plannedProfile?.name }
         : null,
-      наблюдаемый_этап: a.observed
-        ? { профиль: a.observed.profile.name, совпадение: Math.round(a.observed.score * 100) }
-        : null,
-      принятый_этап: this.acceptedProfile?.name ?? null,
+      наблюдаемый_этап: null,
+      профиль_для_сравнения: this.acceptedProfile?.name ?? null,
       режим_этапа: this.stageMode,
       срез_площадки: {
         камеры: a.snapshot.members.map((m) => ({
@@ -250,17 +244,22 @@ export class SiteConsole {
         правило_объединения: 'максимум по одной камере (кадры камер разновременные)',
       },
       техника_на_кадре: a.rows,
-      отклонения: a.alerts,
-      журнал: this.journal.map((e) => ({
-        ...e.alert,
-        камера: e.cameraId,
-        кадры: e.frameIds,
-        с: e.start,
-        по: e.end,
-      })),
-      отклонение_от_графика: this.variance,
+      отклонения: [],
+      сигналы_для_проверки: a.alerts.filter(
+        (alert) => alert.code === 'extra' || alert.code === 'zone',
+      ),
+      журнал: [],
+      отклонение_от_графика: this.planComparison ? {
+        дней: this.planComparison.days,
+        этап: this.planComparison.stage.name,
+        план: new Date(this.planComparison.stage.start).toLocaleDateString('sv-SE'),
+        наблюдение: this.planComparison.observation.at,
+        источник: 'Заданный вручную рубеж демосценария; не вывод модели',
+      } : null,
+      ограничение_вывода:
+        'Состав техники не подтверждает этап или отставание. Нужны визуальные признаки работ, обзор зоны и источники плана.',
       зоны: this.zones[this.frame.cameraId] ?? [],
-      готовность_по_проектному_виду: this.readiness,
+      готовность_по_проектному_виду: null,
       календарный_план: this.windows.map((w) => ({
         ...w,
         начало: new Date(w.start).toISOString(),

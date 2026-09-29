@@ -19,3 +19,15 @@ models
 *.pptx
 *.pdf
 *.zip
+.env*
+node_modules.incomplete
+**/node_modules
+**/node_modules.incomplete
+**/.svelte-kit
+**/build
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+*.pt
+*.pth

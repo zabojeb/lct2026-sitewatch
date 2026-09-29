@@ -23,6 +23,10 @@ export const POST: RequestHandler = async ({ request, url }) => {
     return json({ error: 'Некорректная форма загрузки.' }, { status: 400 });
   }
   const image = form.get('image');
+  const recognitionMode = form.get('recognition_mode') ?? '640';
+  if (recognitionMode !== '640' && recognitionMode !== '960') {
+    return json({ error: 'Неизвестный режим распознавания.' }, { status: 400 });
+  }
   if (!(image instanceof File) || !imageTypes.has(image.type)) {
     return json({ error: 'Выберите JPEG, PNG или WebP.' }, { status: 415 });
   }
@@ -35,6 +39,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
   }
   const body = new FormData();
   body.set('image', image);
+  body.set('recognition_mode', recognitionMode);
   try {
     const response = await fetch(`${env.INFERENCE_URL ?? 'http://127.0.0.1:8083'}/v1/predict`, {
       method: 'POST',

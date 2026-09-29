@@ -1,0 +1,310 @@
+[
+  {
+    "id": "1",
+    "title": "Каскад экскаваторов Sunward",
+    "date": null,
+    "context": "Котлован / земляные работы",
+    "photos": [
+      {
+        "id": "1-1",
+        "src": "/demo-scenes/media/scene-1-01.webp",
+        "filename": "Screenshot_97.png",
+        "width": 1221,
+        "height": 810
+      },
+      {
+        "id": "1-2",
+        "src": "/demo-scenes/media/scene-1-02.webp",
+        "filename": "Screenshot_98.png",
+        "width": 1221,
+        "height": 810
+      },
+      {
+        "id": "1-3",
+        "src": "/demo-scenes/media/scene-1-03.webp",
+        "filename": "Screenshot_99.png",
+        "width": 1216,
+        "height": 813
+      },
+      {
+        "id": "1-4",
+        "src": "/demo-scenes/media/scene-1-04.webp",
+        "filename": "Screenshot_100.png",
+        "width": 1220,
+        "height": 810
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Разработка грунта и выемка котлована"
+  },
+  {
+    "id": "2",
+    "title": "Котлован с трубчатыми распорками",
+    "date": null,
+    "context": "Котлован / крепление",
+    "photos": [
+      {
+        "id": "2-1",
+        "src": "/demo-scenes/media/scene-2-01.webp",
+        "filename": "Screenshot_74.png",
+        "width": 1213,
+        "height": 806
+      },
+      {
+        "id": "2-2",
+        "src": "/demo-scenes/media/scene-2-02.webp",
+        "filename": "Screenshot_75.png",
+        "width": 1217,
+        "height": 811
+      },
+      {
+        "id": "2-3",
+        "src": "/demo-scenes/media/scene-2-03.webp",
+        "filename": "Screenshot_76.png",
+        "width": 1216,
+        "height": 804
+      },
+      {
+        "id": "2-4",
+        "src": "/demo-scenes/media/scene-2-04.webp",
+        "filename": "Screenshot_77.png",
+        "width": 1222,
+        "height": 808
+      },
+      {
+        "id": "2-5",
+        "src": "/demo-scenes/media/scene-2-05.webp",
+        "filename": "Screenshot_78.png",
+        "width": 1215,
+        "height": 803
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Разработка грунта с креплением котлована; устройство распорной системы"
+  },
+  {
+    "id": "3",
+    "title": "Котлован с фундаментами и CAT",
+    "date": null,
+    "context": "Котлован / фундамент",
+    "photos": [
+      {
+        "id": "3-1",
+        "src": "/demo-scenes/media/scene-3-01.webp",
+        "filename": "Screenshot_54.png",
+        "width": 1085,
+        "height": 807
+      },
+      {
+        "id": "3-2",
+        "src": "/demo-scenes/media/scene-3-02.webp",
+        "filename": "Screenshot_55.png",
+        "width": 1083,
+        "height": 809
+      },
+      {
+        "id": "3-3",
+        "src": "/demo-scenes/media/scene-3-03.webp",
+        "filename": "Screenshot_56.png",
+        "width": 1081,
+        "height": 809
+      },
+      {
+        "id": "3-4",
+        "src": "/demo-scenes/media/scene-3-04.webp",
+        "filename": "Screenshot_57.png",
+        "width": 1084,
+        "height": 810
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Устройство фундаментной плиты и монолитных конструкций подземной части"
+  },
+  {
+    "id": "4",
+    "title": "Разработка котлована",
+    "date": "27.05.2024",
+    "context": "Котлован / земляные работы",
+    "photos": [
+      {
+        "id": "4-1",
+        "src": "/demo-scenes/media/scene-4-01.webp",
+        "filename": "Screenshot_42.png",
+        "width": 1079,
+        "height": 809
+      },
+      {
+        "id": "4-2",
+        "src": "/demo-scenes/media/scene-4-02.webp",
+        "filename": "Screenshot_43.png",
+        "width": 1085,
+        "height": 808
+      },
+      {
+        "id": "4-3",
+        "src": "/demo-scenes/media/scene-4-03.webp",
+        "filename": "Screenshot_44.png",
+        "width": 1087,
+        "height": 809
+      },
+      {
+        "id": "4-4",
+        "src": "/demo-scenes/media/scene-4-04.webp",
+        "filename": "Screenshot_45.png",
+        "width": 1082,
+        "height": 807
+      },
+      {
+        "id": "4-5",
+        "src": "/demo-scenes/media/scene-4-05.webp",
+        "filename": "Screenshot_46.png",
+        "width": 1085,
+        "height": 810
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Разработка грунта котлована"
+  },
+  {
+    "id": "5",
+    "title": "Осенний котлован",
+    "date": null,
+    "context": "Котлован / фундамент",
+    "photos": [
+      {
+        "id": "5-1",
+        "src": "/demo-scenes/media/scene-5-01.webp",
+        "filename": "Screenshot_49.png",
+        "width": 1080,
+        "height": 809
+      },
+      {
+        "id": "5-2",
+        "src": "/demo-scenes/media/scene-5-02.webp",
+        "filename": "Screenshot_50.png",
+        "width": 1081,
+        "height": 805
+      },
+      {
+        "id": "5-3",
+        "src": "/demo-scenes/media/scene-5-03.webp",
+        "filename": "Screenshot_51.png",
+        "width": 1083,
+        "height": 808
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Разработка грунта и подготовка основания котлована"
+  },
+  {
+    "id": "6",
+    "title": "Буровые установки — март",
+    "date": "25.03.2024",
+    "context": "Свайные работы",
+    "photos": [
+      {
+        "id": "6-1",
+        "src": "/demo-scenes/media/scene-6-01.webp",
+        "filename": "Screenshot_29.png",
+        "width": 1163,
+        "height": 809
+      },
+      {
+        "id": "6-2",
+        "src": "/demo-scenes/media/scene-6-02.webp",
+        "filename": "Screenshot_30.png",
+        "width": 1203,
+        "height": 809
+      },
+      {
+        "id": "6-3",
+        "src": "/demo-scenes/media/scene-6-03.webp",
+        "filename": "Screenshot_31.png",
+        "width": 1163,
+        "height": 808
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Устройство буронабивных свай"
+  },
+  {
+    "id": "7",
+    "title": "Буровые установки — апрель",
+    "date": "24.04.2024",
+    "context": "Свайные работы",
+    "photos": [
+      {
+        "id": "7-1",
+        "src": "/demo-scenes/media/scene-7-01.webp",
+        "filename": "Screenshot_33.png",
+        "width": 1080,
+        "height": 809
+      },
+      {
+        "id": "7-2",
+        "src": "/demo-scenes/media/scene-7-02.webp",
+        "filename": "Screenshot_34.png",
+        "width": 1083,
+        "height": 808
+      },
+      {
+        "id": "7-3",
+        "src": "/demo-scenes/media/scene-7-03.webp",
+        "filename": "Screenshot_35.png",
+        "width": 1218,
+        "height": 809
+      },
+      {
+        "id": "7-4",
+        "src": "/demo-scenes/media/scene-7-04.webp",
+        "filename": "Screenshot_36.png",
+        "width": 1218,
+        "height": 808
+      },
+      {
+        "id": "7-5",
+        "src": "/demo-scenes/media/scene-7-05.webp",
+        "filename": "Screenshot_37.png",
+        "width": 1219,
+        "height": 809
+      },
+      {
+        "id": "7-6",
+        "src": "/demo-scenes/media/scene-7-06.webp",
+        "filename": "Screenshot_38.png",
+        "width": 1221,
+        "height": 811
+      },
+      {
+        "id": "7-7",
+        "src": "/demo-scenes/media/scene-7-07.webp",
+        "filename": "Screenshot_39.png",
+        "width": 1080,
+        "height": 808
+      },
+      {
+        "id": "7-8",
+        "src": "/demo-scenes/media/scene-7-08.webp",
+        "filename": "Screenshot_40.png",
+        "width": 1081,
+        "height": 811
+      },
+      {
+        "id": "7-9",
+        "src": "/demo-scenes/media/scene-7-09.webp",
+        "filename": "Screenshot_41.png",
+        "width": 1083,
+        "height": 811
+      }
+    ],
+    "source": "Архив команды «сцены.zip»",
+    "annotation": "Исходные кадры; автоматические маски и выводы пока не добавлены.",
+    "planSuggestion": "Устройство буронабивных свай"
+  }
+]

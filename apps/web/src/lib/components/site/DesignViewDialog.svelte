@@ -44,7 +44,7 @@
   <div class="dialog narrow" role="dialog" aria-modal="true" aria-label="Проектный вид">
     <header>
       <div>
-        <span class="eyebrow">Визуальная готовность</span>
+        <span class="eyebrow">Изображение проекта</span>
         <h2>Проектный вид</h2>
       </div>
       <button class="icon-button" onclick={close} aria-label="Закрыть"><XIcon size={20} /></button>
@@ -55,14 +55,7 @@
           <img src={site.designView.image} alt="Загруженный проектный вид" />
           <figcaption>
             <b>{site.designView.name}</b>
-            <span>
-              {#if site.readiness}
-                Готовность {site.readiness.score}% · сходство ракурса {site.readiness.similarity}% ·
-                уверенность {site.readiness.confidence}
-              {:else}
-                Сравнение выполняется на странице контроля для текущего кадра
-              {/if}
-            </span>
+            <span>Референс для визуального сравнения с кадром камеры.</span>
           </figcaption>
         </figure>
       {/if}
@@ -81,10 +74,8 @@
       </label>
       {#if error}<p role="alert" class="error">{error}</p>{/if}
       <p class="hint">
-        Загрузите визуализацию итогового здания примерно с того же ракурса, что и камера. Оценка
-        складывается из структурного сходства кадра и проекта (55%), положения принятого этапа в
-        графике (30%) и контекста сцены (15%). Это предварительная визуальная оценка для оператора,
-        а не приёмка объёмов: для неё нужны элементы BIM и поэлементное сравнение.
+        Загрузите визуализацию здания с ракурса камеры. Здесь можно посмотреть проектный вид,
+        но процент готовности по двум изображениям не вычисляется.
       </p>
       {#if site.designView}
         <button class="button quiet" onclick={() => site.setDesignView(null)}

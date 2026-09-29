@@ -1,21 +1,27 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import ArrowLeftIcon from 'phosphor-svelte/lib/ArrowLeftIcon';
   import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
   import DownloadSimpleIcon from 'phosphor-svelte/lib/DownloadSimpleIcon';
   import FrameView from '$lib/components/site/FrameView.svelte';
   import ShiftTimeline from '$lib/components/site/ShiftTimeline.svelte';
+  import ScheduleEvidence from '$lib/components/site/ScheduleEvidence.svelte';
   import { isControllable } from '$lib/site/analysis';
+  import { listArchivedRuns } from '$lib/model/archive';
   import { equipmentIcon } from '$lib/site/icons';
-  import { cameras, clock, days, duration, numericDate, percent, time } from '$lib/site/format';
-  import { assessReadiness } from '$lib/site/readiness';
+  import { cameras, clock, days, duration, numericDate, plural } from '$lib/site/format';
   import { useSite } from '$lib/site/store.svelte';
 
   const site = useSite();
+  let savedRuns = $state<{ count: number; latest: string }>({ count: 0, latest: '' });
+  onMount(() => { void listArchivedRuns().then((runs) => { savedRuns = { count: runs.length, latest: runs[0]?.title ?? '' }; }).catch(() => {}); });
   const project = $derived(site.project!);
   const frame = $derived(site.frame);
   const analysis = $derived(site.analysis);
   const planned = $derived(site.plannedWindow);
-  const observed = $derived(analysis?.observed ?? null);
+  const reviewSignals = $derived(
+    analysis?.alerts.filter((alert) => alert.code === 'extra' || alert.code === 'zone') ?? [],
+  );
 
   const ROLE = {
     required: 'Обязательная',
@@ -24,81 +30,12 @@
     outside: 'Вне профиля',
   };
 
-  const variance = $derived.by(() => {
-    const v = site.variance;
-    if (v.reason === 'unplanned')
-      return {
-        tone: 'yellow',
-        text: 'Наблюдаемого этапа нет в графике',
-        detail: 'Добавьте его в план или проверьте профиль',
-      };
-    if (v.reason === 'none' && v.segment)
-      return {
-        tone: 'green',
-        text: 'По графику',
-        detail: `«${v.segment.profile.name}» в плановых датах`,
-      };
-    if (v.reason === 'lead')
-      return {
-        tone: 'green',
-        text: `Опережение ${days(-v.days)}`,
-        detail: 'Этап начался раньше плана',
-      };
-    if (v.reason === 'start' || v.reason === 'end')
-      return {
-        tone: 'red',
-        text: `Отставание ${days(v.days)}`,
-        detail:
-          v.reason === 'end'
-            ? `Плановое окончание ${numericDate(v.planned!.end)}, камеры видят этап ${numericDate(v.segment!.end)}`
-            : `Плановый старт ${numericDate(v.planned!.start)}, по камерам ${numericDate(v.segment!.start)}`,
-      };
-    return { tone: '', text: 'Нет наблюдений', detail: '' };
-  });
-
   const conclusion = $derived.by(() => {
     if (!analysis || !frame) return null;
-    const parts: string[] = [];
-    if (planned && observed) {
-      const differs = observed.profile.id !== planned.profileId;
-      parts.push(
-        differs
-          ? `По графику должен идти этап «${planned.name}», а техника всех камер соответствует профилю «${observed.profile.name}» (${percent(observed.score)}).`
-          : `Техника всех камер соответствует этапу по графику «${planned.name}» (${percent(observed.score)}).`,
-      );
-    } else if (!planned) parts.push(`На ${numericDate(frame.timestamp)} в графике нет этапа.`);
-    const by = (code: string) =>
-      analysis.alerts.filter((a) => a.code === code).map((a) => a.message);
-    const missing = [...by('required'), ...by('shortage')];
-    if (missing.length) parts.push(`Не выполнены требования этапа: ${missing.join('; ')}.`);
-    if (by('idle').length) parts.push(`Возможная потеря темпа: ${by('idle').join('; ')}.`);
-    if (by('zone').length) parts.push(`Нарушение размещения: ${by('zone').join('; ')}.`);
-    if (by('extra').length) parts.push(`Вне профиля планового этапа: ${by('extra').join('; ')}.`);
-    const v = site.variance;
-    if (v.reason === 'end' && v.overrunDays > 0)
-      parts.push(
-        `Этап «${v.segment!.profile.name}» идёт минимум на ${days(v.overrunDays)} дольше плана.`,
-      );
-    if (site.readiness)
-      parts.push(
-        `Визуальная готовность по проектному виду — ${site.readiness.score}% (уверенность ${site.readiness.confidence}).`,
-      );
-    if (!analysis.alerts.length) parts.push('Отклонений на этом срезе нет.');
-    return parts.join(' ');
-  });
-
-  // Readiness is recomputed for the frame on screen once a design view is loaded.
-  $effect(() => {
-    const view = site.designView;
-    const current = frame;
-    if (!view || !current) return;
-    const profileId = site.acceptedProfile?.id ?? planned?.profileId;
-    const index = site.windows.findIndex((w) => w.profileId === profileId);
-    const key = `${current.image}|${view.image.length}|${index}`;
-    if (site.readiness?.key === key) return;
-    assessReadiness(current.image, view.image, index, site.windows.length, current.vlm?.code)
-      .then((result) => (site.readiness = result))
-      .catch(() => (site.readiness = null));
+    const plan = planned
+      ? `По графику на ${numericDate(frame.timestamp)} запланирован этап «${planned.name}».`
+      : `На ${numericDate(frame.timestamp)} этап в графике не задан.`;
+    return `${plan} На снимках показаны обнаруженные объекты и гипотезы для проверки. Состав техники сам по себе не подтверждает фактический этап или отставание; отсутствие машины на одном срезе не доказывает нарушение.`;
   });
 
   function download() {
@@ -118,7 +55,7 @@
 {#if frame && analysis}
   <div class="page-heading">
     <div>
-      <h1>Контроль площадки</h1>
+      <h1>Обзор проекта</h1>
       <p>
         {numericDate(frame.timestamp)} · срез: {analysis.snapshot.members.length} из {cameras(
           project.cameras.length,
@@ -139,17 +76,16 @@
         </select>
       </label>
       <label>
-        Подтверждённый этап
+        Профиль для сравнения
         <select
-          aria-label="Подтверждённый этап"
-          value={site.stageMode === 'auto' ? '__auto__' : site.acceptedProfileId}
+          aria-label="Профиль для сравнения"
+          value={site.acceptedProfileId}
           onchange={(e) => {
-            const value = e.currentTarget.value;
-            site.stageMode = value === '__auto__' ? 'auto' : 'manual';
-            if (value !== '__auto__') site.acceptedProfileId = value;
+            site.stageMode = 'manual';
+            site.acceptedProfileId = e.currentTarget.value;
           }}
         >
-          <option value="__auto__">Авто · {observed?.profile.name ?? 'нет данных'}</option>
+          <option value="">По плану · {site.plannedProfile?.name ?? 'не задан'}</option>
           {#each site.profiles.filter(isControllable) as profile (profile.id)}
             <option value={profile.id}>{profile.name}</option>
           {/each}
@@ -160,6 +96,19 @@
       >
     </div>
   </div>
+
+  <a class="my-runs-entry" href="/app/site/history">
+    <span><span class="eyebrow">Твои результаты</span><b>{savedRuns.count ? `${savedRuns.count} ${plural(savedRuns.count, ['запуск', 'запуска', 'запусков'])} в локальном архиве` : 'Сохраняем результаты анализа'}</b><small>{savedRuns.latest || 'После распознавания кадры и выводы появятся здесь'}</small></span>
+    <strong>Открыть архив ↗</strong>
+  </a>
+
+  <section class="scenario-picker" aria-label="Сценарии сравнения с планом">
+    <div><span class="eyebrow">План и факт</span><h2>Два сценария для проверки</h2><p>Один и тот же заданный рубеж начала свай, два демонстрационных графика. Разница считается из дат плана, а не из количества техники.</p></div>
+    <button class:active={project.id === 'scenario'} onclick={() => site.load(fetch, 'scenario')}><span>01</span><b>Задержка</b><small>+13 дней по исходному плану</small></button>
+    <button class:active={project.id === 'scenario-ahead'} onclick={() => site.load(fetch, 'scenario-ahead')}><span>02</span><b>Опережение</b><small>−14 дней по исходному плану</small></button>
+  </section>
+
+  {#if site.planComparison}<ScheduleEvidence />{/if}
 
   <section class="status-strip" aria-label="Статус площадки">
     <div>
@@ -174,33 +123,25 @@
       </small>
     </div>
     <div>
-      <span class="eyebrow">Наблюдается по камерам</span>
-      <b>{observed ? `${observed.profile.name} · ${percent(observed.score)}` : 'Нет техники'}</b>
-      <small>
-        {site.stageMode === 'manual'
-          ? `Принят вручную: ${site.acceptedProfile?.name}`
-          : 'Этап принят автоматически'}
-      </small>
+      <span class="eyebrow">Техника в срезе камер</span>
+      <b>{Object.values(analysis.snapshot.counts).reduce((sum, count) => sum + count, 0)} объектов</b>
+      <small>Этап работ по технике не определяется</small>
     </div>
     <button onclick={() => (site.designDialog = true)}>
-      <span class="eyebrow">Готовность по проекту</span>
-      <b
-        >{site.designView
-          ? site.readiness
-            ? `${site.readiness.score}%`
-            : 'Расчёт…'
-          : 'Настроить'}</b
-      >
-      <small
-        >{site.designView
-          ? `уверенность ${site.readiness?.confidence ?? '—'}`
-          : 'Загрузите проектный вид'}</small
-      >
+      <span class="eyebrow">Проектный вид</span>
+      <b>{site.designView ? 'Открыть' : 'Загрузить'}</b>
+      <small>Визуальное сопоставление без процента готовности</small>
     </button>
     <div>
       <span class="eyebrow">Относительно плана</span>
-      <b class="tone {variance.tone}">{variance.text}</b>
-      <small>{variance.detail}</small>
+      <b>{site.planComparison
+        ? site.planComparison.days > 0
+          ? `Задержка ${days(site.planComparison.days)}`
+          : site.planComparison.days < 0
+            ? `Опережение ${days(-site.planComparison.days)}`
+            : 'По плану'
+        : 'Не оценено'}</b>
+      <small>{site.planComparison ? 'По заданному рубежу демосценария' : 'Нет подтверждённого рубежа выполнения'}</small>
     </div>
   </section>
 
@@ -218,7 +159,7 @@
       <div class="panel-body">
         <FrameView
           {frame}
-          tones={analysis.boxTones}
+          tones={frame.boxes.map(() => ({ tone: 'neutral' as const, messages: [] }))}
           zones={site.zones[frame.cameraId] ?? []}
           alt="{site.camera?.name}, {numericDate(frame.timestamp)} {clock(frame.timestamp)}"
         />
@@ -269,26 +210,22 @@
       </div>
     </section>
 
-    <aside class="panel" aria-label="Техника и отклонения">
+    <aside class="panel" aria-label="Техника и сигналы для проверки">
       <div class="panel-head">
         <div>
           <span class="eyebrow">Анализ площадки</span>
-          <h2>Техника и отклонения</h2>
+          <h2>Техника и контекст</h2>
         </div>
         <span
-          class="tone {analysis.alerts.some((a) => a.tone === 'red')
-            ? 'red'
-            : analysis.alerts.length
-              ? 'yellow'
-              : 'green'}"
+          class="tone {reviewSignals.length ? 'yellow' : ''}"
         >
-          {analysis.alerts.length ? `${analysis.alerts.length} отклон.` : 'норма'}
+          {reviewSignals.length ? `${reviewSignals.length} к проверке` : 'Вывод не подтверждён'}
         </span>
       </div>
       <div class="panel-body">
         {#if conclusion}
           <div class="conclusion">
-            <span class="eyebrow">Заключение{frame.vlm ? ' · аналитика + VLM' : ''}</span>
+            <span class="eyebrow">Контекст наблюдения{frame.vlm ? ' · описание сцены' : ''}</span>
             <p>{conclusion}</p>
             {#if frame.vlm}
               <small>
@@ -299,26 +236,13 @@
           </div>
         {/if}
 
-        {#if site.ranked.length}
-          <div class="ranking">
-            <span class="eyebrow">Этапы по составу техники</span>
-            {#each site.ranked.slice(0, 3) as match, i (match.profile.id)}
-              <div class="rank" class:top={i === 0}>
-                <span>{match.profile.name}</span>
-                <i><b style="width:{Math.round(match.score * 100)}%"></b></i>
-                <em>{percent(match.score)}</em>
-              </div>
-            {/each}
-          </div>
-        {/if}
-
         <div class="table equipment">
           <div class="row head">
             <span>Техника</span><span>Кадр</span><span>Площадка</span><span>Нужно</span>
           </div>
           {#each analysis.rows as row (row.slug + row.role)}
             {@const Icon = equipmentIcon(row.slug)}
-            <div class="row {row.status}">
+            <div class="row">
               <span class="machine">
                 <Icon size={18} />
                 <span
@@ -339,8 +263,8 @@
           {/each}
         </div>
 
-        <div class="alerts" aria-label="Отклонения на срезе">
-          {#each analysis.alerts as alert (alert.code + alert.message)}
+        <div class="alerts" aria-label="Сигналы для проверки">
+          {#each reviewSignals as alert (alert.code + alert.message)}
             <div class="alert">
               <i class="dot {alert.tone}"></i>
               <span><b>{alert.title}</b><small>{alert.message}</small></span>
@@ -350,7 +274,7 @@
             </div>
           {:else}
             <div class="quiet-state">
-              <b>Отклонений нет</b><span>Требования этапа по графику выполнены на этом срезе.</span>
+              <b>Нет сигналов для проверки</b><span>По одному срезу нельзя оценить отсутствие техники или выполнение этапа.</span>
             </div>
           {/each}
         </div>
@@ -430,37 +354,6 @@
     font-size: 11px;
     line-height: 1.5;
   }
-  .ranking {
-    display: grid;
-    gap: 6px;
-  }
-  .rank {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 90px 40px;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .rank.top {
-    color: var(--text);
-    font-weight: 700;
-  }
-  .rank i {
-    height: 6px;
-    border-radius: 3px;
-    background: var(--raised);
-    overflow: hidden;
-  }
-  .rank i b {
-    display: block;
-    height: 100%;
-    background: var(--accent);
-  }
-  .rank em {
-    font-style: normal;
-    text-align: right;
-  }
   .equipment .row {
     grid-template-columns: minmax(0, 1fr) 48px 70px 70px;
   }
@@ -468,15 +361,5 @@
   .equipment .row em {
     font-style: normal;
     text-align: center;
-  }
-  .equipment .row.bad em,
-  .equipment .row.bad strong:nth-of-type(2) {
-    color: var(--danger);
-  }
-  .equipment .row.warning strong:nth-of-type(2) {
-    color: var(--warning);
-  }
-  .equipment .row.ok strong:nth-of-type(2) {
-    color: var(--accent);
   }
 </style>

@@ -57,6 +57,15 @@ export interface SitePlan {
   example?: boolean;
 }
 
+/** Explicitly assigned milestone for a demo scenario, not inferred from equipment. */
+export interface StageObservation {
+  stageId: string;
+  at: string;
+  frameId: string;
+  note: string;
+  source: 'scripted-demo';
+}
+
 /** Polygon in percent of the camera frame (0..100). */
 export type Point = [number, number];
 
@@ -93,6 +102,7 @@ export interface SiteProject {
   cameras: SiteCamera[];
   frames: SiteFrame[];
   plan: SitePlan;
+  stageObservations?: StageObservation[];
   zones: Record<string, Zone[]>;
   geometry: { note: string; cameras: GeometryStat[]; pairs: GeometryStat[] } | null;
 }

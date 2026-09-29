@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import { alertJournal, analyzeFrame, rankStages, snapshotAt, SITE } from '../src/lib/site/analysis';
 import { time } from '../src/lib/site/format';
-import { observedSegments, planWindows, scheduleVariance, windowAt } from '../src/lib/site/plan';
+import { compareStageObservation, observedSegments, planWindows, scheduleVariance, windowAt } from '../src/lib/site/plan';
 import type { Methodology, SiteFrame, SiteProject } from '../src/lib/site/types';
 
 const read = <T>(name: string) => JSON.parse(readFileSync(`static/demo/site/${name}`, 'utf8')) as T;
@@ -105,6 +105,17 @@ test('plan windows follow calendar days across a daylight-saving switch', () => 
   });
   expect(new Date(windows[0].end).getDate()).toBe(9);
   expect(new Date(windows[0].end).getHours()).toBe(0);
+});
+
+test('demo milestone compares explicit dates and updates when the plan changes', () => {
+  const delayed = read<SiteProject>('scenario.json');
+  const early = read<SiteProject>('scenario-ahead.json');
+  const milestone = delayed.stageObservations![0];
+  expect(compareStageObservation(planWindows(delayed.plan), milestone)?.days).toBe(13);
+  expect(compareStageObservation(planWindows(early.plan), milestone)?.days).toBe(-14);
+  delayed.plan.stages[0].days = 34;
+  expect(compareStageObservation(planWindows(delayed.plan), milestone)?.days).toBe(0);
+  expect(compareStageObservation([], milestone)).toBeNull();
 });
 
 test('the journal merges repeats and separates site findings from camera findings', () => {

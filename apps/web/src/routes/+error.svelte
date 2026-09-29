@@ -15,7 +15,7 @@
         ? 'Проверьте адрес или вернитесь в рабочее пространство.'
         : 'Попробуйте обновить страницу. Несохранённый результат анализа в текущей вкладке может быть потерян.'}
     </p>
-    <a href="/app" class="button primary">Открыть пульт <ArrowRightIcon size={20} /></a><a
+    <a href="/app/model" class="button primary">К анализу сцен <ArrowRightIcon size={20} /></a><a
       href="/"
       class="button quiet">На главную</a
     >

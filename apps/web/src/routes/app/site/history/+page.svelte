@@ -1,5 +1,7 @@
 <script lang="ts">
   import FrameView from '$lib/components/site/FrameView.svelte';
+  import ScheduleEvidence from '$lib/components/site/ScheduleEvidence.svelte';
+  import ModelRunArchive from '$lib/components/site/ModelRunArchive.svelte';
   import { classCounts, cameraFrames } from '$lib/site/analysis';
   import { isMachine } from '$lib/site/catalog';
   import { clock, frames as framesWord, numericDate, time } from '$lib/site/format';
@@ -15,7 +17,6 @@
   const machines = (f: (typeof all)[number]) =>
     Object.values(classCounts(f.boxes)).reduce((a, b) => a + b, 0);
   const people = (f: (typeof all)[number]) => f.boxes.filter((b) => !isMachine(b.slug)).length;
-  const segmentOf = (id: string) => site.segments.find((s) => s.frameIds.includes(id)) ?? null;
 
   const days = $derived.by(() => {
     const byDay = new Map<string, typeof all>();
@@ -30,19 +31,18 @@
       cameras: new Set(items.map((f) => f.cameraId)).size,
       machines: Math.max(...items.map(machines)),
       people: Math.max(...items.map(people)),
-      stage: segmentOf(items[0].id)?.profile.name ?? '—',
-      alerts: site.journal.filter((e) => e.frameIds.some((id) => items.some((f) => f.id === id)))
-        .length,
+      stage: windowAt(site.windows, time(items[0].timestamp))?.name ?? 'Вне графика',
     }));
   });
-  const flagged = $derived(new Set(site.journal.flatMap((e) => e.frameIds)));
 </script>
+
+<ModelRunArchive />
 
 {#if frame && site.analysis}
   {@const planned = windowAt(site.windows, time(frame.timestamp))}
   <div class="page-heading">
     <div>
-      <h1>Ход строительства</h1>
+      <h1>Демонстрационные кадры</h1>
       <p>
         {numericDate(all[0].timestamp)} — {numericDate(all.at(-1)!.timestamp)} · {framesWord(
           all.length,
@@ -51,6 +51,8 @@
       </p>
     </div>
   </div>
+
+  {#if site.planComparison}<ScheduleEvidence />{/if}
 
   <div class="history-layout">
     <section class="panel" aria-label="Кадр">
@@ -65,7 +67,7 @@
       <div class="panel-body">
         <FrameView
           {frame}
-          tones={site.analysis.boxTones}
+          tones={frame.boxes.map(() => ({ tone: 'neutral' as const, messages: [] }))}
           alt="Ход строительства, {numericDate(frame.timestamp)}"
         />
       </div>
@@ -81,8 +83,8 @@
       <div class="panel-body">
         <dl>
           <div>
-            <dt>Этап дня по камерам</dt>
-            <dd>{segmentOf(frame.id)?.profile.name ?? '—'}</dd>
+            <dt>Фактический этап</dt>
+            <dd>{site.planComparison?.observation.frameId === frame.id ? 'Рубеж задан вручную' : 'Не установлен'}</dd>
           </div>
           <div>
             <dt>По графику</dt>
@@ -97,23 +99,17 @@
             <dd>{people(frame)}</dd>
           </div>
           <div>
-            <dt>Отклонения на срезе</dt>
-            <dd class:bad={site.analysis.alerts.length > 0}>{site.analysis.alerts.length}</dd>
+            <dt>Проверка по плану</dt>
+            <dd>{site.planComparison?.observation.frameId === frame.id ? 'См. сравнение рубежа выше' : 'Нужны признаки работ'}</dd>
           </div>
         </dl>
-        <button class="readiness" onclick={() => (site.designDialog = true)}>
-          <span class="eyebrow">Готовность по проектному виду</span>
-          <b
-            >{site.designView
-              ? site.readiness
-                ? `${site.readiness.score}%`
-                : 'откройте «Контроль» для расчёта'
-              : 'Загрузить проектный вид'}</b
-          >
-          <small>Сравнение с визуализацией итогового здания с того же ракурса</small>
+        <button class="design-reference" onclick={() => (site.designDialog = true)}>
+          <span class="eyebrow">Проектный вид</span>
+          <b>{site.designView ? 'Открыть' : 'Загрузить'}</b>
+          <small>Визуальное сопоставление без автоматической оценки готовности</small>
         </button>
         <p class="hint">
-          Сравнивать состояние стоит только кадры одного ракурса: {cameraFrames(
+          Состав техники не доказывает этап. Сравнивать динамику стоит только по кадрам одного ракурса: {cameraFrames(
             project,
             frame.cameraId,
           ).length} кадров у «{cameraName(frame.cameraId)}».
@@ -128,7 +124,6 @@
         <button
           class="thumb"
           class:active={item.id === frame.id}
-          class:flagged={flagged.has(item.id)}
           onclick={() => site.selectFrame(item.id)}
           aria-label="{cameraName(item.cameraId)}, {numericDate(item.timestamp)} {clock(
             item.timestamp,
@@ -149,15 +144,15 @@
     <div class="section-head">
       <div>
         <h2>Контрольные даты</h2>
-        <p>Сводка по дням: этап дня по составу техники всех камер и записи журнала</p>
+        <p>Сводка снимков и плановых этапов; фактическое выполнение по технике не определяется</p>
       </div>
     </div>
     <div class="panel">
       <div class="table dates">
         <div class="row head">
           <span>Дата</span><span>Кадров</span><span>Камер</span><span>Техники</span><span
-            >Людей</span
-          ><span>Этап дня</span><span>Журнал</span>
+          >Людей</span
+          ><span>По графику</span>
         </div>
         {#each days as day (day.date)}
           <button class="row" onclick={() => site.selectFrame(day.items.at(-1)!.id)}>
@@ -167,7 +162,6 @@
             <span>{day.machines}</span>
             <span>{day.people}</span>
             <span class="stage">{day.stage}</span>
-            <span class="tone {day.alerts ? 'yellow' : 'green'}">{day.alerts || '—'}</span>
           </button>
         {/each}
       </div>
@@ -212,10 +206,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  dd.bad {
-    color: var(--warning);
-  }
-  .readiness {
+  .design-reference {
     display: grid;
     gap: 4px;
     padding: 12px;
@@ -223,10 +214,10 @@
     border-radius: var(--radius);
     text-align: left;
   }
-  .readiness:hover {
+  .design-reference:hover {
     background: var(--raised);
   }
-  .readiness small {
+  .design-reference small {
     color: var(--muted);
     font-size: 11px;
   }
@@ -255,9 +246,6 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent);
   }
-  .thumb.flagged {
-    border-bottom: 3px solid var(--warning);
-  }
   .thumb img {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -278,7 +266,7 @@
     padding: 12px 16px;
   }
   .dates .row {
-    grid-template-columns: 110px 70px 60px 70px 60px minmax(0, 1fr) 70px;
+    grid-template-columns: 110px 70px 60px 70px 60px minmax(0, 1fr);
     width: 100%;
     text-align: left;
   }

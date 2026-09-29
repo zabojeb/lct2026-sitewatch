@@ -53,7 +53,7 @@
     <a href="#workflow">Как это работает</a>
   </nav>
   <div class="nav-actions">
-    <ThemeToggle /><a class="nav-cta" href="/app">Открыть пульт <ArrowUpRightIcon size={19} /></a>
+    <ThemeToggle /><a class="nav-cta" href="/app/model">Начать анализ <ArrowUpRightIcon size={19} /></a>
   </div>
 </header>
 
@@ -71,14 +71,14 @@
     />
     <div class="hero-shade"></div>
     <div class="hero-copy">
-      <p class="eyebrow">ОБЪЯСНИМЫЙ КОНТРОЛЬ СТРОИТЕЛЬСТВА</p>
+      <p class="eyebrow">SITEWATCH / КОНТРОЛЬ СТРОЙКИ</p>
       <h1 id="hero-title">Вся стройка.<br /><span>В поле зрения.</span></h1>
       <p class="hero-description">
-        Связываем снимки, технику и календарный план.<br class="desktop-break" /> Показываем, где требуется
-        ваше внимание.
+        Анализируйте снимки площадки, проверяйте найденную технику<br class="desktop-break" /> и
+        сравнивайте наблюдения с планом работ.
       </p>
       <div class="hero-actions">
-        <a href="/app" class="button primary">Открыть пульт <ArrowUpRightIcon size={20} /></a>
+        <a href="/app/model" class="button primary">Начать анализ <ArrowUpRightIcon size={20} /></a>
         <a href="#workflow" class="button quiet">Как это работает <ArrowRightIcon size={20} /></a>
       </div>
     </div>
@@ -86,14 +86,14 @@
 
   <section id="capabilities" class="capabilities section-wrap" aria-labelledby="capabilities-title">
     <div class="intro" data-reveal>
-      <p class="section-kicker">От наблюдения к пониманию</p>
-      <h2 id="capabilities-title">За каждым выводом<br /><span>есть основание.</span></h2>
-      <p>Откройте снимок. Сверьте с планом. Примите решение, которому можно доверять.</p>
+      <p class="section-kicker">РАБОТА С КАДРАМИ</p>
+      <h2 id="capabilities-title">Снимок, техника,<br /><span>правило из плана.</span></h2>
+      <p>Сервис показывает исходный кадр и найденные объекты. Проверку по плану оператор запускает отдельно.</p>
     </div>
     <div class="product-example" data-reveal>
       <div class="example-top">
-        <span>01 / ПРОВЕРКА КАДРА</span>
-        <span>МОДЕЛЬ + ПРАВИЛА</span>
+        <span>01 / АНАЛИЗ СЦЕНЫ</span>
+        <span>РАСПОЗНАВАНИЕ + ПЛАН</span>
       </div>
       <div class="example-grid">
         <div class="example-visual">
@@ -110,37 +110,36 @@
         </div>
         <div class="explanation">
           <span class="step-marker" aria-hidden="true">01—03</span>
-          <h3>Проверьте свой кадр.</h3>
+          <h3>Разберите сцену.</h3>
           <p>
-            Загрузите снимок: модель покажет найденные объекты и свой score. Затем задайте этап,
-            правила и обзор зоны — отдельный сервис сопоставит их с несколькими кадрами.
+            Выберите готовую сцену или свои снимки. Модель покажет технику на каждом кадре. Для
+            проверки по плану добавьте этап, правило и данные о камере.
           </p>
           <dl>
-            <dt>Никаких подготовленных выводов</dt>
-            <dd>Результат зависит от ваших данных.</dd>
+            <dt>Два режима распознавания</dt>
+            <dd>Recognition Medium и Recognition Max.</dd>
           </dl>
           <p class="detail-foot">Один кадр не доказывает отсутствие техники или простой.</p>
-          <a href="/app/model" class="text-link">Проверить кадр <ArrowUpRightIcon size={19} /></a>
+          <a href="/app/model" class="text-link">Анализировать сцену <ArrowUpRightIcon size={19} /></a>
         </div>
       </div>
     </div>
     <div class="principle" data-reveal>
       <span class="principle-mark" aria-hidden="true">↳</span>
-      <p>Обнаружить технику недостаточно.<br /><span>Нужно понять её место в плане.</span></p>
+      <p>Найденная техника — свидетельство на снимке.<br /><span>Этап работ подтверждается отдельно.</span></p>
     </div>
   </section>
 
   <section id="workflow" class="workflow section-wrap" aria-labelledby="workflow-title">
     <div class="workflow-copy" data-reveal>
-      <h2 id="workflow-title">От наблюдения<br />к решению.</h2>
+      <h2 id="workflow-title">Как работает<br />проверка.</h2>
       <ol class="workflow-steps">
         <li>
           <CameraIcon size={24} />
           <div>
             <h3>Снимок</h3>
             <p>
-              Загрузите собственные кадры, укажите камеру, зону, время и источник времени. Не
-              live-видео.
+              Выберите сцену или загрузите один снимок, несколько файлов либо папку.
             </p>
           </div>
         </li>
@@ -148,7 +147,7 @@
           <StackIcon size={24} />
           <div>
             <h3>Контекст</h3>
-            <p>Введите сроки этапа, ожидаемую технику, количество и источник каждого правила.</p>
+            <p>Проверьте объекты на кадрах. Для сопоставления укажите этап и источник правила.</p>
           </div>
         </li>
         <li>
@@ -156,15 +155,15 @@
           <div>
             <h3>Проверка</h3>
             <p>
-              Сервис правил показывает предпросмотр с основаниями и ограничениями. Нет данных — нет
-              вывода о нарушении.
+              Сервис правил покажет основания и ограничения. Если кадров или обзора недостаточно,
+              вывод о нарушении не появится.
             </p>
           </div>
         </li>
       </ol>
       <div class="closing-cta">
-        <h3>Начните с реального кадра.</h3>
-        <a href="/app/model" class="button primary">Проверить кадр <ArrowUpRightIcon size={20} /></a
+        <h3>Откройте сцену или свои снимки.</h3>
+        <a href="/app/model" class="button primary">Анализировать сцену <ArrowUpRightIcon size={20} /></a
         >
       </div>
     </div>
@@ -185,7 +184,7 @@
 
 <footer class="landing-footer">
   <Brand />
-  <span>Сначала факты. Затем решения.</span>
+  <span>Демонстрационный контур анализа сцен</span>
   <button onclick={() => about.showModal()}>О демо <ArrowUpRightIcon size={16} /></button>
 </footer>
 
@@ -202,15 +201,15 @@
       источников правил и замеров, а также предпросмотр отклонений отдельным сервисом.
     </p>
     <p>
-      Фотографии на лендинге — синтетические иллюстрации, не доказательства. В рабочем пульте нет
-      подставленных площадок и наблюдений. Камеры и автоматический поток ещё не подключены.
+      Фотографии на этой странице — иллюстрации, не результат модели. В рабочем экране есть семь
+      сцен из подборки команды; можно загрузить свои кадры. Камеры и автоматический поток ещё не подключены.
     </p>
     <p>
       Загруженные изображения передаются внутреннему сервису модели для разового анализа, но не
       добавляются в архив. Результат доступен только в текущей вкладке. Не загружайте чувствительные
       материалы без согласования.
     </p>
-    <a href="/app" class="button primary">Открыть пульт <ArrowUpRightIcon size={20} /></a>
+    <a href="/app/model" class="button primary">Начать анализ <ArrowUpRightIcon size={20} /></a>
   </div>
 </dialog>
 

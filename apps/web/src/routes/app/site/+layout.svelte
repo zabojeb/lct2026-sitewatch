@@ -1,13 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/state';
-  import BellIcon from 'phosphor-svelte/lib/BellIcon';
-  import ListChecksIcon from 'phosphor-svelte/lib/ListChecksIcon';
   import InfoIcon from 'phosphor-svelte/lib/InfoIcon';
   import Brand from '$lib/components/Brand.svelte';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-  import TasksPanel from '$lib/components/site/TasksPanel.svelte';
-  import JournalDrawer from '$lib/components/site/JournalDrawer.svelte';
   import EvidenceModal from '$lib/components/site/EvidenceModal.svelte';
   import DesignViewDialog from '$lib/components/site/DesignViewDialog.svelte';
   import { SOURCE_LABELS } from '$lib/site/catalog';
@@ -18,10 +14,10 @@
   const site = provideSite(new SiteConsole());
 
   const tabs = [
-    { href: '/app/site', label: 'Контроль' },
+    { href: '/app/site', label: 'Обзор' },
     { href: '/app/site/plan', label: 'План работ' },
-    { href: '/app/site/zones', label: 'Запретные зоны' },
-    { href: '/app/site/history', label: 'Ход строительства' },
+    { href: '/app/site/zones', label: 'Зоны' },
+    { href: '/app/site/history', label: 'Кадры' },
   ];
 
   onMount(() => {
@@ -42,20 +38,19 @@
     site.save();
   });
 
-  const redAlerts = $derived(site.journal.filter((e) => e.alert.tone === 'red').length);
 </script>
 
 <svelte:head>
-  <title>Площадка · SiteWatch</title>
+  <title>Архив проекта · SiteWatch</title>
   <meta name="robots" content="noindex" />
 </svelte:head>
 
 <header class="app-header">
   <Brand compact />
-  <nav aria-label="Навигация пульта">
-    <a href="/app">Пульт</a>
-    <a href="/app/site" aria-current="page">Площадка</a>
-    <a href="/app/model">Проверка кадра</a>
+  <nav aria-label="Разделы SiteWatch">
+    <a href="/">Главная</a>
+    <a href="/app/model">Анализ сцен</a>
+    <a href="/app/site" aria-current="page">Архив <span>ДЕМО</span></a>
   </nav>
   <ThemeToggle />
 </header>
@@ -72,7 +67,7 @@
   {:else if site.project}
     <div class="site-bar">
       <label class="project-pick">
-        <span>Проект</span>
+        <span>Архивный проект</span>
         <select
           value={site.project.id}
           onchange={(event) => site.load(fetch, event.currentTarget.value)}
@@ -91,32 +86,14 @@
         {/each}
       </nav>
       <div class="site-actions">
-        <button
-          class="icon-button counter"
-          class:attention={site.tasks.length > 0}
-          onclick={() => (site.panel = site.panel === 'tasks' ? null : 'tasks')}
-          aria-label={`Задачи настройки: ${site.tasks.length}`}
-          aria-expanded={site.panel === 'tasks'}
-        >
-          <BellIcon size={20} />
-          {#if site.tasks.length}<b>{site.tasks.length}</b>{/if}
-        </button>
-        <button
-          class="icon-button counter"
-          class:danger={redAlerts > 0}
-          onclick={() => (site.panel = site.panel === 'journal' ? null : 'journal')}
-          aria-label={`Журнал отклонений: ${site.journal.length}`}
-          aria-expanded={site.panel === 'journal'}
-        >
-          <ListChecksIcon size={20} />
-          {#if site.journal.length}<b>{site.journal.length}</b>{/if}
-        </button>
+        <a href="/app/model" class="new-scene">Анализировать сцену ↗</a>
       </div>
     </div>
 
     <p class="provenance" class:synthetic={site.project.kind === 'synthetic'}>
       <InfoIcon size={16} />
       <span>
+        <b>Демопроект: кадры ниже взяты из готовой подборки. Свои запуски смотри во вкладке «Кадры».</b>
         <b>Рамки: {SOURCE_LABELS[site.project.provenance.boxes]}.</b>
         {site.project.provenance.text}
         {#each site.project.provenance.sources as source (source.url)}
@@ -135,8 +112,6 @@
       {@render children()}
     </main>
 
-    {#if site.panel === 'tasks'}<TasksPanel />{/if}
-    {#if site.panel === 'journal'}<JournalDrawer />{/if}
     {#if site.evidenceFrameId}<EvidenceModal />{/if}
     {#if site.designDialog}<DesignViewDialog />{/if}
   {/if}
@@ -162,6 +137,7 @@
     min-height: 76px;
     display: inline-flex;
     align-items: center;
+    gap: 6px;
     border-bottom: 2px solid transparent;
   }
   .app-header nav a:hover,
@@ -171,6 +147,19 @@
   .app-header nav a[aria-current='page'] {
     border-bottom-color: var(--accent);
   }
+  .app-header nav span { font-size: 9px; letter-spacing: .06em; color: var(--muted); }
+  .new-scene {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 13px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .new-scene:hover { border-color: var(--accent); }
   @media (max-width: 560px) {
     .app-header {
       gap: 14px;
@@ -179,5 +168,6 @@
       gap: 12px;
       font-size: 11px;
     }
+    .app-header nav span { display: none; }
   }
 </style>

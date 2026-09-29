@@ -1,5 +1,51 @@
 import { expect, test } from '@playwright/test';
 
+test('scene frame counts use Russian endings', async ({ page }) => {
+  await page.route('**/api/model/status', (route) =>
+    route.fulfill({ json: { status: 'ready', rules_status: 'ready' } }),
+  );
+  await page.goto('/app/model');
+  await expect(page.locator('.scene-selector button')).toHaveCount(7);
+  await page.locator('.scene-selector button').nth(0).click();
+  await expect(page.getByRole('button', { name: 'Распознать 4 кадра' })).toBeVisible();
+  await page.locator('.scene-selector button').nth(1).click();
+  await expect(page.getByRole('button', { name: 'Распознать 5 кадров' })).toBeVisible();
+});
+
+test('recognition shows a VLM work stage without a second click', async ({ page }) => {
+  await page.route('**/api/model/status', (route) =>
+    route.fulfill({ json: { status: 'ready', rules_status: 'ready', vlm_status: 'ready' } }),
+  );
+  await page.route('**/api/model/predict', (route) =>
+    route.fulfill({
+      json: {
+        schema: 'sitewatch.inference.v1', recognition_mode: '640', model_version: 'test-model',
+        image_width: 768, image_height: 512, detections: [], note: 'Model evidence only',
+      },
+    }),
+  );
+  let vlmRequests = 0;
+  await page.route('**/api/model/describe', (route) => {
+    vlmRequests += 1;
+    return route.fulfill({
+      json: {
+        schema: 'sitewatch.visual-interpretation.v1',
+        work_stage: 'Разработка котлована',
+        stage_evidence: 'На снимке видна открытая выемка грунта.',
+        scene_summary: 'Открытая строительная площадка с котлованом.',
+        plan_alignment: 'not_provided',
+        plan_reason: '',
+      },
+    });
+  });
+  await page.goto('/app/model');
+  await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
+  await page.getByRole('button', { name: 'Распознать 1 кадр' }).click();
+  await expect(page.getByRole('heading', { name: 'Предполагаемый этап работ' })).toBeVisible();
+  await expect(page.getByText('Разработка котлована', { exact: true })).toBeVisible();
+  expect(vlmRequests).toBe(1);
+});
+
 test('live-model screen keeps synthetic data separate and shows detector evidence', async ({
   page,
 }) => {
@@ -16,6 +62,7 @@ test('live-model screen keeps synthetic data separate and shows detector evidenc
     route.fulfill({
       json: {
         schema: 'sitewatch.inference.v1',
+        recognition_mode: '640',
         model_version: 'test-detector+test-classifier',
         image_width: 768,
         image_height: 512,
@@ -35,9 +82,9 @@ test('live-model screen keeps synthetic data separate and shows detector evidenc
     }),
   );
   await page.goto('/app/model');
-  await expect(page.getByText('МОДЕЛЬ ГОТОВА')).toBeVisible();
-  await page.locator('input[type=file]').setInputFiles('static/images/excavation-768.webp');
-  await page.getByRole('button', { name: 'Запустить анализ' }).click();
+  await expect(page.getByText('МОДЕЛЬ ГОТОВА')).toHaveCount(0);
+  await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
+  await page.getByRole('button', { name: 'Распознать 1 кадр' }).click();
   await expect(page.locator('.box')).toHaveCount(1);
   await expect(page.getByText('excavator · excavator')).toBeVisible();
   await expect(
@@ -51,8 +98,8 @@ test('live-model screen cannot upload when the sandbox is disabled', async ({ pa
     route.fulfill({ json: { status: 'disabled', rules_status: 'disabled' } }),
   );
   await page.goto('/app/model');
-  await page.locator('input[type=file]').setInputFiles('static/images/excavation-768.webp');
-  await expect(page.getByRole('button', { name: 'Запустить анализ' })).toBeDisabled();
+  await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
+  await expect(page.getByRole('button', { name: 'Распознать 1 кадр' })).toBeDisabled();
   await expect(page.getByText('Живой режим выключен в конфигурации')).toBeVisible();
 });
 
@@ -68,13 +115,12 @@ test('invalid image is rejected before it reaches the model', async ({ page }) =
     return route.abort();
   });
   await page.goto('/app/model');
-  await page.locator('input[type=file]').setInputFiles({
+  await page.locator('input[type=file]').first().setInputFiles({
     name: 'invalid.txt',
     mimeType: 'text/plain',
     buffer: Buffer.from('not an image'),
   });
-  await expect(page.getByRole('alert')).toHaveText('Выберите JPEG, PNG или WebP.');
-  await expect(page.getByRole('button', { name: 'Запустить анализ' })).toBeDisabled();
+  await expect(page.getByRole('alert')).toHaveText('Выберите только JPEG, PNG или WebP.');
   expect(uploaded).toBe(false);
 });
 
@@ -90,6 +136,7 @@ test('real-frame rule preview carries model provenance and never promotes one fr
     route.fulfill({
       json: {
         schema: 'sitewatch.inference.v1',
+        recognition_mode: '640',
         model_version: 'model-test',
         image_width: 768,
         image_height: 512,
@@ -144,6 +191,7 @@ test('real-frame rule preview carries model provenance and never promotes one fr
     });
   });
   await page.goto('/app/model');
+  await page.getByRole('button', { name: 'Настроить проверку' }).click();
   await page.getByLabel('Название этапа').fill('Разработка котлована');
   await page.getByLabel('Код зоны').fill('PIT-01');
   await page.getByLabel('Код камеры').fill('CAM-01');
@@ -154,8 +202,8 @@ test('real-frame rule preview carries model provenance and never promotes one fr
   await page.getByLabel('Источник правила').fill('ППР, раздел 4');
   await page.getByLabel('Время текущего кадра').fill('2026-09-27T07:00');
   await page.getByLabel('Источник времени').fill('Метка камеры');
-  await page.locator('input[type=file]').setInputFiles('static/images/excavation-768.webp');
-  await page.getByRole('button', { name: 'Запустить анализ' }).click();
+  await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
+  await page.getByRole('button', { name: 'Распознать 1 кадр' }).click();
   await page.getByRole('button', { name: 'Добавить результат модели в окно' }).click();
   await expect(page.locator('.frame-row')).toHaveCount(1);
   await page.getByLabel('Обзор зоны, %').fill('90');

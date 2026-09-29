@@ -17,6 +17,7 @@ export type ModelDetection = {
 
 export type ModelPrediction = {
   schema: 'sitewatch.inference.v1';
+  recognition_mode: '640' | '960';
   model_version: string;
   image_width: number;
   image_height: number;
@@ -47,6 +48,7 @@ export const rawClassLabels: Record<string, string> = {
   pile_driver: 'Сваебойная установка',
   person: 'Человек',
   other_vehicle: 'Прочий транспорт',
+  unknown: 'Неизвестный объект',
 };
 
 export function detectionLabel(detection: ModelDetection): string {

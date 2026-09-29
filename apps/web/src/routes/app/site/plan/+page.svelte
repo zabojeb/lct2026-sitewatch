@@ -4,11 +4,11 @@
   import ArrowDownIcon from 'phosphor-svelte/lib/ArrowDownIcon';
   import XIcon from 'phosphor-svelte/lib/XIcon';
   import PlusIcon from 'phosphor-svelte/lib/PlusIcon';
-  import PlanTimeline from '$lib/components/site/PlanTimeline.svelte';
+  import ScheduleEvidence from '$lib/components/site/ScheduleEvidence.svelte';
   import { isControllable } from '$lib/site/analysis';
   import { EQUIPMENT, equipmentName } from '$lib/site/catalog';
   import { equipmentIcon } from '$lib/site/icons';
-  import { days, numericDate, percent } from '$lib/site/format';
+  import { days, numericDate, plural } from '$lib/site/format';
   import { useSite } from '$lib/site/store.svelte';
   import type { PlanStage, StageProfile } from '$lib/site/types';
 
@@ -89,21 +89,12 @@
     const { [focus.id]: _, ...rest } = site.profileOverrides;
     site.profileOverrides = rest;
   }
-  const okFor = (p: StageProfile, slug: string) => {
-    const role = roleOf(p, slug);
-    if (role === 'required') return (counts[slug] ?? 0) >= p.required[slug];
-    if (role === 'any')
-      return p.anyOf.find((g) => g.includes(slug))!.some((s) => (counts[s] ?? 0) > 0);
-    return true;
-  };
-
-  const variance = $derived(site.variance);
 </script>
 
 <div class="page-heading">
   <div>
     <h1>План работ</h1>
-    <p>Плановые этапы из перечня работ и этапы, которые подтверждают камеры</p>
+    <p>Плановые этапы и требования к технике. Фактический этап работ требует отдельной визуальной проверки.</p>
   </div>
   <div class="heading-actions">
     <span class="hint">Изменения сохраняются в этом браузере автоматически</span>
@@ -117,97 +108,44 @@
   </div>
 </div>
 
-<section class="status-strip" aria-label="План и факт">
+<section class="status-strip" aria-label="План и наблюдения">
   <div>
-    <span class="eyebrow">По графику на {site.frame ? numericDate(site.frame.timestamp) : '—'}</span
-    >
-    <b class="clamp" title={site.plannedWindow?.name}>{site.plannedWindow?.name ?? 'Вне графика'}</b
-    >
-    <small>
-      {site.plannedWindow
-        ? `${numericDate(site.plannedWindow.start)} — ${numericDate(site.plannedWindow.end)} · ${profileName(site.plannedWindow.profileId)}`
-        : 'На эту дату этап не запланирован'}
-    </small>
+    <span class="eyebrow">По графику на {site.frame ? numericDate(site.frame.timestamp) : '—'}</span>
+    <b class="clamp" title={site.plannedWindow?.name}>{site.plannedWindow?.name ?? 'Вне графика'}</b>
+    <small>{site.plannedWindow
+      ? `${numericDate(site.plannedWindow.start)} — ${numericDate(site.plannedWindow.end)}`
+      : 'На эту дату этап не запланирован'}</small>
   </div>
   <div>
-    <span class="eyebrow">Наблюдается по камерам</span>
-    <b>{variance.segment?.profile.name ?? 'Нет наблюдений'}</b>
-    <small
-      >{variance.segment ? `этап дня · совпадение ${percent(variance.segment.score)}` : ''}</small
-    >
+    <span class="eyebrow">Техника на доступных кадрах</span>
+    <b>{Object.values(counts).reduce((sum, count) => sum + count, 0)} объектов</b>
+    <small>Состав техники не устанавливает фактический этап</small>
   </div>
   <div>
-    <span class="eyebrow">Подтверждённый этап</span>
-    <div class="mode" role="group" aria-label="Режим подтверждения этапа">
-      <button class:active={site.stageMode === 'auto'} onclick={() => (site.stageMode = 'auto')}
-        >Авто</button
-      >
-      <button
-        class:active={site.stageMode === 'manual'}
-        onclick={() => {
-          site.stageMode = 'manual';
-          site.acceptedProfileId ||= site.analysis?.observed?.profile.id ?? '';
-        }}>Вручную</button
-      >
-    </div>
-    {#if site.stageMode === 'manual'}
-      <select bind:value={site.acceptedProfileId} aria-label="Подтверждённый этап">
-        {#each site.profiles.filter(isControllable) as p (p.id)}<option value={p.id}
-            >{p.name}</option
-          >{/each}
-      </select>
-    {:else}
-      <small>{site.acceptedProfile?.name ?? 'нет данных'} — по составу техники</small>
-    {/if}
+    <span class="eyebrow">Профиль для сравнения</span>
+    <select bind:value={site.acceptedProfileId} aria-label="Профиль для сравнения">
+      <option value="">По графику · {site.plannedProfile?.name ?? 'не задан'}</option>
+      {#each site.profiles.filter(isControllable) as profile (profile.id)}
+        <option value={profile.id}>{profile.name}</option>
+      {/each}
+    </select>
+    <small>Ручной выбор меняет правило сравнения, не подтверждает этап</small>
   </div>
   <div>
-    <span class="eyebrow">Относительно плана</span>
-    {#if variance.reason === 'start' || variance.reason === 'end'}
-      <b class="tone red">Отставание {days(variance.days)}</b>
-      <small>
-        {#if variance.reason === 'end'}
-          «{variance.segment?.profile.name}» по плану до {numericDate(variance.planned!.end)},
-          камеры видят его {numericDate(variance.segment!.end)}. Это нижняя оценка: работы могли
-          продолжаться и после последнего кадра.
-        {:else}
-          Старт по плану {numericDate(variance.planned!.start)}, камеры увидели смену этапа {numericDate(
-            variance.segment!.start,
-          )}.
-        {/if}
-      </small>
-    {:else if variance.reason === 'lead'}
-      <b class="tone green">Опережение {days(-variance.days)}</b>
-      <small>Камеры увидели этап раньше планового старта.</small>
-    {:else if variance.reason === 'unplanned'}
-      <b class="tone yellow">Этапа нет в графике</b>
-      <small>Камеры видят «{variance.segment?.profile.name}», в плане такого профиля нет.</small>
-    {:else}
-      <b class="tone green">По графику</b>
-      <small>{variance.segment ? 'Наблюдаемый этап в плановых датах' : 'Наблюдений пока нет'}</small
-      >
-    {/if}
-    {#if variance.segment && variance.startShiftDays === null}
-      <small>Начало этапа камеры не застали — сдвиг старта не оценивается.</small>
-    {/if}
+    <span class="eyebrow">Факт выполнения</span>
+    <b>{site.planComparison ? 'Рубеж задан' : 'Не установлен'}</b>
+    <small>{site.planComparison ? 'Сценарный рубеж, не вывод модели' : 'Для вывода нужны визуальные признаки работ и источник факта'}</small>
   </div>
 </section>
 
-<div class="section">
-  <div class="section-head">
-    <div>
-      <h2>План и выполнение по камерам</h2>
-      <p>Интервалы причин — когда срабатывали правила; нажмите, чтобы открыть кадр.</p>
-    </div>
-  </div>
-  <PlanTimeline />
-</div>
+{#if site.planComparison}<ScheduleEvidence />{/if}
 
 <div class="section">
   <div class="section-head">
     <div>
       <h2>Календарный план</h2>
       <p>
-        {site.plan.stages.length} этап. · {days(
+        {site.plan.stages.length} {plural(site.plan.stages.length, ['этап', 'этапа', 'этапов'])} · {days(
           site.plan.stages.reduce((sum, s) => sum + s.days, 0),
         )} · перетаскивайте строки за ручку
       </p>
@@ -351,9 +289,7 @@
     <div class="requirements panel">
       <div class="table req">
         <div class="row head">
-          <span>Техника</span><span>Роль</span><span>Минимум</span><span>На площадке</span><span
-            >Состояние</span
-          >
+          <span>Техника</span><span>Роль</span><span>Минимум</span><span>В срезе камер</span>
         </div>
         {#each rows as slug (slug)}
           {@const Icon = equipmentIcon(slug)}
@@ -379,11 +315,9 @@
               aria-label="Минимум: {equipmentName(slug)}"
             />
             <b>{counts[slug] ?? 0}</b>
-            <span class="tone {role === 'off' ? '' : okFor(focus, slug) ? 'green' : 'red'}">
-              {role === 'off' ? '—' : okFor(focus, slug) ? 'есть' : 'нет'}
-            </span>
           </div>
         {/each}
+        <p class="hint">Ноль в доступных кадрах не доказывает, что техники нет в зоне.</p>
       </div>
       <aside class="basis">
         <span class="eyebrow">Основание профиля</span>
@@ -406,23 +340,6 @@
 </div>
 
 <style>
-  .mode {
-    display: inline-flex;
-    width: fit-content;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .mode button {
-    padding: 5px 12px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .mode button.active {
-    background: var(--accent);
-    color: var(--accent-ink);
-    font-weight: 700;
-  }
   .start {
     display: grid;
     gap: 4px;
@@ -576,7 +493,7 @@
     }
   }
   .req .row {
-    grid-template-columns: minmax(0, 1fr) 160px 80px 90px 70px;
+    grid-template-columns: minmax(0, 1fr) 160px 80px 120px;
   }
   .req .row input {
     width: 100%;
