@@ -1,13 +1,14 @@
 # SiteWatch
 
-$${\Large\color{red}\textsf{Презентация — в файле ПРЕЗЕНТАЦИЯ.pdf}}$$
+$${\Large\color{red}\textsf{Презентация — в файле ПРЕЗЕНТАЦИЯ.pptx}}$$
 
 <p align="center">
-  <a href="%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf"><img src="docs/presentation/cover.jpg" width="820" alt="Презентация SiteWatch — открыть ПРЕЗЕНТАЦИЯ.pdf"></a>
+  <a href="https://github.com/zabojeb/lct2026-sitewatch/raw/main/%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pptx"><img src="docs/presentation/cover.jpg" width="820" alt="Презентация SiteWatch — скачать ПРЕЗЕНТАЦИЯ.pptx"></a>
 </p>
 
 <p align="center">
-  <a href="%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf"><b>Открыть ПРЕЗЕНТАЦИЯ.pdf</b></a> · 31 слайд · команда «feel the h-index» · ЛЦТ 2026, задача ДГП Москвы
+  <a href="https://github.com/zabojeb/lct2026-sitewatch/raw/main/%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pptx"><b>Скачать ПРЕЗЕНТАЦИЯ.pptx</b></a> · <a href="%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pptx">файл в репозитории</a> · <a href="%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf">PDF для просмотра в браузере</a><br>
+  31 слайд · команда «feel the h-index» · ЛЦТ 2026, задача ДГП Москвы
 </p>
 
 Интеллектуальный контроль строительной площадки: система обнаруживает технику на снимках,
@@ -26,7 +27,7 @@ $${\Large\color{red}\textsf{Презентация — в файле ПРЕЗЕ�
 ## Прототип
 
 Демо развёрнуто в Google Cloud: одна виртуальная машина в europe-north1, Docker Compose из
-`compose.demo.yaml` и `deploy/gcp/compose.gcp.yaml`. Ссылка с доступом — в [ПРЕЗЕНТАЦИЯ.pdf](%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf) (первый и последний слайды решения).
+`compose.demo.yaml` и `deploy/gcp/compose.gcp.yaml`. Ссылка с доступом — в [ПРЕЗЕНТАЦИЯ.pptx](%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pptx) (слайды 6 и 31).
 Как развернуть заново — [deploy/gcp/README.md](deploy/gcp/README.md); что изменилось перед сдачей —
 [CHANGES_2026-09-29.md](CHANGES_2026-09-29.md).
 

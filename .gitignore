@@ -53,4 +53,5 @@ coverage/
 /*.pdf
 !/ПРЕЗЕНТАЦИЯ.pdf
 /*.pptx
+!/ПРЕЗЕНТАЦИЯ.pptx
 /*.zip
