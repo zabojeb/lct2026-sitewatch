@@ -1,7 +1,9 @@
 """Private HTTP adapter for synchronous image inference."""
 
 import asyncio
+import hashlib
 import hmac
+from collections import OrderedDict
 from contextlib import asynccontextmanager
 from typing import Annotated, Literal
 
@@ -12,6 +14,8 @@ from fastapi.responses import JSONResponse
 from .model import InferenceEngine, PredictionError
 from .settings import Settings
 
+RESULT_CACHE_SIZE = 512
+
 
 def create_app(settings: Settings | None = None, engine: InferenceEngine | None = None) -> FastAPI:
     config = settings or Settings.from_environment()
@@ -20,6 +24,8 @@ def create_app(settings: Settings | None = None, engine: InferenceEngine | None 
     async def lifespan(app: FastAPI):
         app.state.engine = engine or await run_in_threadpool(InferenceEngine, config)
         app.state.predict_lock = asyncio.Lock()
+        # Same bytes and mode give the same answer: repeated frames skip the models.
+        app.state.results = OrderedDict()
         yield
         app.state.engine = None
 
@@ -64,11 +70,19 @@ def create_app(settings: Settings | None = None, engine: InferenceEngine | None 
         data = await image.read(config.max_upload_bytes + 1)
         if len(data) > config.max_upload_bytes:
             raise HTTPException(status_code=413, detail="Image exceeds upload limit")
+        key = (hashlib.sha256(data).hexdigest(), recognition_mode)
+        cached = app.state.results.get(key)
+        if cached is not None:
+            app.state.results.move_to_end(key)
+            return JSONResponse(cached, headers={"Cache-Control": "no-store"})
         try:
             async with app.state.predict_lock:
                 result = await run_in_threadpool(app.state.engine.predict, data, recognition_mode)
         except PredictionError as exc:
             raise HTTPException(status_code=422, detail=exc.message) from exc
+        app.state.results[key] = result
+        if len(app.state.results) > RESULT_CACHE_SIZE:
+            app.state.results.popitem(last=False)
         return JSONResponse(result, headers={"Cache-Control": "no-store"})
 
     return app

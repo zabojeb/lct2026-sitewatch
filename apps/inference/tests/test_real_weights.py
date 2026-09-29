@@ -23,8 +23,11 @@ MODEL_DIR = REPO_ROOT / "models" / "sitewatch-v2"
 )
 def test_both_pinned_modes_return_distinct_provenance_on_demo_frame() -> None:
     settings = Settings(
-        MODEL_DIR / "yolo_640.pt", MODEL_DIR / "yolo_960.pt",
-        MODEL_DIR / "convnext_small_latest.pth", MODEL_DIR / "reject_threshold.json", "t" * 32,
+        MODEL_DIR / "yolo_640.pt",
+        MODEL_DIR / "yolo_960.pt",
+        MODEL_DIR / "convnext_small_latest.pth",
+        MODEL_DIR / "reject_threshold.json",
+        "t" * 32,
     )
     engine = InferenceEngine(settings)
     image_path = REPO_ROOT / "apps/web/static/demo-scenes/media/scene-4-01.webp"

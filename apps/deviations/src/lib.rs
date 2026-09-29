@@ -111,7 +111,9 @@ fn valid_score(score: f32) -> bool {
 fn validate_rule(input: &EquipmentRuleInput) -> Result<EquipmentRule, ApiError> {
     let source = input.source.as_deref().unwrap_or_default();
     if source.trim().is_empty() || source.chars().count() > 1000 {
-        return Err(ApiError::invalid("У каждого правила должен быть документ-источник."));
+        return Err(ApiError::invalid(
+            "У каждого правила должен быть документ-источник.",
+        ));
     }
     let rule = EquipmentRule {
         equipment_class: input.equipment_class,
@@ -128,7 +130,9 @@ fn validate_rule(input: &EquipmentRuleInput) -> Result<EquipmentRule, ApiError> 
         || (rule.expectation == RuleExpectation::Unexpected && rule.max_count != Some(0))
         || rule.persistence_frames > 20
     {
-        return Err(ApiError::invalid("Правило противоречиво: для обязательной техники минимум не меньше 1, окно не больше 20 кадров."));
+        return Err(ApiError::invalid(
+            "Правило противоречиво: для обязательной техники минимум не меньше 1, окно не больше 20 кадров.",
+        ));
     }
     Ok(rule)
 }
@@ -163,7 +167,9 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
     for input in &stage.rules {
         validate_rule(input)?;
         if !classes.insert(input.equipment_class) {
-            return Err(ApiError::invalid("Для одного вида техники можно задать только одно правило."));
+            return Err(ApiError::invalid(
+                "Для одного вида техники можно задать только одно правило.",
+            ));
         }
     }
     let mut ids = HashSet::new();
@@ -189,7 +195,9 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
             || frame.detections.len() > 100
             || frame.manual_counts.len() > EquipmentClass::ALL.len()
         {
-            return Err(ApiError::invalid("Кадр не подходит: повтор, другая камера или зона, либо неверные данные."));
+            return Err(ApiError::invalid(
+                "Кадр не подходит: повтор, другая камера или зона, либо неверные данные.",
+            ));
         }
         model_versions.insert(&frame.model_version);
         camera_codes.insert(&frame.camera_code);
@@ -224,7 +232,9 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
                 )
                 || (detection.mapping_status == "mapped") != detection.equipment_class.is_some()
             {
-                return Err(ApiError::invalid("Результат распознавания кадра повреждён."));
+                return Err(ApiError::invalid(
+                    "Результат распознавания кадра повреждён.",
+                ));
             }
         }
     }
@@ -234,7 +244,9 @@ fn validate(request: &EvaluationPreviewRequest) -> Result<(), ApiError> {
         ));
     }
     if camera_codes.len() > 1 {
-        return Err(ApiError::invalid("Все кадры окна должны быть с одной камеры."));
+        return Err(ApiError::invalid(
+            "Все кадры окна должны быть с одной камеры.",
+        ));
     }
     if let Some(progress) = &request.progress {
         compare_schedule(
@@ -267,8 +279,7 @@ fn evaluate_inner(
     validate(request)?;
     let mut findings = Vec::new();
     let mut limitations = vec![
-        "Это предварительный результат: без проверки оператором замечание не создаётся."
-            .into(),
+        "Это предварительный результат: без проверки оператором замечание не создаётся.".into(),
         "Модель не измеряет движение, фактический этап, расположение в зоне или готовность здания."
             .into(),
         "Уверенность модели — условная оценка, а не вероятность.".into(),
@@ -451,7 +462,9 @@ fn evaluate_inner(
                 variance_seconds: comparison.variance_seconds,
                 source: comparison.source,
             })
-            .map_err(|_| ApiError::invalid("Проверьте замер готовности: 0–100 %, время и источник."))
+            .map_err(|_| {
+                ApiError::invalid("Проверьте замер готовности: 0–100 %, время и источник.")
+            })
         })
         .transpose()?;
     Ok(EvaluationPreviewResponse {

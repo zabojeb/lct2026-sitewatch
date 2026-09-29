@@ -22,8 +22,11 @@ class FakeEngine:
 
 def client() -> TestClient:
     settings = Settings(
-        Path("unused-640.pt"), Path("unused-960.pt"), Path("unused.pth"),
-        Path("reject.json"), "t" * 32,
+        Path("unused-640.pt"),
+        Path("unused-960.pt"),
+        Path("unused.pth"),
+        Path("reject.json"),
+        "t" * 32,
     )
     return TestClient(create_app(settings, FakeEngine()))
 
@@ -60,8 +63,12 @@ def test_upload_validation_and_prediction() -> None:
         assert result.json()["schema"] == "sitewatch.inference.v1"
         assert result.json()["recognition_mode"] == "960"
         assert result.headers["cache-control"] == "no-store"
-        assert api.post(
-            "/v1/predict", headers=headers,
-            files={"image": ("test.jpg", output.getvalue(), "image/jpeg")},
-            data={"recognition_mode": "unsupported"},
-        ).status_code == 422
+        assert (
+            api.post(
+                "/v1/predict",
+                headers=headers,
+                files={"image": ("test.jpg", output.getvalue(), "image/jpeg")},
+                data={"recognition_mode": "unsupported"},
+            ).status_code
+            == 422
+        )

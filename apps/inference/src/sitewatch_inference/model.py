@@ -160,20 +160,24 @@ class InferenceEngine:
             raise PredictionError("Режим распознавания должен быть 640 или 960.")
         image = decode_image(image_bytes, self.settings.max_image_pixels)
         height, width = image.shape[:2]
-        proposals = self.detectors[recognition_mode].predict(
-            cv2.cvtColor(image, cv2.COLOR_RGB2BGR),
-            predictor=DetectionPredictor,
-            imgsz=int(recognition_mode),
-            conf=self.settings.detection_score,
-            iou=0.7,
-            max_det=self.settings.max_detections,
-            half=False,
-            augment=False,
-            rect=False,
-            batch=1,
-            device=self.device,
-            verbose=False,
-        )[0].boxes
+        proposals = (
+            self.detectors[recognition_mode]
+            .predict(
+                cv2.cvtColor(image, cv2.COLOR_RGB2BGR),
+                predictor=DetectionPredictor,
+                imgsz=int(recognition_mode),
+                conf=self.settings.detection_score,
+                iou=0.7,
+                max_det=self.settings.max_detections,
+                half=False,
+                augment=False,
+                rect=False,
+                batch=1,
+                device=self.device,
+                verbose=False,
+            )[0]
+            .boxes
+        )
         prepared: list[np.ndarray] = []
         metadata: list[tuple[dict[str, float], float]] = []
         for coordinates, detector_score in zip(
