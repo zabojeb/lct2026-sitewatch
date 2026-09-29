@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, url }) => {
   if (env.INFERENCE_DEMO_ENABLED !== 'true') {
-    return json({ error: 'Живой режим отключён.' }, { status: 503 });
+    return json({ error: 'Проверка по плану отключена в этой сборке.' }, { status: 503 });
   }
   if (request.headers.get('origin') !== url.origin) {
     return json({ error: 'Недопустимый источник запроса.' }, { status: 403 });
@@ -33,10 +33,22 @@ export const POST: RequestHandler = async ({ request, url }) => {
         signal: AbortSignal.timeout(10_000),
       },
     );
-    const result = await response.json();
+    // A body the service could not parse is rejected as plain text, not JSON.
+    const text = await response.text();
+    let result: Record<string, unknown> = {};
+    try {
+      result = JSON.parse(text) as Record<string, unknown>;
+    } catch {
+      // keep the empty object: the status below still tells what happened
+    }
     if (!response.ok) {
       return json(
-        { error: result.detail ?? 'Правила не приняли пакет.' },
+        {
+          error:
+            typeof result.detail === 'string'
+              ? result.detail
+              : 'Сервис правил отклонил данные: проверьте числа в правилах (целые, не меньше нуля).',
+        },
         { status: response.status },
       );
     }

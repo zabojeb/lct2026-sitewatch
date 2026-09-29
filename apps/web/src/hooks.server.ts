@@ -4,6 +4,12 @@ import type { Handle } from '@sveltejs/kit';
 
 const cookieName = 'sitewatch_demo_access';
 
+/** How long one opening of the secret link keeps working; 8 h unless the host sets otherwise. */
+function shareHours(): number {
+  const hours = Number(env.SITEWATCH_SHARE_TTL_HOURS);
+  return Number.isFinite(hours) && hours >= 1 && hours <= 24 * 31 ? hours : 8;
+}
+
 function matches(candidate: string | null | undefined, expected: string): boolean {
   if (!candidate || candidate.length > 128) return false;
   const candidateHash = createHash('sha256').update(candidate).digest();
@@ -29,7 +35,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       httpOnly: true,
       secure: event.url.protocol === 'https:',
       sameSite: 'lax',
-      maxAge: 8 * 60 * 60,
+      maxAge: shareHours() * 60 * 60,
     });
     const cleanUrl = new URL(event.url);
     cleanUrl.searchParams.delete('access');

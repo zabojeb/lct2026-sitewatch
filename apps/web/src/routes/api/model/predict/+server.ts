@@ -7,7 +7,7 @@ const imageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
 export const POST: RequestHandler = async ({ request, url }) => {
   if (env.INFERENCE_DEMO_ENABLED !== 'true') {
-    return json({ error: 'Живая проверка модели отключена.' }, { status: 503 });
+    return json({ error: 'Распознавание отключено в этой сборке.' }, { status: 503 });
   }
   if (request.headers.get('origin') !== url.origin) {
     return json({ error: 'Недопустимый источник запроса.' }, { status: 403 });

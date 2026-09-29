@@ -3,6 +3,7 @@ import type { ModelPrediction } from '$lib/model';
 export interface ArchivedVisual {
   model?: string;
   work_stage: string;
+  confidence?: string;
   stage_evidence: string;
   scene_summary: string;
   plan_alignment: 'consistent' | 'possible_mismatch' | 'insufficient_evidence' | 'not_provided';

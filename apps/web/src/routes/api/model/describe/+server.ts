@@ -68,6 +68,14 @@ function normalizeAlignment(value: unknown, hasPlan: boolean) {
   return 'insufficient_evidence';
 }
 
+function normalizeConfidence(value: unknown) {
+  const answer = String(value ?? '').toLowerCase();
+  if (/высок|high/.test(answer)) return 'высокая';
+  if (/сред|medium|moderate/.test(answer)) return 'средняя';
+  if (/низк|low/.test(answer)) return 'низкая';
+  return '';
+}
+
 function parseNarrative(content: unknown, hasPlan: boolean) {
   const raw = typeof content === 'string' ? content : Array.isArray(content)
     ? content.map((part) => typeof part?.text === 'string' ? part.text : '').join('') : '';
@@ -83,6 +91,7 @@ function parseNarrative(content: unknown, hasPlan: boolean) {
     if (!workStage && !stageEvidence && !sceneSummary) return null;
     return {
       work_stage: workStage || 'Не определить по кадру',
+      confidence: workStage ? normalizeConfidence(parsed.confidence) : '',
       stage_evidence: stageEvidence || sceneSummary,
       scene_summary: sceneSummary || stageEvidence,
       plan_alignment: normalizeAlignment(parsed.plan_alignment, hasPlan),
@@ -95,13 +104,13 @@ function parseNarrative(content: unknown, hasPlan: boolean) {
 
 export const POST: RequestHandler = async ({ request, url }) => {
   if (env.INFERENCE_DEMO_ENABLED !== 'true' || !env.OPENROUTER_API_KEY) {
-    return json({ error: 'Визуальная интерпретация не настроена.' }, { status: 503 });
+    return json({ error: 'Описание работ не настроено: нет ключа OpenRouter.' }, { status: 503 });
   }
   if (request.headers.get('origin') !== url.origin) {
     return json({ error: 'Недопустимый источник запроса.' }, { status: 403 });
   }
   if (Number(request.headers.get('content-length') ?? 0) > maxBytes + 100_000) {
-    return json({ error: 'Изображение для VLM слишком большое.' }, { status: 413 });
+    return json({ error: 'Кадр слишком большой для описания.' }, { status: 413 });
   }
   let form: FormData;
   try {
@@ -127,10 +136,13 @@ export const POST: RequestHandler = async ({ request, url }) => {
   if (!detections) return json({ error: 'Сначала распознайте кадр текущей моделью.' }, { status: 400 });
 
   const prompt = [
-    'Что видно на строительном кадре? Назови наиболее конкретный вид видимых работ, а не общее «земляные работы», если кадр позволяет уточнить: разработка грунта, крепление котлована распорками, монолитные конструкции в котловане или буровые работы. Уже установленное крепление не означает, что его монтируют прямо сейчас. Буровая установка не доказывает устройство свай, кран не доказывает монтаж, экскаватор не уточняет подэтап. Если работы нельзя понять, напиши «Не определить по кадру». Не называй процент готовности или нарушение.',
-    `Детекции YOLO (могут ошибаться): ${JSON.stringify(detections.detections.slice(0, 30).map(({ raw_class, detector_score, bounding_box }) => ({ raw_class, detector_score, bounding_box })))}`,
-    plan.trim() ? `Плановая работа со слов оператора: ${plan.trim()}. План не служит доказательством: не подгоняй work_stage под него. Уже стоящая конструкция не доказывает, что её монтируют на снимке; при такой неопределённости ставь plan_alignment=insufficient_evidence.` : 'Плановая работа не указана.',
-    'Ответь коротким JSON: work_stage — название этапа; stage_evidence — видимые признаки; scene_summary — одно предложение о кадре. Если указан план, добавь plan_alignment (consistent, possible_mismatch или insufficient_evidence) и plan_reason. Все текстовые значения по-русски.',
+    'Ты инженер строительного контроля. По кадру с камеры стройки назови вид работ, который сейчас виден.',
+    'work_stage — наиболее вероятный вид работ, конкретно и коротко (2–6 слов), например: «Разработка грунта в котловане», «Устройство буронабивных свай», «Армирование фундаментной плиты», «Монтаж каркаса здания». Если видно несколько работ, назови основную. Ответ «Не определить по кадру» — только если на кадре нет стройки или ничего не разобрать.',
+    'confidence — «высокая», если работа прямо видна (техника в работе, материал, результат); «средняя», если вывод по косвенным признакам; «низкая», если это догадка.',
+    'stage_evidence — одно-два предложения: какие видимые признаки на это указывают (техника, грунт, сваи, арматура, опалубка и т. п.). scene_summary — одно предложение о кадре.',
+    `Детекции YOLO (могут ошибаться, сверяй с изображением): ${JSON.stringify(detections.detections.slice(0, 30).map(({ raw_class, detector_score, bounding_box }) => ({ raw_class, detector_score, bounding_box })))}`,
+    plan.trim() ? `Плановая работа со слов оператора: ${plan.trim()}. Сравни видимое с планом: plan_alignment — consistent, possible_mismatch или insufficient_evidence; plan_reason — одно-два предложения. План не доказательство: не подгоняй work_stage под него.` : 'Плановая работа не указана.',
+    'Не называй процент готовности и не делай вывод о нарушении. Ответь коротким JSON с полями work_stage, confidence, stage_evidence, scene_summary (и plan_alignment, plan_reason, если указан план). Все текстовые значения по-русски.',
   ].join('\n\n');
   const dataUrl = `data:${image.type};base64,${Buffer.from(await image.arrayBuffer()).toString('base64')}`;
 
@@ -162,8 +174,8 @@ export const POST: RequestHandler = async ({ request, url }) => {
       });
       if (!response.ok) {
         return json({ error: response.status === 429
-          ? 'VLM временно ограничила запросы. Повторите позже.'
-          : 'Внешняя модель не приняла запрос.' }, { status: 502 });
+          ? 'Сервис описания временно ограничил запросы. Повторите через минуту.'
+          : 'Сервис описания отклонил запрос.' }, { status: 502 });
       }
       const result = await response.json() as {
         choices?: Array<{ message?: { content?: unknown } }>;
@@ -177,8 +189,8 @@ export const POST: RequestHandler = async ({ request, url }) => {
         ...narrative,
       }, { headers: { 'Cache-Control': 'no-store' } });
     }
-    return json({ error: 'VLM вернула неполный ответ. Повторите запрос.' }, { status: 502 });
+    return json({ error: 'Сервис описания вернул неполный ответ. Повторите.' }, { status: 502 });
   } catch {
-    return json({ error: 'VLM не ответила вовремя.' }, { status: 503 });
+    return json({ error: 'Сервис описания не ответил вовремя.' }, { status: 503 });
   }
 };
