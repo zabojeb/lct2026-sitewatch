@@ -48,7 +48,7 @@
     link.href = url;
     link.download = `sitewatch-${project.id}-${frame?.id}.json`;
     link.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 </script>
 
@@ -98,12 +98,12 @@
   </div>
 
   <a class="my-runs-entry" href="/app/site/history">
-    <span><span class="eyebrow">Твои результаты</span><b>{savedRuns.count ? `${savedRuns.count} ${plural(savedRuns.count, ['запуск', 'запуска', 'запусков'])} в локальном архиве` : 'Сохраняем результаты анализа'}</b><small>{savedRuns.latest || 'После распознавания кадры и выводы появятся здесь'}</small></span>
+    <span><span class="eyebrow">Ваши результаты</span><b>{savedRuns.count ? `${savedRuns.count} ${plural(savedRuns.count, ['запуск', 'запуска', 'запусков'])} в локальном архиве` : 'Сохранённых запусков пока нет'}</b><small>{savedRuns.latest || 'После распознавания кадры и выводы появятся здесь'}</small></span>
     <strong>Открыть архив ↗</strong>
   </a>
 
   <section class="scenario-picker" aria-label="Сценарии сравнения с планом">
-    <div><span class="eyebrow">План и факт</span><h2>Два сценария для проверки</h2><p>Один и тот же заданный рубеж начала свай, два демонстрационных графика. Разница считается из дат плана, а не из количества техники.</p></div>
+    <div><span class="eyebrow">План и факт</span><h2>Два сценария для проверки</h2><p>Одна и та же дата начала свай, два демонстрационных графика. Разница считается по датам плана, а не по технике.</p></div>
     <button class:active={project.id === 'scenario'} onclick={() => site.load(fetch, 'scenario')}><span>01</span><b>Задержка</b><small>+13 дней по исходному плану</small></button>
     <button class:active={project.id === 'scenario-ahead'} onclick={() => site.load(fetch, 'scenario-ahead')}><span>02</span><b>Опережение</b><small>−14 дней по исходному плану</small></button>
   </section>
@@ -141,7 +141,7 @@
             ? `Опережение ${days(-site.planComparison.days)}`
             : 'По плану'
         : 'Не оценено'}</b>
-      <small>{site.planComparison ? 'По заданному рубежу демосценария' : 'Нет подтверждённого рубежа выполнения'}</small>
+      <small>{site.planComparison ? 'По дате факта из демосценария' : 'Нет подтверждённой даты факта'}</small>
     </div>
   </section>
 
@@ -153,7 +153,7 @@
           <h2>{clock(frame.timestamp)} · {numericDate(frame.timestamp)}</h2>
         </div>
         <span class="tone"
-          >{project.provenance.boxes === 'synthetic' ? 'синтетика' : 'архивный кадр'}</span
+          >{project.provenance.boxes === 'synthetic' ? 'синтетические кадры' : 'архивный кадр'}</span
         >
       </div>
       <div class="panel-body">
@@ -219,7 +219,7 @@
         <span
           class="tone {reviewSignals.length ? 'yellow' : ''}"
         >
-          {reviewSignals.length ? `${reviewSignals.length} к проверке` : 'Вывод не подтверждён'}
+          {reviewSignals.length ? `${reviewSignals.length} к проверке` : 'Сигналов нет'}
         </span>
       </div>
       <div class="panel-body">
@@ -229,8 +229,8 @@
             <p>{conclusion}</p>
             {#if frame.vlm}
               <small>
-                Контекст сцены ({frame.vlm.model.split('/').at(-1)}): {frame.vlm.scene}. VLM только
-                описывает сцену и не создаёт предупреждений.
+                Описание сцены ({frame.vlm.model.split('/').at(-1)}, рассчитано заранее): {frame.vlm.scene}.
+                Модель описания не создаёт сигналов.
               </small>
             {/if}
           </div>
@@ -247,8 +247,7 @@
                 <Icon size={18} />
                 <span
                   ><b>{row.label}</b><small
-                    >{ROLE[row.role]} · {row.cameras.length}
-                    {row.cameras.length === 1 ? 'камера' : 'камеры'}</small
+                    >{ROLE[row.role]} · {cameras(row.cameras.length)}</small
                   ></span
                 >
               </span>
@@ -264,7 +263,7 @@
         </div>
 
         <div class="alerts" aria-label="Сигналы для проверки">
-          {#each reviewSignals as alert (alert.code + alert.message)}
+          {#each reviewSignals as alert, index (`${alert.code}:${alert.message}:${index}`)}
             <div class="alert">
               <i class="dot {alert.tone}"></i>
               <span><b>{alert.title}</b><small>{alert.message}</small></span>

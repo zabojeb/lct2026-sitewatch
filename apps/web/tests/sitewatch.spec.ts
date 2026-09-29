@@ -58,10 +58,12 @@ test('workspace keeps technical model status out of the main layout', async ({
 
 test('theme persists and 404 offers a route back', async ({ page }) => {
   await page.goto('/app');
+  await page.locator('.scene-card').first().waitFor(); // redirected to /app/model and hydrated
   const themeButton = page.getByRole('button', { name: /^(Светлая|Тёмная) тема$/ });
   const initial = await themeButton.getAttribute('aria-label');
   await themeButton.click();
   await page.reload();
+  await page.locator('.scene-card').first().waitFor();
   await expect(
     page.getByRole('button', { name: initial === 'Светлая тема' ? 'Тёмная тема' : 'Светлая тема' }),
   ).toBeVisible();

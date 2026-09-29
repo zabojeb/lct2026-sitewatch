@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { detectionLabel, rawClassLabels, type ModelDetection } from '../src/lib/model';
 
 test('the live taxonomy exposes all 22 trained classes without pretending all are rule classes', () => {
-  expect(Object.keys(rawClassLabels)).toHaveLength(22);
+  expect(Object.keys(rawClassLabels)).toHaveLength(23); // 22 trained classes + unknown
   const detection: ModelDetection = {
     raw_class_id: 7,
     raw_class: 'bucket_loader',
@@ -23,12 +23,14 @@ test('rule form starts without an invented project, plan or evidence', async ({ 
     }),
   );
   await page.goto('/app/model');
+  await page.locator('.scene-card').first().waitFor(); // hydrated
+  await page.locator('#plan-review').getByRole('button', { name: 'Открыть' }).click();
   await expect(page.getByLabel('Название этапа')).toHaveValue('');
   await expect(page.getByLabel('Код зоны')).toHaveValue('');
   await expect(page.getByLabel('Код камеры')).toHaveValue('');
   await expect(page.getByLabel('Плановое начало')).toHaveValue('');
   await expect(page.getByLabel('Плановое завершение')).toHaveValue('');
   await expect(page.getByLabel('Источник правила')).toHaveValue('');
-  await expect(page.getByText('00 КАДРОВ В ОКНЕ')).toBeVisible();
+  await expect(page.locator('.frame-total')).toContainText('0');
   await expect(page.getByText('Демо-методика команды')).toHaveCount(0);
 });

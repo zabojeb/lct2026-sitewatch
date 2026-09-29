@@ -1,19 +1,16 @@
 <script lang="ts">
+  import { sha256Hex, uid } from '$lib/browser-crypto';
   import type { ModelPrediction } from '$lib/model';
+  import {
+    framesForWindow,
+    type EquipmentCode,
+    type PlanScenario,
+    type ScenarioFrame,
+  } from '$lib/model/scenario';
+  import { plural } from '$lib/site/format';
 
-  type EquipmentCode =
-    | 'dump_truck'
-    | 'excavator'
-    | 'road_roller'
-    | 'loader_crane'
-    | 'concrete_mixer'
-    | 'bulldozer'
-    | 'truck'
-    | 'mobile_crane'
-    | 'tower_crane'
-    | 'piling_rig'
-    | 'concrete_pump'
-    | 'bucket_loader';
+  const count = (n: number, one: string, few: string, many: string) =>
+    `${n} ${plural(n, [one, few, many])}`;
   type RuleDraft = {
     equipment_class: EquipmentCode | '';
     expectation: 'required' | 'optional' | 'unexpected';
@@ -72,11 +69,36 @@
     prediction,
     file,
     rulesStatus,
+    scenario = null,
+    sceneFrames = [],
   }: {
     prediction: ModelPrediction | null;
     file: File | null;
     rulesStatus: 'checking' | 'ready' | 'unavailable' | 'disabled';
+    /** Ready stage, zone, camera and rules of the open demo scene, if it has one. */
+    scenario?: PlanScenario | null;
+    /** Every frame of the open scene with its model result and capture time. */
+    sceneFrames?: ScenarioFrame[];
   } = $props();
+  const assessmentLabels: Record<string, string> = {
+    missing: 'нет в кадрах',
+    below_minimum: 'меньше минимума',
+    above_maximum: 'больше максимума',
+    unexpected: 'не предусмотрена этапом',
+    consistent: 'согласуется',
+    insufficient_evidence: 'данных недостаточно',
+  };
+  /** Distinct evidence sources; the model hash is shown as its recognition mode. */
+  const sourcesSummary = (sources: string[]) =>
+    [
+      ...new Set(
+        sources.map((line) =>
+          line.replace(/yolo-(\d+)-[0-9a-f]+\+convnext-[0-9a-f]+/, 'YOLO $1 + ConvNeXt'),
+        ),
+      ),
+    ].join('; ');
+  const recognisedSceneFrames = $derived(sceneFrames.filter((frame) => frame.prediction).length);
+  let scenarioNote = $state('');
   const labels: Record<EquipmentCode, string> = {
     dump_truck: 'Самосвал',
     excavator: 'Экскаватор',
@@ -92,7 +114,10 @@
     bucket_loader: 'Ковшовый погрузчик',
   };
   const codes = Object.keys(labels) as EquipmentCode[];
-  const filled = (value: string | number | undefined) => value !== '' && value !== undefined;
+  /** Emptied `type=number` inputs bind to null; treat it like an empty field, not zero. */
+  const filled = (value: string | number | null | undefined) =>
+    value !== '' && value !== undefined && value !== null;
+  const wholeNumber = (value: unknown) => Number.isInteger(Number(value)) && Number(value) >= 0;
   let capturedAt = $state('');
   let captureSource = $state('');
   let frames = $state<Frame[]>([]);
@@ -147,12 +172,80 @@
   const currentEvaluation = $derived(evaluatedKey === currentKey ? evaluation : null);
   const selectedFrame = $derived(frames.find((frame) => frame.id === selectedFrameId));
 
+  async function fillFromScenario() {
+    if (!scenario || busy) return;
+    busy = true;
+    error = '';
+    try {
+      const { kept, tooClose, outside } = framesForWindow(sceneFrames);
+      if (!kept.length) throw new Error('Сначала распознайте кадры сцены.');
+      stageName = scenario.stage;
+      zoneCode = scenario.zone;
+      cameraCode = scenario.camera;
+      plannedStart = scenario.plannedStart;
+      plannedEnd = scenario.plannedEnd;
+      observable = scenario.observable;
+      coveragePercent = scenario.coverage ? String(scenario.coverage.percent) : '';
+      coverageSource = scenario.coverage?.source ?? '';
+      rules = scenario.rules.map((rule) => ({
+        ...rule,
+        max_count: rule.max_count === null ? '' : String(rule.max_count),
+      }));
+      captureSource = scenario.timeSource;
+      frames = await Promise.all(
+        kept.map(async (item) => ({
+          id: uid(),
+          camera_code: scenario.camera,
+          zone_code: scenario.zone,
+          captured_at: new Date(item.capturedAt!).toISOString(),
+          captured_at_source: scenario.timeSource,
+          image_sha256: await sha256Hex(await item.file!.arrayBuffer()),
+          model_version: item.prediction!.model_version,
+          detections: item.prediction!.detections.filter((detection) => detection.mapping_status === 'mapped').slice(0, 100).map((detection) => ({
+            equipment_class: detection.equipment_class,
+            mapping_status: detection.mapping_status,
+            detector_score: detection.detector_score,
+            classifier_score: detection.classifier_score,
+            bounding_box: detection.bounding_box,
+          })),
+          manual_counts: [],
+        })),
+      );
+      selectedFrameId = frames[0]?.id ?? '';
+      evaluation = null;
+      scenarioNote = [
+        `В окне наблюдения — ${count(kept.length, 'кадр', 'кадра', 'кадров')} сцены.`,
+        tooClose
+          ? `${count(tooClose, 'кадр снят', 'кадра сняты', 'кадров сняты')} меньше чем через минуту после предыдущего и в окно не ${tooClose === 1 ? 'вошёл' : 'вошли'}: между кадрами окна должно быть от 1 до 60 минут.`
+          : '',
+        outside ? `Ещё ${count(outside, 'кадр', 'кадра', 'кадров')} — за пределами окна (разрыв больше часа или больше 20 кадров).` : '',
+      ]
+        .filter(Boolean)
+        .join(' ');
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : 'Не удалось заполнить проверку.';
+    } finally {
+      busy = false;
+    }
+  }
+
+  /** `datetime-local` value in local time. */
+  function localInput(date: Date) {
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
+
+  async function fillAndCheck() {
+    await fillFromScenario();
+    if (!error && frames.length) await evaluate();
+  }
+
   async function addFrame() {
     if (!prediction || !file || busy) return;
     error = '';
     try {
       if (frames.length && frames[0].model_version !== prediction.model_version) {
-        throw new Error('В окне уже есть кадры другого режима. Очистите окно перед сменой модели.');
+        throw new Error('В окне уже есть кадры другого режима. Очистите окно перед сменой режима.');
       }
       if (!zoneCode.trim() || !cameraCode.trim()) {
         throw new Error('Перед добавлением кадра укажите код зоны и камеры.');
@@ -161,10 +254,14 @@
       if (Number.isNaN(time.getTime()) || !captureSource.trim()) {
         throw new Error('Укажите время кадра и его источник.');
       }
-      const digest = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());
-      const image_sha256 = Array.from(new Uint8Array(digest), (byte) =>
-        byte.toString(16).padStart(2, '0'),
-      ).join('');
+      const neighbours = frames.map((frame) => Math.abs(Date.parse(frame.captured_at) - time.getTime()));
+      if (neighbours.some((gap) => gap < 60_000)) {
+        throw new Error('Кадры окна должны быть сняты с интервалом от 1 до 60 минут: этот слишком близко к уже добавленному.');
+      }
+      if (neighbours.length && Math.min(...neighbours) > 60 * 60_000) {
+        throw new Error('Между кадрами окна должно быть не больше 60 минут: этот кадр слишком далеко от остальных.');
+      }
+      const image_sha256 = await sha256Hex(await file.arrayBuffer());
       if (frames.some((frame) => frame.image_sha256 === image_sha256)) {
         throw new Error(
           'Этот файл уже добавлен. Повторный кадр не считается новым свидетельством.',
@@ -172,14 +269,14 @@
       }
       if (frames.length >= 20) throw new Error('Окно ограничено 20 кадрами.');
       const frame: Frame = {
-        id: crypto.randomUUID(),
+        id: uid(),
         camera_code: cameraCode.trim(),
         zone_code: zoneCode.trim(),
         captured_at: time.toISOString(),
         captured_at_source: captureSource.trim(),
         image_sha256,
         model_version: prediction.model_version,
-        detections: prediction.detections.map((detection) => ({
+        detections: prediction.detections.filter((detection) => detection.mapping_status === 'mapped').slice(0, 100).map((detection) => ({
           equipment_class: detection.equipment_class,
           mapping_status: detection.mapping_status,
           detector_score: detection.detector_score,
@@ -192,6 +289,7 @@
         left.captured_at.localeCompare(right.captured_at),
       );
       selectedFrameId = frame.id;
+      capturedAt = localInput(new Date(time.getTime() + 5 * 60_000));
     } catch (cause) {
       error = cause instanceof Error ? cause.message : 'Не удалось добавить кадр.';
     }
@@ -261,6 +359,21 @@
       if (new Set(rules.map((rule) => rule.equipment_class)).size !== rules.length) {
         throw new Error('Для одного класса техники можно задать только одно правило.');
       }
+      if (
+        rules.some(
+          (rule) =>
+            !wholeNumber(rule.persistence_frames) ||
+            Number(rule.persistence_frames) < 1 ||
+            (rule.expectation === 'required' &&
+              (!wholeNumber(rule.min_count) || Number(rule.min_count) < 1)) ||
+            (filled(rule.max_count) && !wholeNumber(rule.max_count)) ||
+            !filled(rule.min_confidence),
+        )
+      ) {
+        throw new Error(
+          'В правилах нужны целые числа: минимум не меньше 1 для обязательной техники, кадров для вывода — от 1.',
+        );
+      }
       if (filled(coveragePercent) && !coverageSource.trim()) {
         throw new Error('Укажите источник оценки обзора зоны.');
       }
@@ -269,8 +382,8 @@
       }
       const request = {
         stage: {
-          name: stageName,
-          zone_code: zoneCode,
+          name: stageName.trim(),
+          zone_code: zoneCode.trim(),
           planned_start: new Date(plannedStart).toISOString(),
           planned_end: new Date(plannedEnd).toISOString(),
           observable_from_camera: observable,
@@ -281,7 +394,7 @@
             max_count:
               rule.expectation === 'unexpected'
                 ? 0
-                : rule.max_count === ''
+                : !filled(rule.max_count)
                   ? null
                   : Number(rule.max_count),
             min_confidence: Number(rule.min_confidence),
@@ -307,8 +420,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(request),
       });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error ?? 'Не удалось проверить правила.');
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error ?? 'Сервис правил отклонил данные.');
       if (result.schema !== 'sitewatch.evaluation.preview.v1')
         throw new Error('Несовместимый ответ сервиса правил.');
       evaluation = result as Evaluation;
@@ -342,22 +455,105 @@
 </script>
 
 <section class="live-evaluation" aria-labelledby="evaluation-title">
-  <div class="topline">
-    <span>03 / ПЛАН × РЕАЛЬНЫЕ КАДРЫ</span><span>ОТДЕЛЬНЫЙ СЕРВИС ПРАВИЛ</span>
-  </div>
   <div class="heading">
     <div>
       <h2 id="evaluation-title">Проверка по плану</h2>
       <p>
-        Укажите этап из графика и источник правил. Для вывода об отсутствии техники нужны
-        несколько кадров одной камеры с подтверждённым временем и обзором зоны. Разные камеры
-        помогают осмотреть сцену, но не считаются последовательными наблюдениями.
+        Сервис правил сверяет технику на кадрах с этапом плана. Вывод будет, только если зона видна
+        с камеры (обзор от 80 %) и в окне хватает кадров одной камеры с шагом 1–60 минут.
       </p>
     </div>
-    <span class="frame-total"
-      >{String(frames.length).padStart(2, '0')} <small>КАДРОВ В ОКНЕ</small></span
-    >
+    <span class="frame-total">{frames.length} <small>{count(frames.length, 'кадр', 'кадра', 'кадров').split(' ')[1]} в окне</small></span>
   </div>
+  {#if scenario}
+    <div class="scenario">
+      <div>
+        <strong>{scenario.stage}</strong>
+        <span
+          >{scenario.camera} · {count(scenario.rules.length, 'правило', 'правила', 'правил')} с источниками:
+          {scenario.rules.map((rule) => labels[rule.equipment_class]).join(' + ')}</span
+        >
+      </div>
+      <button class="button primary" disabled={busy || !recognisedSceneFrames || rulesStatus !== 'ready'} onclick={fillAndCheck}
+        >{!recognisedSceneFrames ? 'Сначала распознайте кадры' : busy ? 'Проверяем…' : 'Заполнить и проверить'}</button
+      >
+    </div>
+    {#if scenarioNote}<p class="scenario-note" role="status">{scenarioNote}</p>{/if}
+  {/if}
+  {#if rulesStatus === 'unavailable' || rulesStatus === 'disabled'}
+    <p class="evaluation-error" role="status">
+      Сервис правил {rulesStatus === 'disabled' ? 'не включён' : 'не отвечает'}: проверка по плану
+      недоступна.
+    </p>
+  {/if}
+  {#if error}<p class="evaluation-error" role="alert">{error}</p>{/if}
+  {#if currentEvaluation}
+    <div class="evaluation-result" aria-live="polite">
+      <div class="result-head">
+        <span
+          >РЕЗУЛЬТАТ / {currentEvaluation.status === 'review_required'
+            ? 'НУЖНА ПРОВЕРКА'
+            : currentEvaluation.status === 'observed_consistency'
+              ? 'НАБЛЮДАЕМОЕ СОГЛАСУЕТСЯ'
+              : 'НЕДОСТАТОЧНО ДАННЫХ'}</span
+        ><strong
+          >{count(currentEvaluation.findings.length, 'правило', 'правила', 'правил')}</strong
+        >
+      </div>
+      <div class="result-list">
+        {#each currentEvaluation.findings as finding}<article
+            class:flag={['missing', 'below_minimum', 'above_maximum', 'unexpected'].includes(
+              finding.assessment,
+            )}
+          >
+            <div>
+              <strong>{labels[finding.equipment_class]}</strong><span
+                >{assessmentLabels[finding.assessment] ?? finding.assessment}</span
+              >
+            </div>
+            <p>{finding.explanation}</p>
+            <small
+              >План: минимум {finding.expected_min}{finding.expected_max === null
+                ? ''
+                : ` · максимум ${finding.expected_max}`} / наблюдение: {finding.observed_count ??
+                'нет данных'} · правило: {finding.rule_source} · кадры: {finding.evidence_frame_ids
+                .length}</small
+            >
+            <small class="evidence-sources">{sourcesSummary(finding.evidence_sources)}</small>
+          </article>{/each}
+      </div>
+      {#if currentEvaluation.unconfigured_observed.length}<p class="unconfigured">
+          В кадрах есть техника вне перечня этапа: {currentEvaluation.unconfigured_observed
+            .map((code) => labels[code])
+            .join(', ')}. Проверьте соседний этап и добавьте правило с источником — это ещё не
+          отклонение.
+        </p>{/if}
+      {#if currentEvaluation.schedule}<div class="schedule-result">
+          <strong
+            >{currentEvaluation.schedule.variance_seconds >= 0 ? '+' : '−'}{(
+              Math.abs(currentEvaluation.schedule.variance_seconds) / 3600
+            ).toFixed(1)} ч</strong
+          >
+          <div>
+            расхождение с линейным планом по ручному замеру {currentEvaluation.schedule
+              .measured_percent}%<small
+              >{currentEvaluation.schedule.source} · положительное значение — отставание</small
+            >
+          </div>
+        </div>{/if}
+      <ul>
+        {#each currentEvaluation.limitations as limitation}<li>{limitation}</li>{/each}
+      </ul>
+      <div class="export-row">
+        <button class="button secondary" onclick={exportPreview}
+          >Экспортировать проверку в JSON</button
+        >
+        <span>Содержит входные данные, источники и вывод. Без исходных снимков.</span>
+      </div>
+    </div>
+  {/if}
+  <details class="manual" open={!scenario}>
+    <summary>{scenario ? 'Настроить вручную' : 'Этап, правила и кадры'}</summary>
   <div class="columns">
     <div class="column">
       <h3>01. Контекст этапа</h3>
@@ -381,7 +577,7 @@
           >Код камеры<input
             bind:value={cameraCode}
             maxlength="80"
-            placeholder="Источник снимков"
+            placeholder="Например, КАМ-04"
             disabled={frames.length > 0}
           /></label
         >
@@ -529,8 +725,12 @@
                     frame.captured_at,
                   ).toLocaleString('ru-RU')}</strong
                 ><small
-                  >{frame.detections.length} объектов · {frame.manual_counts.length} ручных уточнений
-                  · {frame.camera_code} / {frame.zone_code} · {frame.model_version}</small
+                  >{count(frame.detections.length, 'объект', 'объекта', 'объектов')} · {count(
+                    frame.manual_counts.length,
+                    'ручное уточнение',
+                    'ручных уточнения',
+                    'ручных уточнений',
+                  )} · {frame.camera_code} / {frame.zone_code}</small
                 >
               </div>
               <button aria-label={`Удалить кадр ${index + 1}`} onclick={() => removeFrame(frame.id)}
@@ -611,89 +811,76 @@
   </div>
   <div class="action-row">
     <div>
-      <strong>Детекции — свидетельства, не нарушение.</strong><span
-        >Проверка выполняется отдельным Rust-сервисом без сохранения кадра.</span
+      <strong>Найденная техника — повод для проверки, а не нарушение.</strong><span
+        >Проверку выполняет отдельный сервис правил; изображения ему не передаются.</span
       >
     </div>
     <button
       class="button primary"
       disabled={!frames.length || busy || rulesStatus !== 'ready'}
-      onclick={evaluate}>{busy ? 'Сравниваем…' : 'Сравнить с графиком'}</button
+      onclick={evaluate}>{busy ? 'Проверяем…' : 'Проверить по плану'}</button
     >
   </div>
-  {#if rulesStatus === 'unavailable' || rulesStatus === 'disabled'}
-    <p class="evaluation-error" role="status">
-      Сервис правил {rulesStatus === 'disabled' ? 'не включён' : 'не отвечает'}: сравнение с
-      графиком недоступно.
-    </p>
-  {/if}
-  {#if error}<p class="evaluation-error" role="alert">{error}</p>{/if}
-  {#if currentEvaluation}
-    <div class="evaluation-result" aria-live="polite">
-      <div class="result-head">
-        <span
-          >РЕЗУЛЬТАТ / {currentEvaluation.status === 'review_required'
-            ? 'НУЖНА ПРОВЕРКА'
-            : currentEvaluation.status === 'observed_consistency'
-              ? 'НАБЛЮДАЕМОЕ СОГЛАСУЕТСЯ'
-              : 'НЕДОСТАТОЧНО ДАННЫХ'}</span
-        ><strong>{currentEvaluation.findings.length} ПРАВИЛ</strong>
-      </div>
-      <div class="result-list">
-        {#each currentEvaluation.findings as finding}<article
-            class:flag={['missing', 'below_minimum', 'above_maximum', 'unexpected'].includes(
-              finding.assessment,
-            )}
-          >
-            <div>
-              <strong>{labels[finding.equipment_class]}</strong><span
-                >{finding.assessment.replaceAll('_', ' ')}</span
-              >
-            </div>
-            <p>{finding.explanation}</p>
-            <small
-              >План: минимум {finding.expected_min}{finding.expected_max === null
-                ? ''
-                : ` · максимум ${finding.expected_max}`} / наблюдение: {finding.observed_count ??
-                'нет данных'} · правило: {finding.rule_source} · кадры: {finding.evidence_frame_ids
-                .length}</small
-            >
-            <small class="evidence-sources">{finding.evidence_sources.join(' · ')}</small>
-          </article>{/each}
-      </div>
-      {#if currentEvaluation.unconfigured_observed.length}<p class="unconfigured">
-          В кадрах есть техника вне перечня этапа: {currentEvaluation.unconfigured_observed
-            .map((code) => labels[code])
-            .join(', ')}. Проверьте соседний этап и добавьте правило с источником — это не
-          автоматическое нарушение.
-        </p>{/if}
-      {#if currentEvaluation.schedule}<div class="schedule-result">
-          <strong
-            >{currentEvaluation.schedule.variance_seconds >= 0 ? '+' : '−'}{(
-              Math.abs(currentEvaluation.schedule.variance_seconds) / 3600
-            ).toFixed(1)} ч</strong
-          >
-          <div>
-            расхождение с линейным планом по ручному замеру {currentEvaluation.schedule
-              .measured_percent}%<small
-              >{currentEvaluation.schedule.source} · положительное значение — отставание</small
-            >
-          </div>
-        </div>{/if}
-      <ul>
-        {#each currentEvaluation.limitations as limitation}<li>{limitation}</li>{/each}
-      </ul>
-      <div class="export-row">
-        <button class="button secondary" onclick={exportPreview}
-          >Экспортировать проверку в JSON</button
-        >
-        <span>Содержит входные данные, источники и вывод. Без исходных снимков.</span>
-      </div>
-    </div>
-  {/if}
+  </details>
 </section>
 
 <style>
+  .scenario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0 0 16px;
+    padding: 16px 18px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+  .scenario strong {
+    display: block;
+    font-size: 13px;
+  }
+  .scenario span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .scenario .button {
+    flex: none;
+  }
+  .manual {
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  .manual > summary {
+    width: fit-content;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .manual > summary:hover {
+    color: var(--text);
+  }
+  .scenario-note {
+    margin: -10px 0 22px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  @media (max-width: 720px) {
+    .scenario {
+      display: block;
+    }
+    .scenario .button {
+      margin-top: 12px;
+      width: 100%;
+    }
+  }
   .clear-window {
     margin-top: 10px;
     color: var(--muted);
@@ -715,12 +902,11 @@
     line-height: 1.5;
   }
   .live-evaluation {
-    margin-top: 26px;
     border: 1px solid var(--line);
+    border-radius: 14px;
     background: var(--surface);
-    padding: clamp(24px, 3vw, 44px);
+    padding: clamp(18px, 2.4vw, 32px);
   }
-  .topline,
   .rule-head,
   .result-head {
     display: flex;
@@ -734,16 +920,12 @@
     letter-spacing: 0.1em;
     color: var(--muted);
   }
-  .topline {
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 26px;
-  }
   .heading {
     display: flex;
     align-items: end;
     justify-content: space-between;
     gap: 30px;
-    padding: 30px 0 34px;
+    padding: 0 0 20px;
   }
   h2 {
     margin: 0;
@@ -976,8 +1158,10 @@
     margin: 16px 0 0;
   }
   .evaluation-result {
-    margin-top: 28px;
+    margin-top: 16px;
     border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
     background: var(--bg);
   }
   .result-head {
@@ -1094,9 +1278,6 @@
     .action-row .button {
       width: 100%;
       justify-content: center;
-    }
-    .topline span:last-child {
-      display: none;
     }
   }
 </style>

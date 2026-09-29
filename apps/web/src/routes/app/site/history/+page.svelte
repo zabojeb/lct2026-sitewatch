@@ -4,7 +4,7 @@
   import ModelRunArchive from '$lib/components/site/ModelRunArchive.svelte';
   import { classCounts, cameraFrames } from '$lib/site/analysis';
   import { isMachine } from '$lib/site/catalog';
-  import { clock, frames as framesWord, numericDate, time } from '$lib/site/format';
+  import { cameras, clock, frames as framesWord, numericDate, time } from '$lib/site/format';
   import { windowAt } from '$lib/site/plan';
   import { useSite } from '$lib/site/store.svelte';
 
@@ -47,7 +47,7 @@
         {numericDate(all[0].timestamp)} — {numericDate(all.at(-1)!.timestamp)} · {framesWord(
           all.length,
         )} ·
-        {project.cameras.length === 1 ? 'один ракурс' : `${project.cameras.length} камер`}
+        {project.cameras.length === 1 ? 'один ракурс' : cameras(project.cameras.length)}
       </p>
     </div>
   </div>
@@ -84,7 +84,7 @@
         <dl>
           <div>
             <dt>Фактический этап</dt>
-            <dd>{site.planComparison?.observation.frameId === frame.id ? 'Рубеж задан вручную' : 'Не установлен'}</dd>
+            <dd>{site.planComparison?.observation.frameId === frame.id ? 'Дата факта задана вручную' : 'Не установлена'}</dd>
           </div>
           <div>
             <dt>По графику</dt>
@@ -100,7 +100,7 @@
           </div>
           <div>
             <dt>Проверка по плану</dt>
-            <dd>{site.planComparison?.observation.frameId === frame.id ? 'См. сравнение рубежа выше' : 'Нужны признаки работ'}</dd>
+            <dd>{site.planComparison?.observation.frameId === frame.id ? 'См. сравнение выше' : 'Нет данных о факте'}</dd>
           </div>
         </dl>
         <button class="design-reference" onclick={() => (site.designDialog = true)}>

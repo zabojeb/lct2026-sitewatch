@@ -53,7 +53,7 @@
           alt="Кадр {camera?.name} {fullDateTime(frame.timestamp)}"
         />
         <div class="alerts">
-          {#each analysis.alerts as alert (alert.code + alert.message)}
+          {#each analysis.alerts as alert, index (`${alert.code}:${alert.message}:${index}`)}
             <div class="alert">
               <i class="dot {alert.tone}"></i>
               <span><b>{alert.title}</b><small>{alert.message}</small></span>

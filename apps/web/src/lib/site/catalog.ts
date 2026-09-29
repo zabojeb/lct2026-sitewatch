@@ -31,7 +31,7 @@ const NAMES: Record<string, string> = {
   loader: 'Погрузчик',
   grader: 'Автогрейдер',
   paver: 'Асфальтоукладчик',
-  person: 'Работник',
+  person: 'Человек',
   helmet: 'Каска',
   'mini-loader': 'Мини-погрузчик',
   tractor: 'Трактор',
@@ -49,5 +49,5 @@ export const isMachine = (slug: string) => slug !== 'person' && slug !== 'helmet
 export const SOURCE_LABELS = {
   annotation: 'разметка датасета',
   model: 'модель',
-  synthetic: 'синтетика',
+  synthetic: 'синтетические кадры',
 } as const;

@@ -124,7 +124,7 @@
   <div>
     <span class="eyebrow">Профиль для сравнения</span>
     <select bind:value={site.acceptedProfileId} aria-label="Профиль для сравнения">
-      <option value="">По графику · {site.plannedProfile?.name ?? 'не задан'}</option>
+      <option value="">По плану · {site.plannedProfile?.name ?? 'не задан'}</option>
       {#each site.profiles.filter(isControllable) as profile (profile.id)}
         <option value={profile.id}>{profile.name}</option>
       {/each}
@@ -133,8 +133,8 @@
   </div>
   <div>
     <span class="eyebrow">Факт выполнения</span>
-    <b>{site.planComparison ? 'Рубеж задан' : 'Не установлен'}</b>
-    <small>{site.planComparison ? 'Сценарный рубеж, не вывод модели' : 'Для вывода нужны визуальные признаки работ и источник факта'}</small>
+    <b>{site.planComparison ? 'Дата факта задана' : 'Не установлена'}</b>
+    <small>{site.planComparison ? 'Задана сценарием, не моделью' : 'Для вывода нужны видимые признаки работ и источник факта'}</small>
   </div>
 </section>
 

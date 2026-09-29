@@ -12,7 +12,7 @@
 </script>
 
 {#if comparison}
-  <section class="schedule-evidence" class:late={comparison.status === 'late'} class:ahead={comparison.status === 'ahead'} aria-label="Сравнение рубежа с планом">
+  <section class="schedule-evidence" class:late={comparison.status === 'late'} class:ahead={comparison.status === 'ahead'} aria-label="Сравнение факта с планом">
     <div class="summary">
       <div>
         <span class="eyebrow">Демосценарий · сравнение с планом</span>
@@ -24,7 +24,7 @@
     <div class="dates">
       <div><small>По плану</small><b>{numericDate(comparison.stage.start)}</b></div>
       <div class="connector" aria-hidden="true"></div>
-      <div><small>Рубеж сценария</small><b>{numericDate(comparison.observation.at)}</b></div>
+      <div><small>Факт по сценарию</small><b>{numericDate(comparison.observation.at)}</b></div>
     </div>
     <p class="source">{comparison.observation.note} Даты и длительность плана можно изменить во вкладке «План работ» — расчёт обновится.</p>
   </section>

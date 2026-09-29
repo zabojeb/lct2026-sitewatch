@@ -278,7 +278,7 @@ export function analyzeFrame(
       alerts.push({
         code: 'zone',
         tone: 'yellow',
-        title: 'Въезд в запретную зону',
+        title: 'Техника в запретной зоне',
         message: `${equipmentName(box.slug)} · ${zone.name}`,
         slug: box.slug,
         zoneId: zone.id,

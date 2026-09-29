@@ -80,20 +80,20 @@
   </div>
   {#if loading}<p class="archive-empty">Открываем сохранённые запуски…</p>
   {:else if error}<p class="archive-empty" role="alert">{error}</p>
-  {:else if !runs.length}<p class="archive-empty">Пока пусто. Распознай сцену или свои кадры — результат появится здесь.</p>
+  {:else if !runs.length}<p class="archive-empty">Пока пусто. Распознайте сцену или свои кадры — результат появится здесь.</p>
   {:else}
     <div class="run-grid">
       <div class="run-list" aria-label="Запуски">
         {#each runs as item (item.id)}
           <button class:active={run?.id === item.id} onclick={() => { selectedRunId = item.id; selectedFrameId = ''; visualError = ''; }}>
             <img src={sourceFor(item.id, item.frames[0].id)} alt="" />
-            <span><b>{item.title}</b><small>{new Date(item.createdAt).toLocaleString('ru-RU')} · {frameCount(item.frames.length)} · {item.recognitionMode === '640' ? 'Medium' : 'Max'}</small></span>
+            <span><b>{item.title}</b><small>{new Date(item.createdAt).toLocaleString('ru-RU')} · {frameCount(item.frames.length)} · {item.recognitionMode === '640' ? 'стандартный режим' : 'детальный режим'}</small></span>
           </button>
         {/each}
       </div>
       {#if run && frame}
         <div class="run-detail">
-          <div class="detail-head"><div><span class="eyebrow">{run.origin === 'upload' ? 'Свои кадры' : 'Готовая сцена'} · {run.recognitionMode === '640' ? 'Medium' : 'Max'}</span><h3>{run.title}</h3></div><button class="delete" onclick={() => remove(run.id)}>Удалить запуск</button></div>
+          <div class="detail-head"><div><span class="eyebrow">{run.origin === 'upload' ? 'Ваши кадры' : 'Готовая сцена'} · {run.recognitionMode === '640' ? 'стандартный режим' : 'детальный режим'}</span><h3>{run.title}</h3></div><button class="delete" onclick={() => remove(run.id)}>Удалить запуск</button></div>
           <div class="photo"><img src={sourceFor(run.id, frame.id)} alt={frame.name} />
             {#each frame.prediction.detections as detection, index (index)}
               <div class="box" style:left={`${detection.bounding_box.x_min * 100}%`} style:top={`${detection.bounding_box.y_min * 100}%`} style:width={`${(detection.bounding_box.x_max - detection.bounding_box.x_min) * 100}%`} style:height={`${(detection.bounding_box.y_max - detection.bounding_box.y_min) * 100}%`} title={detectionLabel(detection)}></div>
@@ -101,11 +101,11 @@
           </div>
           <div class="frame-info"><b>{frame.name}</b><span>{objectCount(frame.prediction.detections.length)} найдено</span></div>
           {#if frame.visual}
-            <div class="visual"><small>Визуальная оценка выбранного кадра{frame.visual.model ? ` · ${frame.visual.model.split('/').at(-1)}` : ''}</small><b>{frame.visual.work_stage}</b><p>{frame.visual.stage_evidence}</p>
+            <div class="visual"><small>Описание работ{frame.visual.model ? ` · ${frame.visual.model.split('/').at(-1)}` : ''}</small><b>{frame.visual.work_stage}</b><p>{frame.visual.stage_evidence}</p>
               {#if frame.visual.planText}<div class="plan"><small>Плановая работа: {frame.visual.planText}</small><strong>{alignment[frame.visual.plan_alignment]}</strong><p>{frame.visual.plan_reason}</p></div>{/if}
             </div>
           {:else}
-            <div class="visual-missing"><span>Визуальный вывод для этого кадра ещё не сохранён.</span><button disabled={visualBusy} onclick={assess}>{visualBusy ? 'Смотрим кадр…' : 'Получить оценку кадра'}</button>{#if visualError}<small role="alert">{visualError}</small>{/if}</div>
+            <div class="visual-missing"><span>Описание работ для этого кадра не сохранено.</span><button disabled={visualBusy} onclick={assess}>{visualBusy ? 'Описываем…' : 'Получить описание'}</button>{#if visualError}<small role="alert">{visualError}</small>{/if}</div>
           {/if}
           <div class="frame-pick" aria-label="Кадры запуска">
             {#each run.frames as item (item.id)}

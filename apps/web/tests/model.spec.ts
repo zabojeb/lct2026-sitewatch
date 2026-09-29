@@ -5,10 +5,11 @@ test('scene frame counts use Russian endings', async ({ page }) => {
     route.fulfill({ json: { status: 'ready', rules_status: 'ready' } }),
   );
   await page.goto('/app/model');
-  await expect(page.locator('.scene-selector button')).toHaveCount(7);
-  await page.locator('.scene-selector button').nth(0).click();
+  await page.locator('.scene-card').first().waitFor(); // hydrated: handlers are attached
+  await expect(page.locator('.scene-card')).toHaveCount(9);
+  await page.locator('.scene-card').nth(2).click();
   await expect(page.getByRole('button', { name: 'Распознать 4 кадра' })).toBeVisible();
-  await page.locator('.scene-selector button').nth(1).click();
+  await page.locator('.scene-card').nth(3).click();
   await expect(page.getByRole('button', { name: 'Распознать 5 кадров' })).toBeVisible();
 });
 
@@ -39,10 +40,11 @@ test('recognition shows a VLM work stage without a second click', async ({ page 
     });
   });
   await page.goto('/app/model');
+  await page.locator('.scene-card').first().waitFor(); // hydrated: handlers are attached
   await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
   await page.getByRole('button', { name: 'Распознать 1 кадр' }).click();
-  await expect(page.getByRole('heading', { name: 'Предполагаемый этап работ' })).toBeVisible();
-  await expect(page.getByText('Разработка котлована', { exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Описание работ/ })).toBeVisible();
+  await expect(page.locator('.visual-review .stage')).toHaveText('Разработка котлована');
   expect(vlmRequests).toBe(1);
 });
 
@@ -82,13 +84,14 @@ test('live-model screen keeps synthetic data separate and shows detector evidenc
     }),
   );
   await page.goto('/app/model');
+  await page.locator('.scene-card').first().waitFor(); // hydrated: handlers are attached
   await expect(page.getByText('МОДЕЛЬ ГОТОВА')).toHaveCount(0);
   await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
   await page.getByRole('button', { name: 'Распознать 1 кадр' }).click();
   await expect(page.locator('.box')).toHaveCount(1);
-  await expect(page.getByText('excavator · excavator')).toBeVisible();
+  await expect(page.locator('.chips li', { hasText: 'Экскаватор' }).first()).toBeVisible();
   await expect(
-    page.getByText('Это результат моделей, а не вердикт о стройке.', { exact: false }),
+    page.getByText('Это подсказки моделей, а не заключение о стройке', { exact: false }),
   ).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
@@ -98,9 +101,10 @@ test('live-model screen cannot upload when the sandbox is disabled', async ({ pa
     route.fulfill({ json: { status: 'disabled', rules_status: 'disabled' } }),
   );
   await page.goto('/app/model');
+  await page.locator('.scene-card').first().waitFor(); // hydrated: handlers are attached
   await page.locator('input[type=file]').first().setInputFiles('static/images/excavation-768.webp');
   await expect(page.getByRole('button', { name: 'Распознать 1 кадр' })).toBeDisabled();
-  await expect(page.getByText('Живой режим выключен в конфигурации')).toBeVisible();
+  await expect(page.getByText('Распознавание отключено в этой сборке', { exact: false })).toBeVisible();
 });
 
 test('invalid image is rejected before it reaches the model', async ({ page }) => {
@@ -115,12 +119,13 @@ test('invalid image is rejected before it reaches the model', async ({ page }) =
     return route.abort();
   });
   await page.goto('/app/model');
+  await page.locator('.scene-card').first().waitFor(); // hydrated: handlers are attached
   await page.locator('input[type=file]').first().setInputFiles({
     name: 'invalid.txt',
     mimeType: 'text/plain',
     buffer: Buffer.from('not an image'),
   });
-  await expect(page.getByRole('alert')).toHaveText('Выберите только JPEG, PNG или WebP.');
+  await expect(page.getByRole('alert')).toHaveText('Выберите JPEG, PNG или WebP.');
   expect(uploaded).toBe(false);
 });
 
@@ -191,7 +196,8 @@ test('real-frame rule preview carries model provenance and never promotes one fr
     });
   });
   await page.goto('/app/model');
-  await page.getByRole('button', { name: 'Настроить проверку' }).click();
+  await page.locator('.scene-card').first().waitFor(); // hydrated: handlers are attached
+  await page.locator('#plan-review').getByRole('button', { name: 'Открыть' }).click();
   await page.getByLabel('Название этапа').fill('Разработка котлована');
   await page.getByLabel('Код зоны').fill('PIT-01');
   await page.getByLabel('Код камеры').fill('CAM-01');
@@ -208,7 +214,7 @@ test('real-frame rule preview carries model provenance and never promotes one fr
   await expect(page.locator('.frame-row')).toHaveCount(1);
   await page.getByLabel('Обзор зоны, %').fill('90');
   await page.getByLabel('Источник оценки обзора').fill('Схема камеры');
-  await page.getByRole('button', { name: 'Сравнить с графиком' }).click();
+  await page.locator('.action-row').getByRole('button', { name: 'Проверить по плану' }).click();
   await expect(page.getByText('Нужны ещё независимые кадры.')).toBeVisible();
   await expect(page.getByText('Предпросмотр не создаёт алерт.')).toBeVisible();
   const download = page.waitForEvent('download');

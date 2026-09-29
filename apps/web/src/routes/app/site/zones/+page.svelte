@@ -9,7 +9,7 @@
   import ZoneCanvas from '$lib/components/site/ZoneCanvas.svelte';
   import { EQUIPMENT, equipmentName } from '$lib/site/catalog';
   import { equipmentIcon } from '$lib/site/icons';
-  import { clock, numericDate, objects } from '$lib/site/format';
+  import { clock, numericDate, objects, plural } from '$lib/site/format';
   import { zoneFor, zoneVisibility } from '$lib/site/zones';
   import { useSite } from '$lib/site/store.svelte';
   import type { Point, Zone } from '$lib/site/types';
@@ -130,7 +130,7 @@
     <div class="toolbar" role="status">
       <span>
         {drawing
-          ? `Ставьте точки по границе области: ${draft.length} ${draft.length === 1 ? 'точка' : 'точки'}`
+          ? `Ставьте точки по границе области: ${draft.length} ${plural(draft.length, ['точка', 'точки', 'точек'])}`
           : 'Тяните вершину или весь многоугольник; «+» на ребре добавляет вершину'}
       </span>
       {#if drawing}
@@ -189,7 +189,7 @@
           <span class="eyebrow">Запретные зоны камеры</span>
           <h2>
             {zones.length
-              ? `${zones.length} ${zones.length === 1 ? 'зона' : 'зоны'}`
+              ? `${zones.length} ${plural(zones.length, ['зона', 'зоны', 'зон'])}`
               : 'Зон пока нет'}
           </h2>
         </div>
@@ -260,9 +260,9 @@
           >
         {/if}
         <p class="hint">
-          Машина нарушает зону, когда низ центра её рамки — точка касания с землёй — внутри
-          многоугольника. Видимость — доля области, которую можно разобрать на этом кадре: без
-          засвета и провалов в чёрное. Метры и генплан требуют привязки камер к опорным точкам.
+          Техника считается в зоне, если середина нижнего края рамки (точка касания с землёй)
+          внутри контура. Видимость — доля зоны без пересвета и провалов в чёрное; для метров и
+          генплана камеры нужно привязать к опорным точкам.
         </p>
       </div>
     </aside>

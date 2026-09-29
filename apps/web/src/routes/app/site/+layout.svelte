@@ -93,7 +93,7 @@
     <p class="provenance" class:synthetic={site.project.kind === 'synthetic'}>
       <InfoIcon size={16} />
       <span>
-        <b>Демопроект: кадры ниже взяты из готовой подборки. Свои запуски смотри во вкладке «Кадры».</b>
+        <b>Демопроект собран из готовой подборки кадров. Ваши запуски анализа — во вкладке «Кадры».</b>
         <b>Рамки: {SOURCE_LABELS[site.project.provenance.boxes]}.</b>
         {site.project.provenance.text}
         {#each site.project.provenance.sources as source (source.url)}

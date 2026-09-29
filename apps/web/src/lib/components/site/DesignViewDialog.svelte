@@ -55,7 +55,7 @@
           <img src={site.designView.image} alt="Загруженный проектный вид" />
           <figcaption>
             <b>{site.designView.name}</b>
-            <span>Референс для визуального сравнения с кадром камеры.</span>
+            <span>Образец для визуального сравнения с кадром камеры.</span>
           </figcaption>
         </figure>
       {/if}
