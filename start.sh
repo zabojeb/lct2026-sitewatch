@@ -11,7 +11,7 @@ if ! command -v openssl >/dev/null 2>&1; then
   exit 1
 fi
 if [[ ! -f .env.demo ]]; then
-  echo 'Нет .env.demo с ключом OpenRouter.' >&2
+  echo 'Нет .env.demo с настройками модели описания (см. README_FIRST.md).' >&2
   exit 1
 fi
 

@@ -45,7 +45,7 @@ export const GET: RequestHandler = async () => {
       status,
       rules_status:
         deviations.status === 'fulfilled' && deviations.value.ok ? 'ready' : 'unavailable',
-      vlm_status: env.OPENROUTER_API_KEY ? 'ready' : 'disabled',
+      vlm_status: env.DESCRIBE_API_URL && env.DESCRIBE_API_KEY && env.DESCRIBE_MODEL ? 'ready' : 'disabled',
       ...(modelVersion ? { model_version: modelVersion } : {}),
       recognition_modes: status === 'ready' ? ['640', '960'] : [],
     },

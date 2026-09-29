@@ -6,7 +6,7 @@ if (-not (Get-Command docker -ErrorAction SilentlyContinue)) {
 }
 docker compose version | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Нужен Docker Compose v2.' }
-if (-not (Test-Path '.env.demo')) { throw 'Нет .env.demo с ключом OpenRouter.' }
+if (-not (Test-Path '.env.demo')) { throw 'Нет .env.demo с настройками модели описания (см. README_FIRST.md).' }
 
 $bytes = New-Object byte[] 32
 $random = [System.Security.Cryptography.RandomNumberGenerator]::Create()

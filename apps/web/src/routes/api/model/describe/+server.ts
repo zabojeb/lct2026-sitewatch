@@ -2,7 +2,6 @@ import { env } from '$env/dynamic/private';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-const model = 'deepseek/deepseek-v4.1-flash';
 const maxBytes = 5 * 1024 * 1024;
 const imageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 type Box = { x_min: number; y_min: number; x_max: number; y_max: number };
@@ -103,7 +102,9 @@ function parseNarrative(content: unknown, hasPlan: boolean) {
 }
 
 export const POST: RequestHandler = async ({ request, url }) => {
-  if (env.INFERENCE_DEMO_ENABLED !== 'true' || !env.OPENROUTER_API_KEY) {
+  // Any OpenAI-compatible chat completions endpoint with image input; configured only on the server.
+  const { DESCRIBE_API_URL: endpoint, DESCRIBE_API_KEY: key, DESCRIBE_MODEL: model } = env;
+  if (env.INFERENCE_DEMO_ENABLED !== 'true' || !endpoint || !key || !model) {
     return json({ error: 'Описание работ не настроено: нет ключа модели описания.' }, { status: 503 });
   }
   if (request.headers.get('origin') !== url.origin) {
@@ -148,13 +149,11 @@ export const POST: RequestHandler = async ({ request, url }) => {
 
   try {
     for (let attempt = 0; attempt < 2; attempt += 1) {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${key}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': url.origin,
-        'X-Title': 'SiteWatch',
       },
       body: JSON.stringify({
         model,
