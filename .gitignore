@@ -51,5 +51,6 @@ coverage/
 
 # Organizer source materials stay local; derived manifests/contracts are versioned.
 /*.pdf
+!/ПРЕЗЕНТАЦИЯ.pdf
 /*.pptx
 /*.zip

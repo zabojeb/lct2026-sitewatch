@@ -1,5 +1,15 @@
 # SiteWatch
 
+$${\Large\color{red}\textsf{Презентация — в файле ПРЕЗЕНТАЦИЯ.pdf}}$$
+
+<p align="center">
+  <a href="%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf"><img src="docs/presentation/cover.jpg" width="820" alt="Презентация SiteWatch — открыть ПРЕЗЕНТАЦИЯ.pdf"></a>
+</p>
+
+<p align="center">
+  <a href="%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf"><b>Открыть ПРЕЗЕНТАЦИЯ.pdf</b></a> · 31 слайд · команда «feel the h-index» · ЛЦТ 2026, задача ДГП Москвы
+</p>
+
 Интеллектуальный контроль строительной площадки: система обнаруживает технику на снимках,
 сопоставляет наблюдение с активными этапами календарного плана и формирует объяснимые
 предупреждения с доказательствами.
@@ -16,7 +26,7 @@
 ## Прототип
 
 Демо развёрнуто в Google Cloud: одна виртуальная машина в europe-north1, Docker Compose из
-`compose.demo.yaml` и `deploy/gcp/compose.gcp.yaml`. Ссылка с доступом — в презентации команды.
+`compose.demo.yaml` и `deploy/gcp/compose.gcp.yaml`. Ссылка с доступом — в [ПРЕЗЕНТАЦИЯ.pdf](%D0%9F%D0%A0%D0%95%D0%97%D0%95%D0%9D%D0%A2%D0%90%D0%A6%D0%98%D0%AF.pdf) (первый и последний слайды решения).
 Как развернуть заново — [deploy/gcp/README.md](deploy/gcp/README.md); что изменилось перед сдачей —
 [CHANGES_2026-09-29.md](CHANGES_2026-09-29.md).
 
