@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@asyncapi/parser": "3.6.3",
-    "@redocly/cli": "2.53.3",
+    "@redocly/cli": "2.57.0",
     "ajv": "8.18.0",
     "ajv-formats": "3.0.1",
     "openapi-typescript": "7.13.0"
